@@ -7,4 +7,5 @@ public class ProductSubCategory
     
     public required ProductCategory ParentCategory { get; set; }
     public int ParentCategoryId { get; set; }
+    public ICollection<Product> Products { get; set; } = [];
 }
