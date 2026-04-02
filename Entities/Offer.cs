@@ -7,5 +7,5 @@ public class Offer
     public DateTime EndTime { get; set; }
     public decimal NewPrice { get; set; }
     public Guid ProductId { get; set; }
-    public Product Product { get; set; }
+    public Product? Product { get; set; }
 }
