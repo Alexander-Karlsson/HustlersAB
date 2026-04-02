@@ -16,6 +16,8 @@ public class StoreDbContext(DbContextOptions<StoreDbContext> options) : DbContex
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<ProductSubCategory> ProductSubCategories { get; set; }
     
+    
+    
 
     //protected override void OnModelCreating(ModelBuilder modelBuilder)
     //{
