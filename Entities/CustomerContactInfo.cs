@@ -8,6 +8,6 @@ public class CustomerContactInfo
     public required string Address { get; set; }
     public required string PostalNumber { get; set; }
     
-    public required Customer Customer { get; set; }
     public Guid CustomerId { get; set; }
+    public required Customer Customer { get; set; }
 }
