@@ -1,10 +1,8 @@
-using System.Data.SqlTypes;
-
 namespace Entities;
 
 public class Product
 {
-    public Guid Id { get; private set; }
+    public int Id { get; private set; }
     public required string Name { get; set; }
     public required string Description { get; set; }
     public required decimal Price { get; set; }
