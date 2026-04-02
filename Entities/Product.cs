@@ -8,8 +8,8 @@ public class Product
     public required string Name { get; set; }
     public required string Description { get; set; }
     public required decimal Price { get; set; }
-    public int QtyInStock { get; set; }
-    
+    public required int QtyInStock { get; set; }
     public required ProductSubCategory SubCategory { get; set; }
     public int SubCategoryId { get; set; }
+    public Offer Offer { get; set; }
 }
