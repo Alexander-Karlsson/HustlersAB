@@ -116,10 +116,7 @@ namespace EF_MSSQL.Migrations
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShippingId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ShippingId1")
+                    b.Property<Guid>("ShippingId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("TotalPrice")
@@ -131,7 +128,7 @@ namespace EF_MSSQL.Migrations
 
                     b.HasIndex("PaymentMethodId");
 
-                    b.HasIndex("ShippingId1");
+                    b.HasIndex("ShippingId");
 
                     b.ToTable("Orders");
                 });
@@ -203,6 +200,30 @@ namespace EF_MSSQL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("Entities.ProductOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductOrder");
                 });
 
             modelBuilder.Entity("Entities.ProductSubCategory", b =>
@@ -283,7 +304,7 @@ namespace EF_MSSQL.Migrations
 
                     b.HasOne("Entities.Shipping", "Shipping")
                         .WithMany()
-                        .HasForeignKey("ShippingId1")
+                        .HasForeignKey("ShippingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -307,6 +328,25 @@ namespace EF_MSSQL.Migrations
                         .IsRequired();
 
                     b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("Entities.ProductOrder", b =>
+                {
+                    b.HasOne("Entities.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Product", "Product")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Entities.ProductSubCategory", b =>
@@ -339,6 +379,8 @@ namespace EF_MSSQL.Migrations
             modelBuilder.Entity("Entities.Product", b =>
                 {
                     b.Navigation("Offer");
+
+                    b.Navigation("ProductOrders");
                 });
 
             modelBuilder.Entity("Entities.ProductCategory", b =>

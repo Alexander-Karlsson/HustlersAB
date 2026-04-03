@@ -10,4 +10,6 @@ public class Product
     public int SubCategoryId { get; set; }
     public required ProductSubCategory SubCategory { get; set; }
     public Offer? Offer { get; set; }
+    
+    public ICollection<ProductOrder> ProductOrders { get; set; }
 }

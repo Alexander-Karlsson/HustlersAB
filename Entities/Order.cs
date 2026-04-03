@@ -8,7 +8,7 @@ public class Order
     public Guid CustomerId { get; set; }
     public Customer Customer { get; set; }
 
-    public int ShippingId { get; set; }
+    public Guid ShippingId { get; set; }
     public Shipping Shipping { get; set; }
 
     public ICollection<Product> Products { get; set; }

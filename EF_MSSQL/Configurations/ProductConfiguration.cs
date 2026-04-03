@@ -24,7 +24,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .Property(p => p.Price)
             .HasPrecision(18, 2);
 
-        builder
+        builder // Check if negativt värde
             .ToTable(t => t.HasCheckConstraint("CK_Product_QtyInStock", "[QtyInStock] >= 0"));
 
         builder
