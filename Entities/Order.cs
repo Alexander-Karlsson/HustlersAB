@@ -11,7 +11,7 @@ public class Order
     public Guid ShippingId { get; set; }
     public Shipping Shipping { get; set; }
 
-    public ICollection<Product> Products { get; set; }
+    public ICollection<ProductOrder> ProductOrders { get; set; }
 
     public int PaymentMethodId { get; set; }
     public PaymentMethod PaymentMethod { get; set; }
