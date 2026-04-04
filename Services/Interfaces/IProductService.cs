@@ -10,7 +10,7 @@ public interface IProductService
 
     Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId);
 
-    Task<IEnumerable<Product>> SearchProductAsync(string searchTerm);
+    Task<IEnumerable<Product>> SearchProductAsync(string search);
 
     Task AddProductAsync(Product product);
 

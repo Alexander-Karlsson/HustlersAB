@@ -10,7 +10,7 @@ public interface IProductRepository
 
     Task<IEnumerable<Product>> GetByCategoryAsync(int categoryId);
 
-    Task<IEnumerable<Product>> SearchAsync(string searchTerm);
+    Task<IEnumerable<Product>> SearchAsync(string search);
     Task AddAsync(Product product);
     Task UpdateAsync(Product product);
     Task DeleteAsync(Guid id);

@@ -50,11 +50,11 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<IEnumerable<Product>> SearchAsync(string searchTerm)
+    public async Task<IEnumerable<Product>> SearchAsync(string search)
     {
         return await _context.Products
-            .Where(p => p.Name.Contains(searchTerm) ||
-            p.Description.Contains(searchTerm))
+            .Where(p => p.Name.Contains(search) ||
+            p.Description.Contains(search))
             .ToListAsync();
     }
 

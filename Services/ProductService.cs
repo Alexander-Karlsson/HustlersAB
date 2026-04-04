@@ -34,10 +34,10 @@ public class ProductService(IProductRepository repo) : IProductService
         return await repo.GetAllAsync();
     }
 
-    public async Task<IEnumerable<Product>> SearchProductAsync(string searchTerm)
+    public async Task<IEnumerable<Product>> SearchProductAsync(string search)
     {
-        if (string.IsNullOrWhiteSpace(searchTerm)) throw new ArgumentNullException("Search term can not be null");
-        return await repo.SearchAsync(searchTerm);
+        if (string.IsNullOrWhiteSpace(search)) throw new ArgumentNullException("Search term can not be null");
+        return await repo.SearchAsync(search);
     }
 
     public async Task UpdateProductAsync(Product product)
