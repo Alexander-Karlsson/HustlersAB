@@ -18,7 +18,7 @@ public class ProductService(IProductRepository repo) : IProductService
         await repo.DeleteAsync(id);
     }
 
-    public async Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId)
+    public async Task<IEnumerable<Product>> GetProductByCategoryAsync(Guid categoryId)
     {
         return await repo.GetByCategoryAsync(categoryId);
     }

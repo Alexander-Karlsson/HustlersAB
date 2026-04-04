@@ -2,10 +2,10 @@ namespace Entities;
 
 public class ProductSubCategory
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public required string Name { get; set; }
-    
-    public int ParentCategoryId { get; set; }
+
+    public Guid ParentCategoryId { get; set; }
     public required ProductCategory ParentCategory { get; set; }
     public ICollection<Product> Products { get; set; } = [];
 }

@@ -35,7 +35,7 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Product>> GetByCategoryAsync(int categoryId)
+    public async Task<IEnumerable<Product>> GetByCategoryAsync(Guid categoryId)
     {
         return await _context.Products
             .Include(p => p.SubCategory)

@@ -8,7 +8,7 @@ public interface IProductService
 
     Task<Product?> GetProductByIdAsync(Guid id);
 
-    Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId);
+    Task<IEnumerable<Product>> GetProductByCategoryAsync(Guid categoryId);
 
     Task<IEnumerable<Product>> SearchProductAsync(string search);
 
