@@ -26,7 +26,9 @@ public class CustomerRepository(StoreDbContext context) : ICustomerRepository
 
     public async Task<IEnumerable<Customer>> GetAllAsync()
     {
-        return await _context.Customers.ToListAsync();
+        return await _context.Customers
+            .Include(c => c.ContactInfo)
+            .ToListAsync();
     }
 
     public async Task<Customer?> GetByEmailAsync(string email)
@@ -38,7 +40,9 @@ public class CustomerRepository(StoreDbContext context) : ICustomerRepository
 
     public async Task<Customer?> GetByIdAsync(Guid id)
     {
-        return await _context.Customers.FindAsync(id);
+        return await _context.Customers
+        .Include(c => c.ContactInfo)
+        .FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task UpdateAsync(Customer customer)

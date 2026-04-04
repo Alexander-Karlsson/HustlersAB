@@ -30,19 +30,24 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        return await _context.Products.ToListAsync();
+        return await _context.Products
+            .Include(p => p.SubCategory)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<Product>> GetByCategoryAsync(int categoryId)
     {
         return await _context.Products
-         .Where(p => p.SubCategoryId == categoryId)
-         .ToListAsync();
+            .Include(p => p.SubCategory)
+            .Where(p => p.SubCategoryId == categoryId)
+            .ToListAsync();
     }
 
     public async Task<Product?> GetByIdAsync(Guid id)
     {
-        return await _context.Products.FindAsync(id);
+        return await _context.Products
+            .Include(p => p.SubCategory)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<IEnumerable<Product>> SearchAsync(string searchTerm)

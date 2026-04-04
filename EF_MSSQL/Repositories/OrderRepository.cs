@@ -27,19 +27,27 @@ public class OrderRepository(StoreDbContext context) : IOrderRepository
 
     public async Task<IEnumerable<Order>> GetAllAsync()
     {
-        return await _context.Orders.ToListAsync();
+        return await _context.Orders
+            .Include(o => o.ProductOrders)
+            .Include(o => o.Customer)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<Order>> GetByCustomerIdAsync(Guid customerId)
     {
         return await _context.Orders
-                 .Where(o => o.CustomerId == customerId)
-                 .ToListAsync();
+            .Include(o => o.ProductOrders)
+            .Include(o => o.Customer)
+            .Where(o => o.CustomerId == customerId)
+            .ToListAsync();
     }
 
     public async Task<Order?> GetByIdAsync(Guid id)
     {
-        return await _context.Orders.FindAsync(id);
+        return await _context.Orders
+            .Include(o => o.ProductOrders)
+            .Include(o => o.Customer)
+            .FirstOrDefaultAsync(o => o.Id == id);
     }
 
     public async Task UpdateAsync(Order order)
