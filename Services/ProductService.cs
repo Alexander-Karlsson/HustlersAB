@@ -5,38 +5,44 @@ namespace Services;
 
 public class ProductService(IProductRepository repo) : IProductService
 {
-    public Task AddProductAsync(Product product)
+    private readonly IProductRepository _repo = repo;
+    public async Task AddProductAsync(Product product)
     {
-        throw new NotImplementedException();
+        if (product == null) throw new ArgumentNullException("Product can not be null");
+        await _repo.AddAsync(product);
     }
 
-    public Task DeleteProductAsync(Guid id)
+    public async Task DeleteProductAsync(Guid id)
     {
-        throw new NotImplementedException();
+        if (id == Guid.Empty) throw new ArgumentException("Id can not be empty");
+        await _repo.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId)
+    public async Task<IEnumerable<Product>> GetProductByCategoryAsync(int categoryId)
     {
-        throw new NotImplementedException();
+        return await _repo.GetByCategoryAsync(categoryId);
     }
 
-    public Task<Product?> GetProductByIdAsync(Guid id)
+    public async Task<Product?> GetProductByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        if (id == Guid.Empty) throw new ArgumentException("Id can not be empty");
+        return await _repo.GetByIdAsync(id);
     }
 
-    public Task<IEnumerable<Product>> GetProductsAsync()
+    public async Task<IEnumerable<Product>> GetProductsAsync()
     {
-        throw new NotImplementedException();
+        return await _repo.GetAllAsync();
     }
 
-    public Task<IEnumerable<Product>> SearchProductAsync(string searchTerm)
+    public async Task<IEnumerable<Product>> SearchProductAsync(string searchTerm)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(searchTerm)) throw new ArgumentNullException("Search term can not be null");
+        return await _repo.SearchAsync(searchTerm);
     }
 
-    public Task UpdateProductAsync(Product product)
+    public async Task UpdateProductAsync(Product product)
     {
-        throw new NotImplementedException();
+        if (product == null) throw new ArgumentNullException("Product can not be null");
+        await _repo.UpdateAsync(product);
     }
 }

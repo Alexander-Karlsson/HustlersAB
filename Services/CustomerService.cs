@@ -5,33 +5,40 @@ namespace Services;
 
 public class CustomerService(ICustomerRepository repo) : ICustomerService
 {
-    public Task AddCustomerAsync(Customer customer)
+    private readonly ICustomerRepository _repo = repo;
+    public async Task AddCustomerAsync(Customer customer)
     {
-        throw new NotImplementedException();
+        if (customer == null) throw new ArgumentNullException("Customer can not be null");
+        await _repo.AddAsync(customer);
     }
 
-    public Task DeleteCustomerAsync(Guid id)
+    public async Task DeleteCustomerAsync(Guid id)
     {
-        throw new NotImplementedException();
+        if (id == Guid.Empty) throw new ArgumentException("Id can not be empty");
+        await _repo.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<Customer>> GetAllCustomersAsync()
+    public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
     {
-        throw new NotImplementedException();
+        return await _repo.GetAllAsync();
     }
 
-    public Task<Customer?> GetCustomerByEmailAsync(string email)
+    public async Task<Customer?> GetCustomerByEmailAsync(string email)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(email)) throw new ArgumentException("Email can not be empty");
+
+        return await _repo.GetByEmailAsync(email);
     }
 
-    public Task<Customer?> GetCustomerByIdAsync(Guid id)
+    public async Task<Customer?> GetCustomerByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        if (id == Guid.Empty) throw new ArgumentException("Id can not be Empty");
+        return await _repo.GetByIdAsync(id);
     }
 
-    public Task UpdateCustomerAsync(Customer customer)
+    public async Task UpdateCustomerAsync(Customer customer)
     {
-        throw new NotImplementedException();
+        if (customer == null) throw new ArgumentNullException("Customer can not be null");
+        await _repo.UpdateAsync(customer);
     }
 }

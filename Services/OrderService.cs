@@ -5,33 +5,38 @@ namespace Services;
 
 public class OrderService(IOrderRepository repo) : IOrderService
 {
-    public Task AddOrderAsync(Order order)
+    private readonly IOrderRepository _repo = repo;
+    public async Task AddOrderAsync(Order order)
     {
-        throw new NotImplementedException();
+        if (order == null) throw new ArgumentNullException("Order can not be null");
+        await _repo.AddAsync(order);
     }
 
-    public Task DeleteOrderAsync(Guid id)
+    public async Task DeleteOrderAsync(Guid id)
     {
-        throw new NotImplementedException();
+        if (id == Guid.Empty) throw new ArgumentException("Id can not be empty");
+        await _repo.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<Order>> GetAllOrdersAsync()
+    public async Task<IEnumerable<Order>> GetAllOrdersAsync()
     {
-        throw new NotImplementedException();
+        return await _repo.GetAllAsync();
     }
 
-    public Task<Order?> GetOrderByIdAsync(Guid id)
+    public async Task<Order?> GetOrderByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        if (id == Guid.Empty) throw new ArgumentException("Id can not be Empty");
+        return await _repo.GetByIdAsync(id);
     }
 
-    public Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(Guid customerId)
+    public async Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(Guid customerId)
     {
-        throw new NotImplementedException();
+        return await _repo.GetByCustomerIdAsync(customerId);
     }
 
-    public Task UpdateOrderAsync(Order order)
+    public async Task UpdateOrderAsync(Order order)
     {
-        throw new NotImplementedException();
+        if (order == null) throw new ArgumentNullException("Order can not be null");
+        await _repo.UpdateAsync(order);
     }
 }
