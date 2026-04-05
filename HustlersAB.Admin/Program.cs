@@ -35,6 +35,11 @@ class Program
         
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderService, OrderService>();
+        
+        
+        var customerService = serviceProvider.GetRequiredService<ICustomerService>();
+
+        
 
     }//Hej hej
     //Hi again

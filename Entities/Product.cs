@@ -3,13 +3,13 @@ namespace Entities;
 public class Product
 {
     public Guid Id { get; private set; }
-    public required string Name { get; set; }
-    public required string Description { get; set; }
-    public required decimal Price { get; set; }
-    public required int QtyInStock { get; set; }
-    public int SubCategoryId { get; set; }
-    public required ProductSubCategory SubCategory { get; set; }
+    public string Name { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public decimal Price { get; set; }
+    public int QtyInStock { get; set; }
+    public Guid SubCategoryId { get; set; }
+    public ProductSubCategory SubCategory { get; set; } = null!;
     public Offer? Offer { get; set; }
-    
-    public ICollection<ProductOrder> ProductOrders { get; set; }
+
+    public ICollection<ProductOrder> ProductOrders { get; set; } = [];
 }

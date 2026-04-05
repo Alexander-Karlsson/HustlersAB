@@ -3,11 +3,11 @@ namespace Entities;
 public class CustomerContactInfo
 {
     public Guid Id { get; set; }
-    public required string Phone { get; set; }
-    public required string Email { get; set; }
-    public required string Address { get; set; }
-    public required string PostalNumber { get; set; }
+    public string Phone { get; set; } = null!;
+    public string Email { get; set; } = null!;
+    public string Address { get; set; } = null!;
+    public string PostalNumber { get; set; } = null!;
     
     public Guid CustomerId { get; set; }
-    public required Customer Customer { get; set; }
+    public Customer Customer { get; set; } = null!;
 }

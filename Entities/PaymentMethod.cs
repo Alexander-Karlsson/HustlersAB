@@ -2,7 +2,7 @@
 
 public class PaymentMethod
 {
-    public int Id { get; set; }
-    public required string PaymentName { get; set; }
+    public Guid Id { get; set; }
+    public string PaymentName { get; set; } = null!;
     public ICollection<Order> Orders { get; set; } = [];
 }
