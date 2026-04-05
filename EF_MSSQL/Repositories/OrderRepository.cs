@@ -30,15 +30,8 @@ public class OrderRepository(StoreDbContext context) : IOrderRepository
         return await _context.Orders
             .Include(o => o.ProductOrders)
             .Include(o => o.Customer)
-            .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Order>> GetByCustomerIdAsync(Guid customerId)
-    {
-        return await _context.Orders
-            .Include(o => o.ProductOrders)
-            .Include(o => o.Customer)
-            .Where(o => o.CustomerId == customerId)
+            .Include(o => o.Shipping)
+            .Include(o => o.PaymentMethod)
             .ToListAsync();
     }
 
@@ -47,7 +40,20 @@ public class OrderRepository(StoreDbContext context) : IOrderRepository
         return await _context.Orders
             .Include(o => o.ProductOrders)
             .Include(o => o.Customer)
+            .Include(o => o.Shipping)
+            .Include(o => o.PaymentMethod)
             .FirstOrDefaultAsync(o => o.Id == id);
+    }
+
+    public async Task<IEnumerable<Order>> GetByCustomerIdAsync(Guid customerId)
+    {
+        return await _context.Orders
+            .Include(o => o.ProductOrders)
+            .Include(o => o.Customer)
+            .Include(o => o.Shipping)
+            .Include(o => o.PaymentMethod)
+            .Where(o => o.CustomerId == customerId)
+            .ToListAsync();
     }
 
     public async Task UpdateAsync(Order order)

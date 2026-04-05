@@ -15,16 +15,25 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task<IEnumerable<Product>> GetInStockAsync()
+    {
+        return await _context.Products
+            .Include(p => p.SubCategory)
+            .Where(p => p.QtyInStock > 0)
+            .ToListAsync();
+    }
+    public async Task<bool> IsInStockAsync(Guid id)
+    {
+        var product = await GetByIdAsync(id);
+        if (product == null) return false;
+        return product.QtyInStock > 0;
+    }
+
     public async Task DeleteAsync(Guid id)
     {
         var product = await GetByIdAsync(id);
-        if (product == null)
-        {
-            return;
-        }
-
+        if (product == null) return;
         _context.Products.Remove(product);
-
         await _context.SaveChangesAsync();
     }
 
@@ -46,8 +55,10 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
     public async Task<Product?> GetByIdAsync(Guid id)
     {
         return await _context.Products
-            .Include(p => p.SubCategory)
-            .FirstOrDefaultAsync(p => p.Id == id);
+         .Include(p => p.SubCategory)
+         .Include(p => p.Offer)
+         .Include(p => p.ProductOrders)
+         .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<IEnumerable<Product>> SearchAsync(string search)

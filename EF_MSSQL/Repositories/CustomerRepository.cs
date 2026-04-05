@@ -13,13 +13,22 @@ public class CustomerRepository(StoreDbContext context) : ICustomerRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task<IEnumerable<Customer>> GetByMemberStatusAsync(bool isMember)
+    {
+        return await _context.Customers
+            .Include(c => c.ContactInfo)
+            .Where(c => c.IsMember == isMember)
+            .ToListAsync();
+    }
+
     public async Task DeleteAsync(Guid id)
     {
-        var customer = await GetByIdAsync(id);
-        if (customer == null)
-        {
-            return;
-        }
+        var customer = await _context.Customers
+            .Include(c => c.ContactInfo)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (customer == null) return;
+
         _context.Customers.Remove(customer);
         await _context.SaveChangesAsync();
     }

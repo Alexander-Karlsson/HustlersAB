@@ -11,6 +11,11 @@ public class CustomerService(ICustomerRepository repo) : ICustomerService
         await repo.AddAsync(customer);
     }
 
+    public async Task<IEnumerable<Customer>> GetCustomersByMemberStatusAsync(bool isMember)
+    {
+        return await repo.GetByMemberStatusAsync(isMember);
+    }
+
     public async Task DeleteCustomerAsync(Guid id)
     {
         if (id == Guid.Empty) throw new ArgumentException("Id can not be empty");

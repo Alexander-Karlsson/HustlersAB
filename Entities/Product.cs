@@ -11,5 +11,5 @@ public class Product
     public required ProductSubCategory SubCategory { get; set; }
     public Offer? Offer { get; set; }
 
-    public ICollection<ProductOrder> ProductOrders { get; set; }
+    public ICollection<ProductOrder> ProductOrders { get; set; } = [];
 }

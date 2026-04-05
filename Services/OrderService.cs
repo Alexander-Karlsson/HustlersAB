@@ -30,6 +30,7 @@ public class OrderService(IOrderRepository repo) : IOrderService
 
     public async Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(Guid customerId)
     {
+        if (customerId == Guid.Empty) throw new ArgumentException("CustomerId can not be empty");
         return await repo.GetByCustomerIdAsync(customerId);
     }
 

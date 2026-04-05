@@ -20,6 +20,8 @@ public class ProductService(IProductRepository repo) : IProductService
 
     public async Task<IEnumerable<Product>> GetProductByCategoryAsync(Guid categoryId)
     {
+
+        if (categoryId == Guid.Empty) throw new ArgumentException("CategoryId can not be empty");
         return await repo.GetByCategoryAsync(categoryId);
     }
 
@@ -27,6 +29,17 @@ public class ProductService(IProductRepository repo) : IProductService
     {
         if (id == Guid.Empty) throw new ArgumentException("Id can not be empty");
         return await repo.GetByIdAsync(id);
+    }
+
+    public async Task<bool> IsProductInStockAsync(Guid id)
+    {
+        if (id == Guid.Empty) throw new ArgumentException("Id can not be empty");
+        return await repo.IsInStockAsync(id);
+    }
+
+    public async Task<IEnumerable<Product>> GetProductsInStockAsync()
+    {
+        return await repo.GetInStockAsync();
     }
 
     public async Task<IEnumerable<Product>> GetProductsAsync()
