@@ -15,16 +15,14 @@ public class CustomerRepository(StoreDbContext context) : ICustomerRepository
 
     public async Task<IEnumerable<Customer>> GetByMemberStatusAsync(bool isMember)
     {
-        return await _context.Customers
-            .Include(c => c.ContactInfo)
+        return await BaseQuery()
             .Where(c => c.IsMember == isMember)
             .ToListAsync();
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        var customer = await _context.Customers
-            .Include(c => c.ContactInfo)
+        var customer = await BaseQuery()
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (customer == null) return;
@@ -35,22 +33,18 @@ public class CustomerRepository(StoreDbContext context) : ICustomerRepository
 
     public async Task<IEnumerable<Customer>> GetAllAsync()
     {
-        return await _context.Customers
-            .Include(c => c.ContactInfo)
-            .ToListAsync();
+        return await BaseQuery().ToListAsync();
     }
 
     public async Task<Customer?> GetByEmailAsync(string email)
     {
-        return await _context.Customers
-                .Include(c => c.ContactInfo)
+        return await BaseQuery()
                 .FirstOrDefaultAsync(c => c.ContactInfo.Email == email);
     }
 
     public async Task<Customer?> GetByIdAsync(Guid id)
     {
-        return await _context.Customers
-        .Include(c => c.ContactInfo)
+        return await BaseQuery()
         .FirstOrDefaultAsync(c => c.Id == id);
     }
 
@@ -59,4 +53,11 @@ public class CustomerRepository(StoreDbContext context) : ICustomerRepository
         _context.Customers.Update(customer);
         await _context.SaveChangesAsync();
     }
+
+    private IQueryable<Customer> BaseQuery()
+    {
+        return _context.Customers
+            .Include(c => c.ContactInfo);
+    }
+
 }

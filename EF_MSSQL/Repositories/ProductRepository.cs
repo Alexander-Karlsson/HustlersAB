@@ -17,11 +17,9 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
 
     public async Task<IEnumerable<Product>> GetInStockAsync()
     {
-        return await _context.Products
-            .Include(p => p.SubCategory)
-            .ThenInclude(s => s.ParentCategory)
-            .Where(p => p.QtyInStock > 0)
-            .ToListAsync();
+        return await BaseQuery()
+        .Where(p => p.QtyInStock > 0)
+        .ToListAsync();
     }
     public async Task<bool> IsInStockAsync(Guid id)
     {
@@ -40,39 +38,29 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        return await _context.Products
-            .Include(p => p.SubCategory)
-            .ThenInclude(s => s.ParentCategory)
-            .ToListAsync();
+        return await BaseQuery().ToListAsync();
     }
 
     public async Task<IEnumerable<Product>> GetByCategoryAsync(Guid categoryId)
     {
-        return await _context.Products
-            .Include(p => p.SubCategory)
-            .ThenInclude(s => s.ParentCategory)
-            .Where(p => p.SubCategoryId == categoryId)
-            .ToListAsync();
+        return await BaseQuery()
+        .Where(p => p.SubCategoryId == categoryId)
+        .ToListAsync();
     }
 
     public async Task<Product?> GetByIdAsync(Guid id)
     {
-        return await _context.Products
-         .Include(p => p.SubCategory)
-         .ThenInclude(s => s.ParentCategory)
-         .Include(p => p.Offer)
-         .Include(p => p.ProductOrders)
-         .ThenInclude(po => po.Order)
-         .FirstOrDefaultAsync(p => p.Id == id);
+        return await BaseQuery()
+        .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<IEnumerable<Product>> SearchAsync(string search)
     {
-        return await _context.Products
-            .Include(p => p.SubCategory)
-            .ThenInclude(s => s.ParentCategory)
+        return await BaseQuery()
             .Where(p => p.Name.Contains(search) ||
-            p.Description.Contains(search))
+            p.Description.Contains(search) ||
+            p.SubCategory.Name.Contains(search) ||
+            p.SubCategory.ParentCategory.Name.Contains(search))
             .ToListAsync();
     }
 
@@ -81,4 +69,15 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
         _context.Products.Update(product);
         await _context.SaveChangesAsync();
     }
+
+    private IQueryable<Product> BaseQuery()
+    {
+        return _context.Products
+            .Include(p => p.SubCategory)
+            .ThenInclude(s => s.ParentCategory)
+            .Include(p => p.Offer)
+            .Include(p => p.ProductOrders)
+            .ThenInclude(po => po.Order);
+    }
+
 }
