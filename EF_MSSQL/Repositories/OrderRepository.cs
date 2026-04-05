@@ -29,7 +29,9 @@ public class OrderRepository(StoreDbContext context) : IOrderRepository
     {
         return await _context.Orders
             .Include(o => o.ProductOrders)
+            .ThenInclude(po => po.Product)
             .Include(o => o.Customer)
+            .ThenInclude(c => c.ContactInfo)
             .Include(o => o.Shipping)
             .Include(o => o.PaymentMethod)
             .ToListAsync();
@@ -39,7 +41,9 @@ public class OrderRepository(StoreDbContext context) : IOrderRepository
     {
         return await _context.Orders
             .Include(o => o.ProductOrders)
+            .ThenInclude(po => po.Product)
             .Include(o => o.Customer)
+            .ThenInclude(c => c.ContactInfo)
             .Include(o => o.Shipping)
             .Include(o => o.PaymentMethod)
             .FirstOrDefaultAsync(o => o.Id == id);
@@ -49,7 +53,9 @@ public class OrderRepository(StoreDbContext context) : IOrderRepository
     {
         return await _context.Orders
             .Include(o => o.ProductOrders)
+            .ThenInclude(po => po.Product)
             .Include(o => o.Customer)
+            .ThenInclude(c => c.ContactInfo)
             .Include(o => o.Shipping)
             .Include(o => o.PaymentMethod)
             .Where(o => o.CustomerId == customerId)

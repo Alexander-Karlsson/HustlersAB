@@ -19,6 +19,7 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
     {
         return await _context.Products
             .Include(p => p.SubCategory)
+            .ThenInclude(s => s.ParentCategory)
             .Where(p => p.QtyInStock > 0)
             .ToListAsync();
     }
@@ -41,6 +42,7 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
     {
         return await _context.Products
             .Include(p => p.SubCategory)
+            .ThenInclude(s => s.ParentCategory)
             .ToListAsync();
     }
 
@@ -48,6 +50,7 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
     {
         return await _context.Products
             .Include(p => p.SubCategory)
+            .ThenInclude(s => s.ParentCategory)
             .Where(p => p.SubCategoryId == categoryId)
             .ToListAsync();
     }
@@ -56,14 +59,18 @@ public class ProductRepository(StoreDbContext context) : IProductRepository
     {
         return await _context.Products
          .Include(p => p.SubCategory)
+         .ThenInclude(s => s.ParentCategory)
          .Include(p => p.Offer)
          .Include(p => p.ProductOrders)
+         .ThenInclude(po => po.Order)
          .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<IEnumerable<Product>> SearchAsync(string search)
     {
         return await _context.Products
+            .Include(p => p.SubCategory)
+            .ThenInclude(s => s.ParentCategory)
             .Where(p => p.Name.Contains(search) ||
             p.Description.Contains(search))
             .ToListAsync();
