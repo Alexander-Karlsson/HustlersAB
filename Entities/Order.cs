@@ -16,5 +16,5 @@ public class Order
     public PaymentMethod PaymentMethod { get; set; } = null!;
 
     public decimal TotalPrice { get; set; }
-    public DateTime CreatedDate { get; set; }
+    public DateTime OrderDate { get; set; }
 }
