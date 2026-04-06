@@ -15,7 +15,7 @@ public class StoreDbContext(DbContextOptions<StoreDbContext> options) : DbContex
     public DbSet<CustomerContactInfo> CustomerContactInfo { get; set; }
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<ProductSubCategory> ProductSubCategories { get; set; }
-    
+    public DbSet<ProductOrder> ProductOrders { get; set; }
     
     
 
