@@ -75,13 +75,11 @@ namespace EF_MSSQL.Migrations
 
             modelBuilder.Entity("Entities.Offer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("EndTime")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("NewPrice")
@@ -107,14 +105,14 @@ namespace EF_MSSQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("PaymentMethodId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PaymentMethodId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ShippingId")
                         .HasColumnType("uniqueidentifier");
@@ -135,11 +133,9 @@ namespace EF_MSSQL.Migrations
 
             modelBuilder.Entity("Entities.PaymentMethod", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PaymentName")
                         .IsRequired()
@@ -170,8 +166,8 @@ namespace EF_MSSQL.Migrations
                     b.Property<int>("QtyInStock")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubCategoryId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("SubCategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -182,11 +178,9 @@ namespace EF_MSSQL.Migrations
 
             modelBuilder.Entity("Entities.ProductCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -218,23 +212,21 @@ namespace EF_MSSQL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductOrder");
+                    b.ToTable("ProductOrders");
                 });
 
             modelBuilder.Entity("Entities.ProductSubCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentCategoryId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ParentCategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -264,7 +256,7 @@ namespace EF_MSSQL.Migrations
             modelBuilder.Entity("Entities.CustomerContactInfo", b =>
                 {
                     b.HasOne("Entities.Customer", "Customer")
-                        .WithOne("ContactInfo")
+                        .WithOne("CustomerContactInfo")
                         .HasForeignKey("Entities.CustomerContactInfo", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -353,8 +345,7 @@ namespace EF_MSSQL.Migrations
 
             modelBuilder.Entity("Entities.Customer", b =>
                 {
-                    b.Navigation("ContactInfo")
-                        .IsRequired();
+                    b.Navigation("CustomerContactInfo");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>

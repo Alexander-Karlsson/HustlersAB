@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EF_MSSQL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitCreate : Migration
+    public partial class NewInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,8 +28,7 @@ namespace EF_MSSQL.Migrations
                 name: "PaymentMethods",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PaymentName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -41,8 +40,7 @@ namespace EF_MSSQL.Migrations
                 name: "ProductCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -89,10 +87,9 @@ namespace EF_MSSQL.Migrations
                 name: "ProductSubCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParentCategoryId = table.Column<int>(type: "int", nullable: false)
+                    ParentCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,9 +109,9 @@ namespace EF_MSSQL.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ShippingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
+                    PaymentMethodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,17 +145,11 @@ namespace EF_MSSQL.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     QtyInStock = table.Column<int>(type: "int", nullable: false),
-                    SubCategoryId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    SubCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_ProductSubCategories_SubCategoryId",
                         column: x => x.SubCategoryId,
@@ -171,10 +162,9 @@ namespace EF_MSSQL.Migrations
                 name: "Offers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NewPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -190,7 +180,7 @@ namespace EF_MSSQL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductOrder",
+                name: "ProductOrders",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -200,15 +190,15 @@ namespace EF_MSSQL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductOrder", x => x.Id);
+                    table.PrimaryKey("PK_ProductOrders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductOrder_Orders_OrderId",
+                        name: "FK_ProductOrders_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductOrder_Products_ProductId",
+                        name: "FK_ProductOrders_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -243,19 +233,14 @@ namespace EF_MSSQL.Migrations
                 column: "ShippingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductOrder_OrderId",
-                table: "ProductOrder",
+                name: "IX_ProductOrders_OrderId",
+                table: "ProductOrders",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductOrder_ProductId",
-                table: "ProductOrder",
+                name: "IX_ProductOrders_ProductId",
+                table: "ProductOrders",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_OrderId",
-                table: "Products",
-                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_SubCategoryId",
@@ -278,16 +263,13 @@ namespace EF_MSSQL.Migrations
                 name: "Offers");
 
             migrationBuilder.DropTable(
-                name: "ProductOrder");
-
-            migrationBuilder.DropTable(
-                name: "Products");
+                name: "ProductOrders");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "ProductSubCategories");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -297,6 +279,9 @@ namespace EF_MSSQL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Shippings");
+
+            migrationBuilder.DropTable(
+                name: "ProductSubCategories");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");
