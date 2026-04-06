@@ -43,10 +43,12 @@ public class OrderRepository(StoreDbContext db) : IOrderRepository
             .Where(o => o.PaymentMethod.PaymentName == query)
             .ToListAsync();
     
-    public async Task CreateAsync(Order order)
+    public async Task<Order> CreateAsync(Order order)
     {
         await db.Orders.AddAsync(order);
         await db.SaveChangesAsync();
+
+        return order;
     }
     
     public async Task UpdateAsync(Order order)

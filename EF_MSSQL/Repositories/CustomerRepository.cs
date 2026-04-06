@@ -25,15 +25,17 @@ public class CustomerRepository(StoreDbContext db) : ICustomerRepository
                         c.CustomerContactInfo!.Email.Contains(query))
             .ToListAsync();
 
-    public async Task<IEnumerable<Customer>> GetAllMembersAsync()
+    public async Task<IEnumerable<Customer>> GetMembersAsync()
         => await GetCustomersWithIncludes()
             .Where(c => c.IsMember)
             .ToListAsync();
     
-    public async Task CreateAsync(Customer customer)
+    public async Task<Customer> CreateAsync(Customer customer)
     {
         await db.Customers.AddAsync(customer);
         await db.SaveChangesAsync();
+        
+        return customer;
     }
     
     public async Task UpdateAsync(Customer customer)

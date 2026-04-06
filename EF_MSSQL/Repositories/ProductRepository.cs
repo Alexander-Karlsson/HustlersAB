@@ -24,10 +24,12 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
             .Where(p => p.Name.Contains(query))
             .ToListAsync();
     
-    public async Task CreateAsync(Product product)
+    public async Task<Product> CreateAsync(Product product)
     {
         await db.Products.AddAsync(product);
         await db.SaveChangesAsync();
+        
+        return product;
     }
     
     public async Task UpdateAsync(Product product)
