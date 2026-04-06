@@ -3,8 +3,8 @@
 
 using EF_MSSQL;
 using EF_MSSQL.Repositories;
+using HustlersAB.Admin.Menus;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
@@ -16,6 +16,10 @@ class Program
 {
     static void Main(string[] args)
     {
+
+        var mainMenu = new MainMenu();
+        mainMenu.ShowMenu("Test Meny");
+
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
@@ -29,17 +33,17 @@ class Program
 
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ICustomerService, CustomerService>();
-        
+
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderService, OrderService>();
-        
+
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderService, OrderService>();
-        
-        
+
+
         var customerService = serviceProvider.GetRequiredService<ICustomerService>();
 
-        
+
 
     }//Hej hej
     //Hi again
