@@ -14,7 +14,7 @@ namespace HustlersAB.Admin;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
@@ -25,7 +25,6 @@ class Program
         services.AddDbContext<StoreDbContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
-        var serviceProvider = services.BuildServiceProvider();
 
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ICustomerService, CustomerService>();
@@ -33,14 +32,16 @@ class Program
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderService, OrderService>();
         
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IOrderService, OrderService>();
-        
-        
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductService, ProductService>();
+
+        services.AddScoped<StartPage>();
+
+        var serviceProvider = services.BuildServiceProvider();
+
         var customerService = serviceProvider.GetRequiredService<ICustomerService>();
 
-        
-
-    }//Hej hej
-    //Hi again
+        var startPage = serviceProvider.GetRequiredService<StartPage>();
+        await startPage.Show();
+    }
 }
