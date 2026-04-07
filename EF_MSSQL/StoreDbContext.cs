@@ -1,3 +1,4 @@
+using EF_MSSQL.Seeders;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,21 +17,12 @@ public class StoreDbContext(DbContextOptions<StoreDbContext> options) : DbContex
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<ProductSubCategory> ProductSubCategories { get; set; }
     public DbSet<ProductOrder> ProductOrders { get; set; }
-    
-    
 
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    base.OnModelCreating(modelBuilder);
-    //    // modelBuilder.Entity<Product>().HasData(
-    //    //     new Product { Id = Guid.Parse("a1b2c3d4-e5f6-7890-abcd-ef1234567890"), Name = "iPhone", SubCategoryId = 1, SubCategory = },
-    //    //     new Product { Id = Guid.Parse("a1b2c4d6-e5f9-7891-abcd-ef1234567890"), Name = "iPad" },
-    //    //     new Product { Id = Guid.Parse("a1b2c3d4-e5f6-7890-abcd-ef1234565490"), Name = "Mac" }
-    //    // );
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        DataSeeder.Seed(modelBuilder);
+    }
 
-    //    // modelBuilder.Entity<ProductCategory>().HasData(
-    //    //     new ProductCategory { Id = Guid.Parse("b1b3r3d4-e5f6-7890-acbd-ef1234565490"), Name = "Apple" }
-    //    // );
-    //}
 
 }

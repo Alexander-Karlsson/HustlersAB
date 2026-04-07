@@ -13,7 +13,6 @@ public static class DataSeeder
          Klagomål skickas till claude.ai.
          */
         
-        
         // ──────────────────────────────────────────────
         // KATEGORIER
         // ──────────────────────────────────────────────
