@@ -14,5 +14,6 @@ public class ProductService(IProductRepository repo) : IProductService
     public async Task<IEnumerable<Product>> GetProductsXCategory(Guid parentCategoryId)
     {
         var products = await repo.GetProductByParentCategoryAsync(parentCategoryId);
+        return products;
     }
 }
