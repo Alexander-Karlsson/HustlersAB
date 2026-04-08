@@ -35,6 +35,9 @@ class Program
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductService, ProductService>();
 
+        services.AddScoped<IQuoteRepository, QuoteRepository>();
+        services.AddScoped<IQuoteService, QuoteService>();
+
         services.AddScoped<StartPage>();
 
         var serviceProvider = services.BuildServiceProvider();
