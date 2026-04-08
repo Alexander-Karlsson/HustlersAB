@@ -18,5 +18,11 @@ public class StartPage(IProductService productService)
         {
             Console.WriteLine($"{p.Name} | {p.Price}");
         }
+        //Guid test => ;
+        //var productsInCategory = await productService.GetByParentCategoryAsync(test);
+        //foreach (var pc in productsInCategory)
+        //{
+        //    Console.WriteLine($"{pc.Name}");
+        //}
     }
 }

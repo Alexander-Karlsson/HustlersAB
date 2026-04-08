@@ -1,7 +1,4 @@
-﻿
-
-
-using EF_MSSQL;
+﻿using EF_MSSQL;
 using EF_MSSQL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -24,7 +21,6 @@ class Program
 
         services.AddDbContext<StoreDbContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-
 
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ICustomerService, CustomerService>();

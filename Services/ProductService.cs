@@ -11,4 +11,11 @@ public class ProductService(IProductRepository repo) : IProductService
 
         return products.Take(3).ToList();
     }
+
+    public async Task<IEnumerable<Product>> GetByParentCategoryAsync(Guid parentCategoryId)
+    {
+        var all = await repo.GetAllAsync();
+
+        return all.Where(p => p.SubCategory != null && p.SubCategory.ParentCategoryId == parentCategoryId);
+    }
 }
