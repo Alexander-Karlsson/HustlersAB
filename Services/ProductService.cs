@@ -6,11 +6,9 @@ namespace Services;
 
 public class ProductService(IProductRepository repo) : IProductService
 {
-    public async Task<List<Product>> GetProductsAsync()
+    public async Task<IEnumerable<Product>> GetStartPageProductsAsync()
     {
-        var products = await repo.GetAllAsync();
-
-        return products.Take(3).ToList();
+        return await repo.GetStartPageProductsAsync();
     }
 
     public async Task<IEnumerable<Product>> GetProductsXCategory(Guid parentCategoryId)

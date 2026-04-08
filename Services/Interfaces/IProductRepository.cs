@@ -9,6 +9,7 @@ public interface IProductRepository
     Task<IEnumerable<Product>> GetBySearchAsync(string query);
     Task<Product> CreateAsync(Product product);
     Task UpdateAsync(Product product);
-    Task DeleteAsync(Guid id);
-    Task<Product> GetProductByParentCategoryAsync(Guid ID);
+    Task DeleteAsync(Guid id)
+    Task<Product> GetProductByParentCategoryAsync(Guid ID)
+    Task<IEnumerable<Product>> GetStartPageProductsAsync();
 }

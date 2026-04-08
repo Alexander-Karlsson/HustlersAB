@@ -13,10 +13,10 @@ public class StartPage(IProductService productService)
         Console.WriteLine("=== Welcome to Hustlers AB ===");
         Console.WriteLine("Our top three products:");
 
-        var products = await productService.GetProductsAsync();
+        var products = await productService.GetStartPageProductsAsync();
         foreach (var p in products)
         {
-            Console.WriteLine($"{p.Name} | {p.Price}");
+            Console.WriteLine($"{p.Name} | {p.Price}kr");
         }
         //Guid test => ;
         //var productsInCategory = await productService.GetByParentCategoryAsync(test);
