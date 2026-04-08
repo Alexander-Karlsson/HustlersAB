@@ -1,6 +1,7 @@
 using Entities;
 using Services.Interfaces;
 
+
 namespace Services;
 
 public class ProductService(IProductRepository repo) : IProductService
@@ -12,10 +13,8 @@ public class ProductService(IProductRepository repo) : IProductService
         return products.Take(3).ToList();
     }
 
-    public async Task<IEnumerable<Product>> GetByParentCategoryAsync(Guid parentCategoryId)
+    public async Task<IEnumerable<Product>> GetProductsXCategory(Guid parentCategoryId)
     {
-        var all = await repo.GetAllAsync();
-
-        return all.Where(p => p.SubCategory != null && p.SubCategory.ParentCategoryId == parentCategoryId);
+        var products = await repo.GetProductByParentCategoryAsync(parentCategoryId);
     }
 }
