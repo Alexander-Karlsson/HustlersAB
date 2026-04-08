@@ -6,7 +6,6 @@ namespace EF_MSSQL;
 
 public class StoreDbContext(DbContextOptions<StoreDbContext> options) : DbContext(options)
 {
-
     public DbSet<Product> Products { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -23,6 +22,4 @@ public class StoreDbContext(DbContextOptions<StoreDbContext> options) : DbContex
         base.OnModelCreating(modelBuilder);
         DataSeeder.Seed(modelBuilder);
     }
-
-
 }
