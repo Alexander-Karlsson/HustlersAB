@@ -23,7 +23,12 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
         => await GetProductsWithIncludes()
             .Where(p => p.Name.Contains(query))
             .ToListAsync();
-    
+
+    public async Task<IEnumerable<Product>> GetStartPageProductsAsync() 
+        => await GetProductsWithIncludes()
+        .Take(3)
+        .ToListAsync();
+
     public async Task<Product> CreateAsync(Product product)
     {
         await db.Products.AddAsync(product);
