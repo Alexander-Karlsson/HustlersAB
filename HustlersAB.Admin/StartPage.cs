@@ -8,6 +8,7 @@ namespace HustlersAB.Admin;
 
 public class StartPage(IProductService productService)
 {
+    
     public async Task Show()
     {
         Console.WriteLine("=== Welcome to Hustlers AB ===");
@@ -18,11 +19,5 @@ public class StartPage(IProductService productService)
         {
             Console.WriteLine($"{p.Name} | {p.Price}kr");
         }
-        //Guid test => ;
-        //var productsInCategory = await productService.GetByParentCategoryAsync(test);
-        //foreach (var pc in productsInCategory)
-        //{
-        //    Console.WriteLine($"{pc.Name}");
-        //}
     }
 }

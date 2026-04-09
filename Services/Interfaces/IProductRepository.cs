@@ -10,6 +10,6 @@ public interface IProductRepository
     Task<Product> CreateAsync(Product product);
     Task UpdateAsync(Product product);
     Task DeleteAsync(Guid id);
-    Task<IEnumerable<Product>> GetProductByParentCategoryAsync(Guid ID);
+    Task<IEnumerable<Product>> GetProductByParentCategoryAsync(string query);
     Task<IEnumerable<Product>> GetStartPageProductsAsync();
 }

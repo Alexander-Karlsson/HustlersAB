@@ -4,6 +4,6 @@ namespace Services.Interfaces;
 
 public interface IProductService
 {
-    Task<IEnumerable<Product>> GetProductsXCategory(Guid parentCategoryId);
+    Task<IEnumerable<Product>> GetProductByParentCategoryAsync(string query);
     Task<IEnumerable<Product>> GetStartPageProductsAsync();
 }
