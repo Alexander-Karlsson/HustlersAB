@@ -3,11 +3,14 @@ using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using HustlersAB.Admin.Menus;
 
 namespace HustlersAB.Admin;
 
 public class StartPage(IProductService productService, IQuoteService quoteService)
 {
+    
+    private readonly AdminMenu _adminMenu = new AdminMenu();
     public async Task Show()
     {
         Console.WriteLine("=== Welcome to Hustlers AB ===");
