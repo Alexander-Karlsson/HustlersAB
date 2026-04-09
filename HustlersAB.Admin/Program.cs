@@ -1,7 +1,4 @@
-﻿
-
-
-using EF_MSSQL;
+﻿using EF_MSSQL;
 using EF_MSSQL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -16,6 +13,6 @@ class Program
 {
     static async Task Main(string[] args)
     {
-       
+
     }
 }

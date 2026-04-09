@@ -11,6 +11,10 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
             .Include(p => p.SubCategory)
             .ThenInclude(sc => sc.ParentCategory);
 
+    public async Task<IEnumerable<Product>> GetProductByParentCategoryAsync(string query)
+        => await GetProductsWithIncludes()
+            .Where(p => p.SubCategory != null && p.SubCategory.ParentCategory.Name == query).ToListAsync();
+
     public async Task<IEnumerable<Product>> GetAllAsync()
         => await GetProductsWithIncludes()
             .ToListAsync();
@@ -23,7 +27,7 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
         => await GetProductsWithIncludes()
             .Where(p => p.Name.Contains(query))
             .ToListAsync();
-
+            
     public async Task<IEnumerable<Product>> GetStartPageProductsAsync() 
         => await GetProductsWithIncludes()
         .Take(3)

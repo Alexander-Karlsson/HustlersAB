@@ -9,8 +9,8 @@ namespace HustlersAB.Client;
 
 public class StartPage(IProductService productService, IQuoteService quoteService)
 {
-    
     private readonly AdminMenu _adminMenu = new AdminMenu();
+
     public async Task Show()
     {
         Console.WriteLine("=== Welcome to Hustlers AB ===");
