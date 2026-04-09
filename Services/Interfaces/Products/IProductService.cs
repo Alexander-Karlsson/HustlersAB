@@ -1,6 +1,6 @@
 using Entities;
 
-namespace Services.Interfaces;
+namespace Services.Interfaces.Products;
 
 public interface IProductService
 {

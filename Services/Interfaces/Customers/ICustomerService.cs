@@ -1,6 +1,6 @@
 using Entities;
 
-namespace Services.Interfaces;
+namespace Services.Interfaces.Customers;
 
 public interface ICustomerService
 {
