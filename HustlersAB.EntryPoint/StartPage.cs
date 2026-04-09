@@ -3,12 +3,14 @@ using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using HustlersAB.Admin.Menus;
 
 namespace HustlersAB.Admin;
 
-public class StartPage(IProductService productService)
+public class StartPage(IProductService productService, IQuoteService quoteService)
 {
-    
+    private readonly AdminMenu _adminMenu = new AdminMenu();
+
     public async Task Show()
     {
         Console.WriteLine("=== Welcome to Hustlers AB ===");
@@ -18,6 +20,14 @@ public class StartPage(IProductService productService)
         foreach (var p in products)
         {
             Console.WriteLine($"{p.Name} | {p.Price}kr");
+        }
+        Console.WriteLine();
+
+        var quote = await quoteService.GetQuoteAsync();
+
+        if (quote != null)
+        {
+            Console.WriteLine($"Quote of the day: {quote.q} | {quote.a}");
         }
     }
 }
