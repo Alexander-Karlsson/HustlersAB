@@ -1,6 +1,7 @@
 ﻿using EF_MSSQL;
 using EF_MSSQL.Repositories;
 using HustlersAB.Admin;
+using HustlersAB.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,14 +37,11 @@ class Program
         services.AddScoped<IQuoteService, QuoteService>();
 
         services.AddScoped<StartPage>();
+        services.AddScoped<StartPageMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 
-        var customerService = serviceProvider.GetRequiredService<ICustomerService>();
-
-        var startPage = serviceProvider.GetRequiredService<StartPage>();
-        await startPage.Show();
-        var startMenu = new StartPageMenu();
+        var startMenu = serviceProvider.GetRequiredService<StartPageMenu>();
         startMenu.Start();
         
     }
