@@ -3,22 +3,21 @@ namespace HustlersAB.Shared.Menus;
 public abstract class BaseMenu
 {
         protected int SelectedIndex { get; set; } = 0;
-
         
         protected abstract string[] Options { get; }
         
         protected virtual string MenuTitle => "MENU";
 
-        // Vad som händer när användaren trycker Enter
+        
         protected abstract bool ExecuteChoice(int selectedIndex);
 
-        // Starta menyn
+        
         public void Start()
         {
             bool exitMenu = false;
             while (!exitMenu)
             {
-                PrintMenu($"---- {MenuTitle} ----");
+                PrintMenu($"{MenuTitle}");
                 // Console.Clear();
 
                 var key = Console.ReadKey(true).Key;
@@ -46,11 +45,11 @@ public abstract class BaseMenu
             }
         }
         
-        private void PrintMenu(string menuName)
+        private void PrintMenu(string menuPath)
         {
             Console.Clear();
-            Console.WriteLine("----- HUSTLERS AB ------");
-            Console.WriteLine($"--- {menuName.ToUpperInvariant()} ---\n");
+            Console.WriteLine(".....::::: HUSTLERS AB :::::.....\n");
+            Console.WriteLine($"{menuPath}\n");
             
             for (int i = 0; i < Options.Length; i++)
             {
