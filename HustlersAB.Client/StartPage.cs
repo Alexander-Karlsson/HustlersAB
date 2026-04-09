@@ -13,6 +13,7 @@ public class StartPage(IProductService productService, IQuoteService quoteServic
 
     public async Task Show()
     {
+        Console.Clear();
         Console.WriteLine("=== Welcome to Hustlers AB ===");
         Console.WriteLine("Our top three products:");
 
@@ -29,5 +30,9 @@ public class StartPage(IProductService productService, IQuoteService quoteServic
         {
             Console.WriteLine($"Quote of the day: {quote.q} | {quote.a}");
         }
+        Console.WriteLine();
+
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey(true);
     }
 }
