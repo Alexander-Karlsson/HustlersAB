@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using HustlersAB.Admin.Menus;
 
-namespace HustlersAB.Admin;
+namespace HustlersAB.Client;
 
 public class StartPage(IProductService productService, IQuoteService quoteService)
 {
