@@ -1,6 +1,8 @@
 
 using HustlersAB.Admin.Menus;
 using HustlersAB.Client;
+using HustlersAB.Client.Menus;
+
 
 // using HustlersAB.Client.Menus;
 using HustlersAB.Shared.Menus;
@@ -28,10 +30,11 @@ public class StartPageMenu(IServiceProvider serviceProvider) : BaseMenu
                 break;
             case 1:
                 // Starta ClientMenu
-                // new ClientMenu().Start();
                 var startPage = serviceProvider.GetRequiredService<StartPage>();
                 startPage.Show().GetAwaiter().GetResult();
-                break;
+
+                new ClientMenu().Start();
+                return false;
             case 2:
                 // Exit
                 Environment.Exit(0);
