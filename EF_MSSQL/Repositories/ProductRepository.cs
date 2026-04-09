@@ -17,6 +17,7 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
         => await GetProductsWithIncludes()
+            .AsNoTracking()
             .ToListAsync();
 
     public async Task<Product?> GetByIdAsync(Guid id)
