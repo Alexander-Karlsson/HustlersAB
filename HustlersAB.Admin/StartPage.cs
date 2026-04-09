@@ -7,7 +7,7 @@ using HustlersAB.Admin.Menus;
 
 namespace HustlersAB.Admin;
 
-public class StartPage(IProductService productService)
+public class StartPage(IProductService productService, IQuoteService quoteService)
 {
     
     private readonly AdminMenu _adminMenu = new AdminMenu();
@@ -21,7 +21,13 @@ public class StartPage(IProductService productService)
         {
             Console.WriteLine($"{p.Name} | {p.Price}kr");
         }
-        
-        
+        Console.WriteLine();
+
+        var quote = await quoteService.GetQuoteAsync();
+
+        if (quote != null)
+        {
+            Console.WriteLine($"Quote of the day: {quote.q} | {quote.a}");
+        }
     }
 }
