@@ -1,11 +1,13 @@
 ﻿using Entities;
 using HustlersAB.Shared.Menus;
 using Services.Interfaces.Categories;
+using Services.Interfaces.Manufacturers;
 using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class AddProductMenu(IProductSubCategoryService subCategoryService) : BaseMenu
+public class AddProductMenu(IProductSubCategoryService subCategoryService, 
+    IManufacturerService manufacturerService) : BaseMenu
 {
     protected override string[] Options => 
         [ 
@@ -62,10 +64,23 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService) : Bas
             Invalid();
             return;
         }
-        //Hårdkodad pga har ej manufaturer
-        var manufacturerId = Guid.Parse("20000001-0000-0000-0000-000000000000");
 
-        //Vi borde skicka till service, typ models?
+        var manufacturers = manufacturerService
+            .GetAllAsync()
+            .GetAwaiter()
+            .GetResult()
+            .ToList();
+
+        var manufacturerMenu = new SelectManufacturerMenu(manufacturers);
+        manufacturerMenu.Start();
+
+        var selectedManufacturer = manufacturerMenu.SelectedManufacturer;
+        if (selectedManufacturer == null)
+        {
+            Invalid();
+            return;
+        }
+
         var product = new Product
         {
             Id = Guid.NewGuid(),
@@ -73,11 +88,10 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService) : Bas
             Description = description,
             Price = price.Value,
             QtyInStock = qtyInStock.Value,
-            ManufacturerId = manufacturerId,
-            //ManufacturerId = selectedManufacturer.Id,
+            ManufacturerId = selectedManufacturer.Id,
             SubCategoryId = selectedSubCategory.Id
         };
-        //Temporär bara för att se så det funkar i framtiden
+        //Temporär för är osäker på vart produkten ska skapas, productservice?
         Console.WriteLine("Product created successfully!");
         Console.ReadKey();
           

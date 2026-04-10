@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Services.Interfaces;
+namespace Services.Interfaces.Quotes;
 
-public interface IQuoteService
+public interface IQuoteRepository
 {
     Task<QuoteModel> GetQuoteAsync();
 }
