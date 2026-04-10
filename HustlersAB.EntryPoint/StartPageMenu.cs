@@ -10,8 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HustlersAB.EntryPoint;
 
-public class StartPageMenu(IServiceProvider serviceProvider) : BaseMenu
+public class StartPageMenu(IServiceProvider serviceProvider, AdminMenu adminMenu) : BaseMenu
 {
+    private readonly AdminMenu _adminMenu = adminMenu;
     protected override string[] Options =>
     [
         "Admin Mode",
@@ -26,7 +27,7 @@ public class StartPageMenu(IServiceProvider serviceProvider) : BaseMenu
         {
             case 0:
                 // Starta AdminMenu
-                new AdminMenu().Start();
+                _adminMenu.Start();
                 break;
             case 1:
                 // Starta ClientMenu
