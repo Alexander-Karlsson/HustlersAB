@@ -2,6 +2,7 @@
 using EF_MSSQL;
 using EF_MSSQL.Repositories;
 using HustlersAB.Admin;
+using HustlersAB.Admin.Menus;
 using HustlersAB.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,6 +47,9 @@ class Program
         
         services.AddScoped<StartPage>();
         services.AddScoped<StartPageMenu>();
+        services.AddScoped<AddProductMenu>();
+        services.AddScoped<ProductMenu>();
+        services.AddScoped<AdminMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 

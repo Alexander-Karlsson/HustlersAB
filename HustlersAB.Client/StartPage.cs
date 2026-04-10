@@ -8,9 +8,9 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Client;
 
-public class StartPage(IProductService productService, IQuoteService quoteService)
+public class StartPage(IProductService productService, IQuoteService quoteService, AdminMenu adminMenu)
 {
-    private readonly AdminMenu _adminMenu = new AdminMenu();
+    private readonly AdminMenu _adminMenu = adminMenu;
 
     public async Task Show()
     {
