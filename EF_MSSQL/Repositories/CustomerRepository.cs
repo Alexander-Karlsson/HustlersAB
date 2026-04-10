@@ -1,6 +1,7 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
+using Services.Interfaces.Customers;
 
 namespace EF_MSSQL.Repositories;
 

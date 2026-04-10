@@ -1,8 +1,8 @@
 using Entities;
 
-namespace Services.Interfaces;
+namespace Services.Interfaces.Orders;
 
-public interface IOrderRepository
+public interface IOrderService
 {
     Task<IEnumerable<Order>> GetAllAsync();
     Task<Order?> GetByIdAsync(Guid id);

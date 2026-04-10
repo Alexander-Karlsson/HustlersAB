@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using HustlersAB.Admin.Menus;
+using Services.Interfaces.Products;
 
 namespace HustlersAB.Client;
 

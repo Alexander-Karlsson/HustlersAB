@@ -1,4 +1,5 @@
-﻿using EF_MSSQL;
+﻿using System.Net.Security;
+using EF_MSSQL;
 using EF_MSSQL.Repositories;
 using HustlersAB.Admin;
 using HustlersAB.Client;
@@ -7,6 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
 using Services.Interfaces;
+using Services.Interfaces.Categories;
+using Services.Interfaces.Customers;
+using Services.Interfaces.Orders;
+using Services.Interfaces.Products;
 
 namespace HustlersAB.EntryPoint;
 
@@ -32,10 +37,13 @@ class Program
 
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductService, ProductService>();
+        
+        services.AddScoped<IProductSubCategoryRepository, ProductSubCategoryRepository>();
+        services.AddScoped<IProductSubCategoryService, ProductSubCategoryService>();
 
         services.AddScoped<IQuoteRepository, QuoteRepository>();
         services.AddScoped<IQuoteService, QuoteService>();
-
+        
         services.AddScoped<StartPage>();
         services.AddScoped<StartPageMenu>();
 
