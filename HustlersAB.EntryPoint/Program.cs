@@ -8,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
-using Services.Interfaces;
 using Services.Interfaces.Categories;
 using Services.Interfaces.Customers;
+using Services.Interfaces.Manufacturers;
 using Services.Interfaces.Orders;
 using Services.Interfaces.Products;
+using Services.Interfaces.Quotes;
 
 namespace HustlersAB.EntryPoint;
 
@@ -44,6 +45,9 @@ class Program
 
         services.AddScoped<IQuoteRepository, QuoteRepository>();
         services.AddScoped<IQuoteService, QuoteService>();
+
+        services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+        services.AddScoped<IManufacturerService, ManufacturerService>();
         
         services.AddScoped<StartPage>();
         services.AddScoped<StartPageMenu>();

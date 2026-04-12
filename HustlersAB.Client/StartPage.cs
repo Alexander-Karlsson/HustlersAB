@@ -1,10 +1,10 @@
 ﻿using Services;
-using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using HustlersAB.Admin.Menus;
 using Services.Interfaces.Products;
+using Services.Interfaces.Quotes;
 
 namespace HustlersAB.Client;
 
