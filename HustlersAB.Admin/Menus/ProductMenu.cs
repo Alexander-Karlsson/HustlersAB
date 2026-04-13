@@ -6,7 +6,8 @@ namespace HustlersAB.Admin.Menus;
 
 public class ProductMenu(AddProductMenu addProductMenu,
     DeleteProductMenu deleteProductMenu,
-    SearchProductMenu searchProductMenu) : BaseMenu
+    SearchProductMenu searchProductMenu,
+    UpdateProductMenu updateProductMenu) : BaseMenu
 {
     protected override string[] Options => 
         [
@@ -31,7 +32,9 @@ public class ProductMenu(AddProductMenu addProductMenu,
             case 2:
                 searchProductMenu.Start();
                 break;
-            
+            case 3:
+                updateProductMenu.Start();
+                break;
             case 4: return true;
         }
 

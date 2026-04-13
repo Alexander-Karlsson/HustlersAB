@@ -69,10 +69,40 @@ public abstract class BaseMenu
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine("Use ↑/↓ to navigate, Enter to select, Esc to exit");
         }
-    public static void Invalid()
+    protected void Header(string title)
+    {
+        Console.Clear();
+        Console.WriteLine(title);
+        Console.WriteLine(new string('-', title.Length));
+    }
+
+    protected void Pause(string message = "Press any key...")
+    {
+        Console.WriteLine(message);
+        Console.ReadKey();
+    }
+    protected static void Invalid()
     {
         Console.WriteLine("Invalid input. Press any key...");
         Console.ReadKey();
     }
 
+    protected int? ReadInt(string text)
+    {
+        Console.Write($"{text}: ");
+        return int.TryParse(Console.ReadLine(), out var value) ? value : null;
+    }
+    
+    protected decimal? ReadDecimal(string text)
+    {
+        Console.Write($"{text}: ");
+        return decimal.TryParse(Console.ReadLine(), out var value) ? value : null;
+    }
+
+    protected string? ReadString(string text)
+    {
+        Console.Write($"{text}: ");
+        var input = Console.ReadLine();
+        return string.IsNullOrWhiteSpace(input) ? null : input;
+    }
 }
