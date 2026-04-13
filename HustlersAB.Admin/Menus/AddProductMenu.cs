@@ -7,7 +7,8 @@ using Services.Interfaces.Products;
 namespace HustlersAB.Admin.Menus;
 
 public class AddProductMenu(IProductSubCategoryService subCategoryService, 
-    IManufacturerService manufacturerService) : BaseMenu
+    IManufacturerService manufacturerService,
+    IProductService productService) : BaseMenu
 {
     protected override string[] Options => 
         [ 
@@ -48,7 +49,7 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
             Invalid();
             return;
         }
-
+        Console.Clear();
         var subCategories = subCategoryService
             .GetAllAsync()
             .GetAwaiter()
@@ -64,7 +65,7 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
             Invalid();
             return;
         }
-
+        Console.Clear();
         var manufacturers = manufacturerService
             .GetAllAsync()
             .GetAwaiter()
@@ -91,10 +92,19 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
             ManufacturerId = selectedManufacturer.Id,
             SubCategoryId = selectedSubCategory.Id
         };
-        //Temporär för är osäker på vart produkten ska skapas, productservice?
+        
+        productService.CreateAsync(product).GetAwaiter().GetResult();
+
         Console.WriteLine("Product created successfully!");
+        Console.WriteLine("-----------------------------");
+        Console.WriteLine($"Name: {product.Name}");
+        Console.WriteLine($"Description: {product.Description}");
+        Console.WriteLine($"Price: {product.Price}");
+        Console.WriteLine($"Quantity in stock: {product.QtyInStock}");
+        Console.WriteLine($"Subcategory: {selectedSubCategory.Name}");
+        Console.WriteLine($"Manufacturer: {selectedManufacturer.Name}");
+        Console.WriteLine("-----------------------------");
         Console.ReadKey();
-          
     }
 
     private void Invalid()
