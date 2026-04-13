@@ -19,8 +19,10 @@ public class ClientMenu : BaseMenu
         switch (selectedIndex)
         {
             case 0:
-                Console.WriteLine("Browsing products");
-                return false;
+
+            case 1:
+                new ShopingCartMenu().Start();
+                break;
 
             default:
                 break;
