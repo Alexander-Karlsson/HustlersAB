@@ -107,12 +107,6 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
         Console.ReadKey();
     }
 
-    private void Invalid()
-    {
-        Console.WriteLine("Invalid input. Press any key...");
-        Console.ReadKey();
-    }
-
     private int? ReadInt(string text)
     {
         Console.Write($"{text}: ");
