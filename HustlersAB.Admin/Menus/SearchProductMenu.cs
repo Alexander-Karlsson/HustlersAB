@@ -6,7 +6,8 @@ using System.Text;
 
 namespace HustlersAB.Admin.Menus;
 
-public class SearchProductMenu(IProductService productService) : BaseMenu
+public class SearchProductMenu(
+    IProductService productService) : BaseMenu
 {
     protected override string[] Options => 
         [
@@ -30,9 +31,7 @@ public class SearchProductMenu(IProductService productService) : BaseMenu
 
     private void SearchProduct()
     {
-        Console.Clear();
-        Console.WriteLine("SEARCH PRODUCT");
-        Console.WriteLine("---------------");
+        Header("SEARCH");
 
         Console.Write("Search:");
         var query = Console.ReadLine();
@@ -49,23 +48,18 @@ public class SearchProductMenu(IProductService productService) : BaseMenu
             .GetResult()
             .ToList();
 
-        Console.Clear();
-        Console.WriteLine($"Result for: {query}");
-        Console.WriteLine("--------------------");
+        Header($"Result: {result.Count}");
 
         if (!result.Any())
         {
-            Console.WriteLine("No products found... Press any key to continue.");
-            Console.ReadKey();
+            Pause("No products found.");
             return;
         }
 
-        for (int i = 0; i < result.Count; i++)
+        foreach (var p in result)
         {
-            var p = result[i];
-            Console.WriteLine($"{i}. {p.Name} - {p.Price} kr - Stock: {p.QtyInStock}");
+            Console.WriteLine($"{p.Name} - {p.Price} SEK");
         }
-        Console.WriteLine("Press any key to continue...");
-        Console.ReadKey();
+        Pause();
     }
 }
