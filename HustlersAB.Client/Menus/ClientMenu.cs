@@ -8,7 +8,7 @@ using HustlersAB.Shared;
 
 namespace HustlersAB.Client.Menus;
 
-public class ClientMenu(IProductService service, Cart cart) : BaseMenu
+public class ClientMenu(IProductService service, CartShared cart) : BaseMenu
 {
     protected override string[] Options =>
         [

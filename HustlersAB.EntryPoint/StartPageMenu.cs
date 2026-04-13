@@ -13,7 +13,7 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.EntryPoint;
 
-public class StartPageMenu(IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart) : BaseMenu
+public class StartPageMenu(IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, CartShared cart) : BaseMenu
 {
     private readonly AdminMenu _adminMenu = adminMenu;
     protected override string[] Options =>

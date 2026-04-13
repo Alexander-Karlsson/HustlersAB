@@ -7,9 +7,9 @@ namespace HustlersAB.Client.Menus;
 
 public class ShopingCartMenu : BaseMenu
 {
-    private readonly Cart _cart;
+    private readonly CartShared _cart;
 
-    public ShopingCartMenu(Cart cart)
+    public ShopingCartMenu(CartShared cart)
     {
         _cart = cart;
     }
@@ -37,8 +37,7 @@ public class ShopingCartMenu : BaseMenu
 
         if (items.Count == 0)
         {
-            // Only "Cart is empty" and "Back" options
-            if (selectedIndex == 1) // Back
+            if (selectedIndex == 1)
                 return true;
             return false;
         }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace HustlersAB.Shared;
 
-public class Cart()
+public class CartShared()
 {
     private readonly List<Product> _items = new List<Product>();
 
