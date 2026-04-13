@@ -8,6 +8,7 @@ public class SelectSubCategoryMenu(List<ProductSubCategory> subCategories) : Bas
     private readonly List<ProductSubCategory> _subCategories = subCategories.ToList();
 
     public ProductSubCategory? SelectedSubCategory { get; set; }
+
     protected override string[] Options => subCategories
         .Select(psc => psc.Name)
         .ToArray();

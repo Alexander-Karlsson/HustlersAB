@@ -1,8 +1,4 @@
-﻿using Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using HustlersAB.Admin.Menus;
+﻿using HustlersAB.Admin.Menus;
 using Services.Interfaces.Products;
 using Services.Interfaces.Quotes;
 
@@ -19,18 +15,12 @@ public class StartPage(IProductService productService, IQuoteService quoteServic
         Console.WriteLine("Our top three products:");
 
         var products = await productService.GetStartPageProductsAsync();
-        foreach (var p in products)
-        {
-            Console.WriteLine($"{p.Name} | {p.Price}kr");
-        }
+        foreach (var p in products) Console.WriteLine($"{p.Name} | {p.Price}kr");
         Console.WriteLine();
 
         var quote = await quoteService.GetQuoteAsync();
 
-        if (quote != null)
-        {
-            Console.WriteLine($"Quote of the day: {quote.q} | {quote.a}");
-        }
+        if (quote != null) Console.WriteLine($"Quote of the day: {quote.q} | {quote.a}");
         Console.WriteLine();
 
         Console.WriteLine("Press any key to continue");

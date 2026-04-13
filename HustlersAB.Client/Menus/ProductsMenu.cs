@@ -1,15 +1,14 @@
 using Entities;
 using HustlersAB.Shared.Menus;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Services.Interfaces.Products;
 
 namespace HustlersAB.Client.Menus;
 
 public class ProductsMenu(IProductService service) : BaseMenu
 {
-    private List<Product> _products = [];
-    private int _page = 0;
     private const int PageSize = 25;
+    private int _page;
+    private List<Product> _products = [];
 
     protected override string[] Options
     {
@@ -17,14 +16,14 @@ public class ProductsMenu(IProductService service) : BaseMenu
         {
             if (_products.Count == 0)
                 _products = service.GetAllAsync().GetAwaiter().GetResult().ToList();
-            
+
             var paged = _products.Skip(_page * PageSize).Take(PageSize).ToList();
             var options = paged.Select(p => $"{p.Name} - {p.Price:F2}Kr").ToList();
-            
-            if((_page + 1) * PageSize < _products.Count)
+
+            if ((_page + 1) * PageSize < _products.Count)
                 options.Add("\nNext Page →");
-            
-            if(_page > 0)
+
+            if (_page > 0)
                 options.Add("← Previous Page");
 
             return options.ToArray();
@@ -34,8 +33,8 @@ public class ProductsMenu(IProductService service) : BaseMenu
     protected override bool ExecuteChoice(int selectedIndex)
     {
         var paged = _products.Skip(_page * PageSize).Take(PageSize).ToList();
-        int nextPage = paged.Count; 
-        int prevPage = paged.Count + ((_page + 1) * PageSize < _products.Count ? 1 : 0);
+        var nextPage = paged.Count;
+        var prevPage = paged.Count + ((_page + 1) * PageSize < _products.Count ? 1 : 0);
 
         if ((_page + 1) * PageSize < _products.Count && selectedIndex == nextPage)
         {
@@ -66,4 +65,3 @@ public class ProductsMenu(IProductService service) : BaseMenu
         Console.WriteLine("\nPess [Enter] to add to your cart. Press [Esc] to go back.");
     }
 }
-

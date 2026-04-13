@@ -1,5 +1,4 @@
 using Entities;
-using Services.Interfaces;
 using Services.Interfaces.Orders;
 
 namespace Services;
@@ -7,20 +6,32 @@ namespace Services;
 public class OrderService(IOrderRepository repo) : IOrderService
 {
     public async Task<IEnumerable<Order>> GetAllAsync()
-        => await repo.GetAllAsync();
-    
+    {
+        return await repo.GetAllAsync();
+    }
+
     public async Task<Order?> GetByIdAsync(Guid id)
-        => await repo.GetByIdAsync(id);
+    {
+        return await repo.GetByIdAsync(id);
+    }
 
     public async Task<IEnumerable<Order>> GetBySearchAsync(string query)
-        => await repo.GetBySearchAsync(query);
-    
+    {
+        return await repo.GetBySearchAsync(query);
+    }
+
     public async Task<Order> CreateAsync(Order order)
-        => await repo.CreateAsync(order);
+    {
+        return await repo.CreateAsync(order);
+    }
 
     public async Task UpdateAsync(Order order)
-        => await repo.UpdateAsync(order);
+    {
+        await repo.UpdateAsync(order);
+    }
 
     public async Task DeleteAsync(Guid id)
-        => await repo.DeleteAsync(id);
+    {
+        await repo.DeleteAsync(id);
+    }
 }

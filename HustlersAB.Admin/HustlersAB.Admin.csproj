@@ -8,24 +8,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EF_MSSQL\EF_MSSQL.csproj" />
-      <ProjectReference Include="..\Entities\Entities.csproj" />
-      <ProjectReference Include="..\HustlersAB.Shared\HustlersAB.Shared.csproj" />
-      <ProjectReference Include="..\Services\Services.csproj" />
+        <ProjectReference Include="..\EF_MSSQL\EF_MSSQL.csproj"/>
+        <ProjectReference Include="..\Entities\Entities.csproj"/>
+        <ProjectReference Include="..\HustlersAB.Shared\HustlersAB.Shared.csproj"/>
+        <ProjectReference Include="..\Services\Services.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Helpers\" />
+        <Folder Include="Helpers\"/>
     </ItemGroup>
 
 </Project>

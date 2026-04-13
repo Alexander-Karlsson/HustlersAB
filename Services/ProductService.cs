@@ -1,36 +1,47 @@
 using Entities;
-using Services.Interfaces;
 using Services.Interfaces.Products;
-
 
 namespace Services;
 
 public class ProductService(IProductRepository repo) : IProductService
 {
     public async Task<IEnumerable<Product>> GetAllAsync()
-        => await repo.GetAllAsync();
+    {
+        return await repo.GetAllAsync();
+    }
 
     public async Task<Product?> GetByIdAsync(Guid id)
-        => await repo.GetByIdAsync(id);
-    
+    {
+        return await repo.GetByIdAsync(id);
+    }
+
     public async Task<IEnumerable<Product>> GetBySearchAsync(string query)
-        => await repo.GetBySearchAsync(query);
-    
+    {
+        return await repo.GetBySearchAsync(query);
+    }
+
     public async Task<IEnumerable<Product>> GetStartPageProductsAsync()
-        => await repo.GetStartPageProductsAsync();
-    
+    {
+        return await repo.GetStartPageProductsAsync();
+    }
+
     public async Task<IEnumerable<Product>> GetProductByParentCategoryAsync(string query)
-        => await repo.GetProductByParentCategoryAsync(query);
-    
+    {
+        return await repo.GetProductByParentCategoryAsync(query);
+    }
+
     public async Task<Product> CreateAsync(Product product)
-        => await repo.CreateAsync(product);
-    
+    {
+        return await repo.CreateAsync(product);
+    }
+
     public async Task UpdateAsync(Product product)
-        => await repo.UpdateAsync(product);
-    
+    {
+        await repo.UpdateAsync(product);
+    }
+
     public async Task DeleteAsync(Guid id)
-        => await repo.DeleteAsync(id);
-    
-    
-    
+    {
+        await repo.DeleteAsync(id);
+    }
 }

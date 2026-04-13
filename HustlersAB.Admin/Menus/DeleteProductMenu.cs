@@ -1,20 +1,18 @@
 ﻿using HustlersAB.Shared.Menus;
 using Services.Interfaces.Products;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HustlersAB.Admin.Menus;
 
 public class DeleteProductMenu(IProductService productService) : BaseMenu
 {
     protected override string[] Options =>
-      [
+    [
         "Delete Product",
         "Go Back"
-        ];
+    ];
 
     protected override string MenuTitle => "menu -> admin -> DELETE PRODUCT";
+
     protected override bool ExecuteChoice(int selectedIndex)
     {
         switch (selectedIndex)
@@ -25,6 +23,7 @@ public class DeleteProductMenu(IProductService productService) : BaseMenu
             case 1:
                 return true;
         }
+
         return false;
     }
 
@@ -47,14 +46,11 @@ public class DeleteProductMenu(IProductService productService) : BaseMenu
             return;
         }
 
-        for (int i = 0; i < products.Count; i++)
-        {
-            Console.WriteLine($"{i}. {products[i].Name} - {products[i].Price}");
-        }
+        for (var i = 0; i < products.Count; i++) Console.WriteLine($"{i}. {products[i].Name} - {products[i].Price}");
 
         Console.Write("Choose product number to delete:");
 
-        if (!int.TryParse(Console.ReadLine(), out int choice))
+        if (!int.TryParse(Console.ReadLine(), out var choice))
         {
             Invalid();
             return;

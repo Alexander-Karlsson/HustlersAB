@@ -1,7 +1,5 @@
-﻿using Entities;
-using HustlersAB.Shared;
+﻿using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
-using System.Linq;
 
 namespace HustlersAB.Client.Menus;
 
@@ -19,10 +17,7 @@ public class ShopingCartMenu : BaseMenu
         get
         {
             var items = _cart.Items.ToList();
-            if (items.Count == 0)
-            {
-                return new string[] { "Cart is empty", "Back" };
-            }
+            if (items.Count == 0) return new[] { "Cart is empty", "Back" };
 
             var names = items.ConvertAll(p => p.Name);
             names.Add($"View total: {_cart.Total:C}");
@@ -66,10 +61,8 @@ public class ShopingCartMenu : BaseMenu
                     _cart.Remove(product);
                     Console.WriteLine("\nRemoved item from cart.");
                     break;
-                default:
-                    // Back or any other key
-                    break;
             }
+
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
             return false;

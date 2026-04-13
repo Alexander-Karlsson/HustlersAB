@@ -12,7 +12,7 @@ public class CustomerContactInfoConfigurations : IEntityTypeConfiguration<Custom
             .HasOne(c => c.Customer)
             .WithOne(c => c.CustomerContactInfo)
             .HasForeignKey<CustomerContactInfo>(c => c.CustomerId);
-        
+
         builder
             .Property(ci => ci.Phone)
             .HasMaxLength(20)
@@ -22,8 +22,8 @@ public class CustomerContactInfoConfigurations : IEntityTypeConfiguration<Custom
             .Property(ci => ci.Email)
             .HasMaxLength(100)
             .IsRequired();
-            
-        
+
+
         builder
             .Property(ci => ci.Address)
             .HasMaxLength(100)
@@ -33,7 +33,7 @@ public class CustomerContactInfoConfigurations : IEntityTypeConfiguration<Custom
             .Property(ci => ci.PostalNumber)
             .HasMaxLength(10)
             .IsRequired();
-        
+
         builder.HasIndex(ci => ci.Email).IsUnique();
     }
 }

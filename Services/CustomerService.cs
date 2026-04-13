@@ -1,5 +1,4 @@
 using Entities;
-using Services.Interfaces;
 using Services.Interfaces.Customers;
 
 namespace Services;
@@ -7,23 +6,37 @@ namespace Services;
 public class CustomerService(ICustomerRepository repo) : ICustomerService
 {
     public async Task<IEnumerable<Customer>> GetAllAsync()
-        => await repo.GetAllAsync();
-    
+    {
+        return await repo.GetAllAsync();
+    }
+
     public async Task<Customer?> GetByIdAsync(Guid id)
-     => await repo.GetByIdAsync(id);
+    {
+        return await repo.GetByIdAsync(id);
+    }
 
     public async Task<IEnumerable<Customer>> GetBySearchAsync(string query)
-        => await repo.GetBySearchAsync(query);
+    {
+        return await repo.GetBySearchAsync(query);
+    }
 
     public async Task<IEnumerable<Customer>> GetMembersAsync()
-        => await repo.GetMembersAsync();
+    {
+        return await repo.GetMembersAsync();
+    }
 
     public async Task<Customer> CreateAsync(Customer customer)
-        => await repo.CreateAsync(customer);
+    {
+        return await repo.CreateAsync(customer);
+    }
 
     public async Task UpdateAsync(Customer customer)
-        => await repo.UpdateAsync(customer);
+    {
+        await repo.UpdateAsync(customer);
+    }
 
     public async Task DeleteAsync(Guid id)
-        => await repo.DeleteAsync(id);
+    {
+        await repo.DeleteAsync(id);
+    }
 }

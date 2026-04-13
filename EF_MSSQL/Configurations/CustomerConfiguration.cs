@@ -12,7 +12,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .Property(c => c.Name)
             .HasMaxLength(256)
             .IsRequired();
-        
+
         builder.HasIndex(c => c.Name);
     }
 }

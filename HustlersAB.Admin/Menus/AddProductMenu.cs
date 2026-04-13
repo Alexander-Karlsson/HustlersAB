@@ -6,15 +6,16 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class AddProductMenu(IProductSubCategoryService subCategoryService, 
+public class AddProductMenu(
+    IProductSubCategoryService subCategoryService,
     IManufacturerService manufacturerService,
     IProductService productService) : BaseMenu
 {
-    protected override string[] Options => 
-        [ 
-        "Create Product", 
+    protected override string[] Options =>
+    [
+        "Create Product",
         "Go Back"
-        ];
+    ];
 
     protected override string MenuTitle => "menu -> admin -> ADD PRODUCT";
 
@@ -28,27 +29,31 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
             case 1:
                 return true;
         }
+
         return false;
-    } 
+    }
 
     private void AddProduct()
     {
         Console.Clear();
         Console.WriteLine("ADD PRODUCT");
         Console.WriteLine("-----------");
-
+        
+        Console.CursorVisible = true;
         var name = ReadString("Name");
         var description = ReadString("Description");
 
         var price = ReadDecimal("Price");
         var qtyInStock = ReadInt("Quantity in stock");
+        Console.CursorVisible = false;
 
-        if (name == null || description == null || 
+        if (name == null || description == null ||
             price == null || qtyInStock == null)
         {
             Invalid();
             return;
         }
+
         Console.Clear();
         var subCategories = subCategoryService
             .GetAllAsync()
@@ -65,6 +70,7 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
             Invalid();
             return;
         }
+
         Console.Clear();
         var manufacturers = manufacturerService
             .GetAllAsync()
@@ -92,7 +98,7 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
             ManufacturerId = selectedManufacturer.Id,
             SubCategoryId = selectedSubCategory.Id
         };
-        
+
         productService.CreateAsync(product).GetAwaiter().GetResult();
 
         Console.WriteLine("Product created successfully!");
@@ -117,6 +123,7 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
     {
         Console.Write($"{text}: ");
         return decimal.TryParse(Console.ReadLine(), out var value) ? value : null;
+        
     }
 
     private string? ReadString(string text)

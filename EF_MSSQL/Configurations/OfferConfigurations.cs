@@ -16,15 +16,15 @@ public class OfferConfigurations : IEntityTypeConfiguration<Offer>
             .HasOne(o => o.Product)
             .WithOne(o => o.Offer)
             .HasForeignKey<Offer>(o => o.ProductId);
-        
+
         builder
             .Property(o => o.StartDate)
             .IsRequired();
-        
+
         builder
             .Property(o => o.EndDate)
             .IsRequired();
-        
+
         builder
             .ToTable(t => t.HasCheckConstraint("CK_Offer_Dates", "EndDate > StartDate"));
     }

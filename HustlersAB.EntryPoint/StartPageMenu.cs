@@ -1,27 +1,24 @@
-
 using HustlersAB.Admin.Menus;
 using HustlersAB.Client;
 using HustlersAB.Client.Menus;
 using HustlersAB.Shared;
-
-
-
-// using HustlersAB.Client.Menus;
 using HustlersAB.Shared.Menus;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Interfaces.Products;
 
+
 namespace HustlersAB.EntryPoint;
 
-public class StartPageMenu(IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart) : BaseMenu
+public class StartPageMenu(IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart)
+    : BaseMenu
 {
     private readonly AdminMenu _adminMenu = adminMenu;
+
     protected override string[] Options =>
     [
         "Admin Mode",
         "Client Mode",
         "\nExit Application"
-        
     ];
 
     protected override bool ExecuteChoice(int selectedIndex)
@@ -44,6 +41,7 @@ public class StartPageMenu(IProductService service, IServiceProvider serviceProv
                 Environment.Exit(0);
                 break;
         }
+
         return false;
     }
 }

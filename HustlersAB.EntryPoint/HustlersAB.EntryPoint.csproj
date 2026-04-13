@@ -8,9 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HustlersAB.Admin\HustlersAB.Admin.csproj" />
-      <ProjectReference Include="..\HustlersAB.Client\HustlersAB.Client.csproj" />
-      <ProjectReference Include="..\HustlersAB.Shared\HustlersAB.Shared.csproj" />
+        <ProjectReference Include="..\HustlersAB.Admin\HustlersAB.Admin.csproj"/>
+        <ProjectReference Include="..\HustlersAB.Client\HustlersAB.Client.csproj"/>
+        <ProjectReference Include="..\HustlersAB.Shared\HustlersAB.Shared.csproj"/>
     </ItemGroup>
 
 </Project>

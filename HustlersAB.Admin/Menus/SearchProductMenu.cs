@@ -1,18 +1,16 @@
 ﻿using HustlersAB.Shared.Menus;
 using Services.Interfaces.Products;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HustlersAB.Admin.Menus;
 
 public class SearchProductMenu(IProductService productService) : BaseMenu
 {
-    protected override string[] Options => 
-        [
-        "Search Product", 
+    protected override string[] Options =>
+    [
+        "Search Product",
         "Go back"
-        ];
+    ];
+
     protected override string MenuTitle => "menu -> admin -> SEARCH PRODUCT";
 
     protected override bool ExecuteChoice(int selectedIndex)
@@ -25,6 +23,7 @@ public class SearchProductMenu(IProductService productService) : BaseMenu
             case 1:
                 return true;
         }
+
         return false;
     }
 
@@ -34,7 +33,9 @@ public class SearchProductMenu(IProductService productService) : BaseMenu
         Console.WriteLine("SEARCH PRODUCT");
         Console.WriteLine("---------------");
 
-        Console.Write("Search:");
+        Console.Write("Search: ");
+        
+        Console.CursorVisible = true;
         var query = Console.ReadLine();
 
         if (string.IsNullOrWhiteSpace(query))
@@ -42,6 +43,8 @@ public class SearchProductMenu(IProductService productService) : BaseMenu
             Invalid();
             return;
         }
+
+        Console.CursorVisible = false;
 
         var result = productService
             .GetBySearchAsync(query)
@@ -60,11 +63,12 @@ public class SearchProductMenu(IProductService productService) : BaseMenu
             return;
         }
 
-        for (int i = 0; i < result.Count; i++)
+        for (var i = 0; i < result.Count; i++)
         {
             var p = result[i];
             Console.WriteLine($"{i}. {p.Name} - {p.Price} kr - Stock: {p.QtyInStock}");
         }
+
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }

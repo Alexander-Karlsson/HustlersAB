@@ -14,17 +14,17 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(256);
-        
+
         builder
             .Property(p => p.Description)
             .IsRequired()
             .HasMaxLength(256);
-        
+
         builder
             .Property(p => p.Price)
             .HasPrecision(18, 2);
 
-        builder // Check if negativt värde
+        builder
             .ToTable(t => t.HasCheckConstraint("CK_Product_QtyInStock", "[QtyInStock] >= 0"));
 
         builder
