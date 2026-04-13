@@ -64,9 +64,10 @@ public abstract class BaseMenu
                     Console.WriteLine(Options[i]);
                 }
             }
-
+            
             Console.ResetColor();
-            Console.WriteLine("\nUse ↑/↓ to navigate, Enter to select, Esc to exit");
+            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine("Use ↑/↓ to navigate, Enter to select, Esc to exit");
         }
     public static void Invalid()
     {

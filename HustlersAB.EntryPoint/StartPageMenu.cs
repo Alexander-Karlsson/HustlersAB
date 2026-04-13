@@ -7,10 +7,11 @@ using HustlersAB.Client.Menus;
 // using HustlersAB.Client.Menus;
 using HustlersAB.Shared.Menus;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Interfaces.Products;
 
 namespace HustlersAB.EntryPoint;
 
-public class StartPageMenu(IServiceProvider serviceProvider, AdminMenu adminMenu) : BaseMenu
+public class StartPageMenu(IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu) : BaseMenu
 {
     private readonly AdminMenu _adminMenu = adminMenu;
     protected override string[] Options =>
@@ -34,7 +35,7 @@ public class StartPageMenu(IServiceProvider serviceProvider, AdminMenu adminMenu
                 var startPage = serviceProvider.GetRequiredService<StartPage>();
                 startPage.Show().GetAwaiter().GetResult();
 
-                new ClientMenu().Start();
+                new ClientMenu(service).Start();
                 return false;
             case 2:
                 // Exit
