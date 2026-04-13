@@ -68,5 +68,10 @@ public abstract class BaseMenu
             Console.ResetColor();
             Console.WriteLine("\nUse ↑/↓ to navigate, Enter to select, Esc to exit");
         }
-    
+    public static void Invalid()
+    {
+        Console.WriteLine("Invalid input. Press any key...");
+        Console.ReadKey();
+    }
+
 }

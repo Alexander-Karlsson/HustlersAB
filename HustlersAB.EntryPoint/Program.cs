@@ -54,6 +54,7 @@ class Program
         services.AddScoped<AddProductMenu>();
         services.AddScoped<ProductMenu>();
         services.AddScoped<AdminMenu>();
+        services.AddScoped<DeleteProductMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 
