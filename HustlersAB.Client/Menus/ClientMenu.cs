@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using HustlersAB.Admin.Menus;
+using Services.Interfaces.Products;
 
 namespace HustlersAB.Client.Menus;
 
-public class ClientMenu : BaseMenu
+public class ClientMenu(IProductService service) : BaseMenu
 {
     protected override string[] Options =>
         [
@@ -19,10 +21,9 @@ public class ClientMenu : BaseMenu
         switch (selectedIndex)
         {
             case 0:
-
-            case 1:
-                new ShopingCartMenu().Start();
-                break;
+                new ProductsMenu(service).Start();
+                return false;
+            
 
             default:
                 break;
