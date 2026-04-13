@@ -3,7 +3,8 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class SearchProductMenu(IProductService productService) : BaseMenu
+public class SearchProductMenu(
+    IProductService productService) : BaseMenu
 {
     protected override string[] Options =>
     [
@@ -29,47 +30,42 @@ public class SearchProductMenu(IProductService productService) : BaseMenu
 
     private void SearchProduct()
     {
-        Console.Clear();
-        Console.WriteLine("SEARCH PRODUCT");
-        Console.WriteLine("---------------");
+      Console.Clear();
+      Console.WriteLine("SEARCH");
+      Console.WriteLine("-----------");
+      Console.Write("Search: ");
 
-        Console.Write("Search: ");
-        
-        Console.CursorVisible = true;
-        var query = Console.ReadLine();
-
-        if (string.IsNullOrWhiteSpace(query))
-        {
-            Invalid();
-            return;
-        }
-
-        Console.CursorVisible = false;
-
-        var result = productService
-            .GetBySearchAsync(query)
-            .GetAwaiter()
-            .GetResult()
-            .ToList();
-
-        Console.Clear();
-        Console.WriteLine($"Result for: {query}");
-        Console.WriteLine("--------------------");
-
-        if (!result.Any())
-        {
-            Console.WriteLine("No products found... Press any key to continue.");
-            Console.ReadKey();
-            return;
-        }
-
-        for (var i = 0; i < result.Count; i++)
-        {
-            var p = result[i];
-            Console.WriteLine($"{i}. {p.Name} - {p.Price} kr - Stock: {p.QtyInStock}");
-        }
-
-        Console.WriteLine("Press any key to continue...");
-        Console.ReadKey();
+      Console.CursorVisible = true;
+      var query = Console.ReadLine();
+      if (string.IsNullOrWhiteSpace(query))
+    {
+        Invalid();
+        return;
     }
+      Console.CursorVisible = false;
+
+      var result = productService
+          .GetBySearchAsync(query)
+          .GetAwaiter()
+          .GetResult()
+          .ToList();
+
+        Console.Clear();
+        Console.WriteLine($"Result: {result.Count}");
+        Console.WriteLine("-----------");
+
+    if (!result.Any())
+    {
+        Console.WriteLine("No products found.");
+        Console.ReadKey();
+        return;
+    }
+
+    foreach (var p in result)
+    {
+        Console.WriteLine($"{p.Name} - {p.Price} SEK");
+    }
+
+    Console.WriteLine("Press any key to continue...");
+    Console.ReadKey();
 }

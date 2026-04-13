@@ -3,7 +3,8 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class DeleteProductMenu(IProductService productService) : BaseMenu
+public class DeleteProductMenu(
+    IProductService productService) : BaseMenu
 {
     protected override string[] Options =>
     [
@@ -31,7 +32,7 @@ public class DeleteProductMenu(IProductService productService) : BaseMenu
     {
         Console.Clear();
         Console.WriteLine("DELETE PRODUCT");
-        Console.WriteLine("---------------");
+        Console.WriteLine("-----------");
 
         var products = productService
             .GetAllAsync()
@@ -41,7 +42,7 @@ public class DeleteProductMenu(IProductService productService) : BaseMenu
 
         if (!products.Any())
         {
-            Console.WriteLine("No products found... Press any key to continue!");
+            Console.WriteLine("No products found.");
             Console.ReadKey();
             return;
         }
@@ -63,9 +64,10 @@ public class DeleteProductMenu(IProductService productService) : BaseMenu
         }
 
         var selectedProduct = products[choice];
+
         Console.Clear();
         Console.WriteLine("DELETE PRODUCT");
-        Console.WriteLine("--------------");
+        Console.WriteLine("-----------");
         Console.WriteLine($"Name: {selectedProduct.Name}");
         Console.WriteLine($"Price: {selectedProduct.Price}");
         Console.WriteLine($"Quantity in stock: {selectedProduct.QtyInStock}");
@@ -75,7 +77,7 @@ public class DeleteProductMenu(IProductService productService) : BaseMenu
         var confirm = Console.ReadLine();
         if (confirm?.ToLower() != "y")
         {
-            Console.WriteLine("Product deletion cancelled... Press any key to continue.");
+            Console.WriteLine("No products was deleted.");
             Console.ReadKey();
             return;
         }
@@ -83,5 +85,8 @@ public class DeleteProductMenu(IProductService productService) : BaseMenu
         productService.DeleteAsync(selectedProduct.Id)
             .GetAwaiter()
             .GetResult();
+
+        Console.WriteLine("Product deleted successfully!");
+        Console.ReadKey();
     }
 }
