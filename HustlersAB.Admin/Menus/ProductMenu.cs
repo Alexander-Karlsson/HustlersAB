@@ -5,7 +5,8 @@ using Services.Interfaces.Products;
 namespace HustlersAB.Admin.Menus;
 
 public class ProductMenu(AddProductMenu addProductMenu,
-    DeleteProductMenu deleteProductMenu) : BaseMenu
+    DeleteProductMenu deleteProductMenu,
+    SearchProductMenu searchProductMenu) : BaseMenu
 {
     protected override string[] Options => 
         [
@@ -26,6 +27,9 @@ public class ProductMenu(AddProductMenu addProductMenu,
                 break;
             case 1:
                 deleteProductMenu.Start();
+                break;
+            case 2:
+                searchProductMenu.Start();
                 break;
             
             case 4: return true;
