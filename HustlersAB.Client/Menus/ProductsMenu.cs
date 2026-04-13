@@ -22,10 +22,10 @@ public class ProductsMenu(IProductService service) : BaseMenu
             var options = paged.Select(p => $"{p.Name} - {p.Price:F2}Kr").ToList();
             
             if((_page + 1) * PageSize < _products.Count)
-                options.Add("\nNästa sida →");
+                options.Add("\nNext Page →");
             
             if(_page > 0)
-                options.Add("← Föregående sida");
+                options.Add("← Previous Page");
 
             return options.ToArray();
         }
@@ -59,11 +59,11 @@ public class ProductsMenu(IProductService service) : BaseMenu
     private void ShowProductDetails(Product product)
     {
         Console.Clear();
-        Console.WriteLine("PRODUKTDETALJER:\n");
-        Console.WriteLine($"NAMN: {product.Name} - PRIS: {product.Price}Kr\n");
-        Console.WriteLine($"BESKRIVNING:\n{product.Description}\n");
-        Console.WriteLine($"LAGERSALDO: {product.QtyInStock}st");
-        Console.WriteLine("\nTryck 'Enter' för att återgå.");
+        Console.WriteLine("PRODUCT DETAILS:\n");
+        Console.WriteLine($"NAME: {product.Name} - PRICE: {product.Price}Kr\n");
+        Console.WriteLine($"DESCRIPTION:\n{product.Description}\n");
+        Console.WriteLine($"IN STOCK: {product.QtyInStock}st");
+        Console.WriteLine("\nPess [Enter] to add to your cart. Press [Esc] to go back.");
     }
 }
 
