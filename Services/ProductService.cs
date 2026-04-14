@@ -11,7 +11,7 @@ public class ProductService(IProductRepository repo) : IProductService
         => await repo.GetAllAsync();
 
     public async Task<IEnumerable<Product>> GetAllSortedByNameAsync()
-        => await repo.GetAllSortedByPriceAsync();
+        => await repo.GetAllSortedByNameAsync();
 
     public async Task<IEnumerable<Product>> GetAllSortedByPriceAsync()
         => await repo.GetAllSortedByPriceAsync();
