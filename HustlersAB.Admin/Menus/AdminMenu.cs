@@ -5,11 +5,13 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class AdminMenu(ProductMenu productMenu) : BaseMenu
+public class AdminMenu(ProductMenu productMenu,
+    StartPageProductsMenu startPageProductsMenu) : BaseMenu
 {
     protected override string[] Options => 
         [ 
-        "Manage Products", 
+        "Manage Products",
+        "Manage Start Page Products",
         "Manage Customers", 
         "Manage Orders", 
         "Go Back" 
@@ -23,13 +25,16 @@ public class AdminMenu(ProductMenu productMenu) : BaseMenu
             case 0:
                 productMenu.Start();
                 break;
-            case 1: 
-                new CustomerMenu().Start(); 
+            case 1:
+                startPageProductsMenu.Start();
                 break;
-            case 2: 
+            case 2:
+                new CustomerMenu().Start();
+                break;
+            case 3: 
                 new OrderMenu().Start(); 
                 break;
-            case 3: return true;
+            case 4: return true;
         }
 
         return false;

@@ -8,6 +8,7 @@ public interface IProductService
     Task<Product?> GetByIdAsync(Guid id);
     Task<IEnumerable<Product>> GetBySearchAsync(string query);
     Task<IEnumerable<Product>> GetStartPageProductsAsync();
+    Task SetStartPageProductsAsync(List<Guid> productIds);
     Task<IEnumerable<Product>> GetProductByParentCategoryAsync(string query);
     Task<Product> CreateAsync(Product product);
     Task UpdateAsync(Product product);

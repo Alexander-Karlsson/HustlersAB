@@ -16,7 +16,7 @@ public class StartPage(IProductService productService, IQuoteService quoteServic
     {
         Console.Clear();
         Console.WriteLine("=== Welcome to Hustlers AB ===");
-        Console.WriteLine("Our top three products:");
+        Console.WriteLine("Our three recommended products:");
 
         var products = await productService.GetStartPageProductsAsync();
         foreach (var p in products)
