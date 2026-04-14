@@ -15,6 +15,7 @@ using Services.Interfaces.Orders;
 using Services.Interfaces.Products;
 using Services.Interfaces.Quotes;
 using HustlersAB.Shared;
+using Entities;
 
 namespace HustlersAB.EntryPoint;
 

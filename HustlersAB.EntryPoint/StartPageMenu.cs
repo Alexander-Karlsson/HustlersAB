@@ -2,6 +2,7 @@
 using HustlersAB.Admin.Menus;
 using HustlersAB.Client;
 using HustlersAB.Client.Menus;
+using Entities;
 using HustlersAB.Shared;
 
 

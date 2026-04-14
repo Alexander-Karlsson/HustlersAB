@@ -5,8 +5,9 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Client.Menus;
 
-public class ProductsMenu(IProductService service) : BaseMenu
+public class ProductsMenu(IProductService service, Cart cart) : BaseMenu
 {
+    Cart _cart = cart;
     private List<Product> _products = [];
     private int _page = 0;
     private const int PageSize = 25;
@@ -52,7 +53,8 @@ public class ProductsMenu(IProductService service) : BaseMenu
         }
 
         ShowProductDetails(paged[selectedIndex]);
-        Console.ReadKey(true);
+        var key = Console.ReadKey(true);
+        if (key.Key == ConsoleKey.Enter) { _cart.Add(paged[selectedIndex]); }
         return false;
     }
 
