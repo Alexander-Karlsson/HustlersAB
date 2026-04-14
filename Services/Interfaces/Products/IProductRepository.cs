@@ -12,4 +12,6 @@ public interface IProductRepository
     Task DeleteAsync(Guid id);
     Task<IEnumerable<Product>> GetProductByParentCategoryAsync(string query);
     Task<IEnumerable<Product>> GetStartPageProductsAsync();
+    Task<IEnumerable<Product>> GetAllSortedByNameAsync();
+    Task<IEnumerable<Product>> GetAllSortedByPriceAsync();
 }

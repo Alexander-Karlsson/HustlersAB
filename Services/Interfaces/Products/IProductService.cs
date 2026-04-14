@@ -4,7 +4,6 @@ namespace Services.Interfaces.Products;
 
 public interface IProductService
 {
-
     Task<IEnumerable<Product>> GetAllAsync();
     Task<Product?> GetByIdAsync(Guid id);
     Task<IEnumerable<Product>> GetBySearchAsync(string query);
@@ -13,5 +12,6 @@ public interface IProductService
     Task<Product> CreateAsync(Product product);
     Task UpdateAsync(Product product);
     Task DeleteAsync(Guid id);
-
+    Task<IEnumerable<Product>> GetAllSortedByNameAsync();
+    Task<IEnumerable<Product>> GetAllSortedByPriceAsync();
 }
