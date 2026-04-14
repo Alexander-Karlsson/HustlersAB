@@ -1,19 +1,14 @@
 ﻿using Entities;
-using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
-using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace HustlersAB.Client.Menus;
 
-public class ShopingCartMenu : BaseMenu
+public class CheckoutMenu(Cart cart) : BaseMenu
 {
-    private readonly Cart _cart;
-
-    public ShopingCartMenu(Cart cart)
-    {
-        _cart = cart;
-    }
-
+    private readonly Cart _cart = cart;
     protected override string[] Options
     {
         get
@@ -93,7 +88,7 @@ public class ShopingCartMenu : BaseMenu
             return true;
 
         if (selectedIndex == checkoutIndex)
-            { return true; }
+        { return true; }
 
 
         return false;
