@@ -2,7 +2,7 @@ using HustlersAB.Shared.Menus;
 using Services.Interfaces.Categories;
 using Services.Interfaces.Products;
 
-namespace HustlersAB.Admin.Menus;
+namespace HustlersAB.Admin.Menus.ProductMenus;
 
 public class ProductMenu(AddProductMenu addProductMenu,
     DeleteProductMenu deleteProductMenu,
