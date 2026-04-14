@@ -24,7 +24,7 @@ public class ProductService(IProductRepository repo) : IProductService
     
     public async Task<IEnumerable<Product>> GetStartPageProductsAsync()
         => await repo.GetStartPageProductsAsync();
-    
+
     public async Task<IEnumerable<Product>> GetProductByParentCategoryAsync(string query)
         => await repo.GetProductByParentCategoryAsync(query);
     
@@ -36,7 +36,6 @@ public class ProductService(IProductRepository repo) : IProductService
     
     public async Task DeleteAsync(Guid id)
         => await repo.DeleteAsync(id);
-    
-    
-    
+    public async Task SetStartPageProductsAsync(List<Guid> productIds)
+        => await repo.SetStartPageProductsAsync(productIds);
 }
