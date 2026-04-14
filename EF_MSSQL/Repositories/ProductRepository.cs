@@ -20,6 +20,18 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
             .AsNoTracking()
             .ToListAsync();
 
+    public async Task<IEnumerable<Product>> GetAllSortedByNameAsync()
+        => await GetProductsWithIncludes()
+        .AsNoTracking()
+        .OrderBy(p => p.Name)
+        .ToListAsync();
+
+    public async Task<IEnumerable<Product>> GetAllSortedByPriceAsync()
+        => await GetProductsWithIncludes()
+        .AsNoTracking()
+        .OrderBy(p => p.Price)
+        .ToListAsync();
+
     public async Task<Product?> GetByIdAsync(Guid id)
         => await GetProductsWithIncludes()
             .FirstOrDefaultAsync(p => p.Id == id);
