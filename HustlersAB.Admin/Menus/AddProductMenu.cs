@@ -6,7 +6,8 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class AddProductMenu(IProductSubCategoryService subCategoryService, 
+public class AddProductMenu(
+    IProductSubCategoryService subCategoryService, 
     IManufacturerService manufacturerService,
     IProductService productService) : BaseMenu
 {
@@ -33,9 +34,7 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
 
     private void AddProduct()
     {
-        Console.Clear();
-        Console.WriteLine("ADD PRODUCT");
-        Console.WriteLine("-----------");
+        Header("CREATE PRODUCT");
 
         var name = ReadString("Name");
         var description = ReadString("Description");
@@ -105,24 +104,5 @@ public class AddProductMenu(IProductSubCategoryService subCategoryService,
         Console.WriteLine($"Manufacturer: {selectedManufacturer.Name}");
         Console.WriteLine("-----------------------------");
         Console.ReadKey();
-    }
-
-    private int? ReadInt(string text)
-    {
-        Console.Write($"{text}: ");
-        return int.TryParse(Console.ReadLine(), out var value) ? value : null;
-    }
-
-    private decimal? ReadDecimal(string text)
-    {
-        Console.Write($"{text}: ");
-        return decimal.TryParse(Console.ReadLine(), out var value) ? value : null;
-    }
-
-    private string? ReadString(string text)
-    {
-        Console.Write($"{text}: ");
-        var input = Console.ReadLine();
-        return string.IsNullOrWhiteSpace(input) ? null : input;
     }
 }
