@@ -50,7 +50,7 @@ class Program
         services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
         services.AddScoped<IManufacturerService, ManufacturerService>();
         
-        services.AddScoped<CartShared>();
+        services.AddScoped<Cart>();
         services.AddScoped<StartPage>();
         services.AddScoped<StartPageMenu>();
         services.AddScoped<AddProductMenu>();

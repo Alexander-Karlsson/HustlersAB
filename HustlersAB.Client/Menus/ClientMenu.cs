@@ -1,5 +1,6 @@
 ﻿using HustlersAB.Shared.Menus;
 using System;
+using Entities;
 using System.Collections.Generic;
 using System.Text;
 using HustlersAB.Admin.Menus;
@@ -8,7 +9,7 @@ using HustlersAB.Shared;
 
 namespace HustlersAB.Client.Menus;
 
-public class ClientMenu(IProductService service, CartShared cart) : BaseMenu
+public class ClientMenu(IProductService service, Cart cart) : BaseMenu
 {
     protected override string[] Options =>
         [

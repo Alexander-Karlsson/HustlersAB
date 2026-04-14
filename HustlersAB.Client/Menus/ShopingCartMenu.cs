@@ -7,9 +7,9 @@ namespace HustlersAB.Client.Menus;
 
 public class ShopingCartMenu : BaseMenu
 {
-    private readonly CartShared _cart;
+    private readonly Cart _cart;
 
-    public ShopingCartMenu(CartShared cart)
+    public ShopingCartMenu(Cart cart)
     {
         _cart = cart;
     }
