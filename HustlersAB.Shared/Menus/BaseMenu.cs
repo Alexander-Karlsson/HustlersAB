@@ -8,7 +8,7 @@ public abstract class BaseMenu
         
         protected virtual string MenuTitle => "MENU";
 
-        
+    
         protected abstract bool ExecuteChoice(int selectedIndex);
 
         
@@ -18,7 +18,6 @@ public abstract class BaseMenu
             while (!exitMenu)
             {
                 PrintMenu($"{MenuTitle}");
-                // Console.Clear();
 
                 var key = Console.ReadKey(true).Key;
 

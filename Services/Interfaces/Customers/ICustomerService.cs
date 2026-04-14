@@ -8,7 +8,7 @@ public interface ICustomerService
     Task<Customer?> GetByIdAsync(Guid id);
     Task<IEnumerable<Customer>> GetBySearchAsync(string query);
     Task<IEnumerable<Customer>> GetMembersAsync();
-    Task<Customer> CreateAsync(Customer customer);
+    Task<Customer> CreateAsync(Customer customer, CustomerContactInfo contactInfo);
     Task UpdateAsync(Customer customer);
     Task DeleteAsync(Guid id);
 }

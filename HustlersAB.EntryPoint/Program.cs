@@ -16,6 +16,8 @@ using Services.Interfaces.Products;
 using Services.Interfaces.Quotes;
 using HustlersAB.Shared;
 using Entities;
+using HustlersAB.Admin.Menus.CustomerMenus;
+using HustlersAB.Admin.Menus.ProductMenus;
 
 namespace HustlersAB.EntryPoint;
 
@@ -61,6 +63,8 @@ class Program
         services.AddScoped<SearchProductMenu>();
         services.AddScoped<UpdateProductMenu>();
         services.AddScoped<StockMenu>();
+        services.AddScoped<CustomerMenu>();
+        services.AddScoped<AddCustomerMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 
