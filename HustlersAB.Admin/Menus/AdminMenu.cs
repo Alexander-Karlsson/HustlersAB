@@ -8,12 +8,9 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-<<<<<<< HEAD
 public class AdminMenu(ProductMenu productMenu,
-    StartPageProductsMenu startPageProductsMenu) : BaseMenu
-=======
-public class AdminMenu(CustomerMenu customerMenu, ProductMenu productMenu) : BaseMenu
->>>>>>> c3345bb6481d4b32bef63bd99eeb12d47a7e261e
+    StartPageProductsMenu startPageProductsMenu,
+    CustomerMenu customerMenu) : BaseMenu
 {
     protected override string[] Options => 
         [ 
@@ -32,16 +29,11 @@ public class AdminMenu(CustomerMenu customerMenu, ProductMenu productMenu) : Bas
             case 0:
                 productMenu.Start();
                 break;
-<<<<<<< HEAD
             case 1:
                 startPageProductsMenu.Start();
-=======
-            case 1: 
-                customerMenu.Start(); 
->>>>>>> c3345bb6481d4b32bef63bd99eeb12d47a7e261e
                 break;
-            case 2:
-                new CustomerMenu().Start();
+            case 2: 
+                customerMenu.Start();
                 break;
             case 3: 
                 new OrderMenu().Start(); 
