@@ -37,8 +37,7 @@ public class ShopingCartMenu : BaseMenu
 
         if (items.Count == 0)
         {
-            // Only "Cart is empty" and "Back" options
-            if (selectedIndex == 1) // Back
+            if (selectedIndex == 1)
                 return true;
             return false;
         }

@@ -1,5 +1,6 @@
 ﻿using HustlersAB.Shared.Menus;
 using System;
+using Entities;
 using System.Collections.Generic;
 using System.Text;
 using HustlersAB.Admin.Menus;
@@ -22,7 +23,7 @@ public class ClientMenu(IProductService service, Cart cart) : BaseMenu
         switch (selectedIndex)
         {
             case 0:
-                new ProductsMenu(service).Start();
+                new ProductsMenu(service, cart).Start();
                 return false;
             case 1:
                 new ShopingCartMenu(cart).Start();

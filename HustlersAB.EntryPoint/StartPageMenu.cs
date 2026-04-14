@@ -1,6 +1,7 @@
 using HustlersAB.Admin.Menus;
 using HustlersAB.Client;
 using HustlersAB.Client.Menus;
+using Entities;
 using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
 using Microsoft.Extensions.DependencyInjection;
