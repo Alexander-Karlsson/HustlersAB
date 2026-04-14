@@ -142,6 +142,18 @@ public static class DataSeeder
         );
 
         // ──────────────────────────────────────────────
+        // SHIPPING ALTERNATIVES
+        // ──────────────────────────────────────────────
+
+        var shipStandard = new Shipping { Id = Guid.Parse("30000001-0000-0000-0000-000000000000"), TypeOfShipping = "Standard (3-7 business days)", Price = 49m };
+        var shipExpress  = new Shipping { Id = Guid.Parse("30000002-0000-0000-0000-000000000000"), TypeOfShipping = "Express (1-2 business days)", Price = 129m };
+        var shipPickup   = new Shipping { Id = Guid.Parse("30000003-0000-0000-0000-000000000000"), TypeOfShipping = "Store Pickup (same day)", Price = 0m };
+
+        modelBuilder.Entity<Shipping>().HasData(
+            shipStandard, shipExpress, shipPickup
+        );
+
+        // ──────────────────────────────────────────────
         // PRODUKTER
         // ──────────────────────────────────────────────
 

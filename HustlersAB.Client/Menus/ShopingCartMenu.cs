@@ -24,13 +24,15 @@ public class ShopingCartMenu : BaseMenu
                 return new string[] { "Cart is empty", "Back" };
             }
 
-            var names = items.ConvertAll(p => p.Name);
+            var names = items.ConvertAll(p => p.Name +": " + p.Price + " Kr");
             names.Add($"View total: {_cart.Total:C}");
             names.Add("Back");
             names.Add("Go to Checkout");
             return names.ToArray();
         }
     }
+
+    protected override string MenuTitle => "CART";
 
     protected override bool ExecuteChoice(int selectedIndex)
     {
@@ -93,7 +95,7 @@ public class ShopingCartMenu : BaseMenu
             return true;
 
         if (selectedIndex == checkoutIndex)
-            { return true; }
+            { new CheckoutMenu(_cart).Start(); }
 
 
         return false;
