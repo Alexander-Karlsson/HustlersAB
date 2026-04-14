@@ -1,12 +1,7 @@
-
 using HustlersAB.Admin.Menus;
 using HustlersAB.Client;
 using HustlersAB.Client.Menus;
 using HustlersAB.Shared;
-
-
-
-// using HustlersAB.Client.Menus;
 using HustlersAB.Shared.Menus;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Interfaces.Products;
@@ -20,8 +15,7 @@ public class StartPageMenu(IProductService service, IServiceProvider serviceProv
     [
         "Admin Mode",
         "Client Mode",
-        "\nExit Application"
-        
+        "Exit Application"
     ];
 
     protected override bool ExecuteChoice(int selectedIndex)
@@ -30,8 +24,16 @@ public class StartPageMenu(IProductService service, IServiceProvider serviceProv
         {
             case 0:
                 // Starta AdminMenu
-                _adminMenu.Start();
-                break;
+                if (AskForPassword())
+                {
+                    _adminMenu.Start();
+                }
+                else
+                {
+                    Console.WriteLine("Wrong password... Press any key.");
+                    Console.ReadKey();
+                }
+                return false;
             case 1:
                 // Starta ClientMenu
                 var startPage = serviceProvider.GetRequiredService<StartPage>();
@@ -43,7 +45,15 @@ public class StartPageMenu(IProductService service, IServiceProvider serviceProv
                 // Exit
                 Environment.Exit(0);
                 break;
-        }
+            }
         return false;
+    }
+    private bool AskForPassword()
+    {
+        Console.Clear();
+        Console.WriteLine("Enter admin password: ");
+        var input = Console.ReadLine();
+
+        return input == "2026";
     }
 }
