@@ -31,9 +31,10 @@ public class CustomerRepository(StoreDbContext db) : ICustomerRepository
             .Where(c => c.IsMember)
             .ToListAsync();
     
-    public async Task<Customer> CreateAsync(Customer customer)
+    public async Task<Customer> CreateAsync(Customer customer, CustomerContactInfo contactInfo)
     {
         await db.Customers.AddAsync(customer);
+        await db.CustomerContactInfo.AddAsync(contactInfo);
         await db.SaveChangesAsync();
         
         return customer;

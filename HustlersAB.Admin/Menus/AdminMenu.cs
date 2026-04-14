@@ -1,11 +1,14 @@
 
+using HustlersAB.Admin.Menus.CustomerMenus;
+using HustlersAB.Admin.Menus.ProductMenus;
 using HustlersAB.Shared.Menus;
 using Services.Interfaces.Categories;
+using Services.Interfaces.Customers;
 using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class AdminMenu(ProductMenu productMenu) : BaseMenu
+public class AdminMenu(CustomerMenu customerMenu, ProductMenu productMenu) : BaseMenu
 {
     protected override string[] Options => 
         [ 
@@ -24,7 +27,7 @@ public class AdminMenu(ProductMenu productMenu) : BaseMenu
                 productMenu.Start();
                 break;
             case 1: 
-                new CustomerMenu().Start(); 
+                customerMenu.Start(); 
                 break;
             case 2: 
                 new OrderMenu().Start(); 
