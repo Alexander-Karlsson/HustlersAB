@@ -8,10 +8,11 @@ namespace HustlersAB.Client.Menus;
 public class ShopingCartMenu : BaseMenu
 {
     private readonly Cart _cart;
-
-    public ShopingCartMenu(Cart cart)
+    private readonly IEnumerable<Shipping> _shippings;
+    public ShopingCartMenu(Cart cart, IEnumerable<Shipping> shippings)
     {
         _cart = cart;
+        _shippings = shippings;
     }
 
     protected override string[] Options
@@ -95,7 +96,9 @@ public class ShopingCartMenu : BaseMenu
             return true;
 
         if (selectedIndex == checkoutIndex)
-            { new CheckoutMenu(_cart).Start(); }
+        {
+            new CheckoutMenu(_cart, _shippings).Start();
+        }
 
 
         return false;
