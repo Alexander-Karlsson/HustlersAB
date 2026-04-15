@@ -6,10 +6,11 @@ using System.Text;
 using HustlersAB.Admin.Menus;
 using Services.Interfaces.Products;
 using HustlersAB.Shared;
+using Services.Interfaces.Shipping;
 
 namespace HustlersAB.Client.Menus;
 
-public class ClientMenu(IProductService service, Cart cart, IEnumerable<Shipping> shippings) : BaseMenu
+public class ClientMenu(IProductService service, Cart cart, IShippingService shippingService) : BaseMenu
 {
     protected override string[] Options =>
         [
@@ -26,7 +27,7 @@ public class ClientMenu(IProductService service, Cart cart, IEnumerable<Shipping
                 new ProductsMenu(service, cart).Start();
                 return false;
             case 1:
-                new ShopingCartMenu(cart, shippings).Start();
+                new ShopingCartMenu(cart, shippingService).Start();
                 return false;
             default:
                 break;

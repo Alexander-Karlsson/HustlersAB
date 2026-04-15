@@ -1,6 +1,8 @@
 ﻿using Entities;
 using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
+using Services;
+using Services.Interfaces.Shipping;
 using System.Linq;
 
 namespace HustlersAB.Client.Menus;
@@ -8,11 +10,11 @@ namespace HustlersAB.Client.Menus;
 public class ShopingCartMenu : BaseMenu
 {
     private readonly Cart _cart;
-    private readonly IEnumerable<Shipping> _shippings;
-    public ShopingCartMenu(Cart cart, IEnumerable<Shipping> shippings)
+    private readonly IShippingService _shippingService;
+    public ShopingCartMenu(Cart cart, IShippingService shippingService)
     {
         _cart = cart;
-        _shippings = shippings;
+        _shippingService = shippingService;
     }
 
     protected override string[] Options
@@ -97,7 +99,7 @@ public class ShopingCartMenu : BaseMenu
 
         if (selectedIndex == checkoutIndex)
         {
-            new CheckoutMenu(_cart, _shippings).Start();
+            new CheckoutMenu(_cart, _shippingService).Start();
         }
 
 

@@ -15,6 +15,7 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService) : BaseMen
         .GetAwaiter()
         .GetResult()
         .ToList();
+    private Shipping? _selectedShipping;
 
     protected override string[] Options
     {
@@ -23,12 +24,22 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService) : BaseMen
             var options = new List<string>();
 
             if (_shippings.Count == 0)
-                options.Add("No shipping options");
+            {
+                options.Add("No shipping options available");
+            }
             else
-                options.AddRange(_shippings.Select(s => $"{s.TypeOfShipping}: {s.Price} Kr"));
+            {
+                for (int i = 0; i < _shippings.Count; i++)
+                {
+                    var s = _shippings[i];
+                    var sel = _selectedShipping != null && _selectedShipping.Id == s.Id ? " (selected)" : string.Empty;
+                    options.Add($"{s.TypeOfShipping}: {s.Price:C}" + sel);
+                }
+            }
 
-            options.Add($"View total: {_cart.Total:C}");
-            options.Add("Confirm");
+            options.Add($"Cart total: {_cart.Total:C}");
+            options.Add($"Total (with shipping): {_cart.Total + (_selectedShipping?.Price ?? 0m):C}");
+            options.Add("Proceed to payment");
             options.Add("Back");
 
             return options.ToArray();
@@ -39,31 +50,66 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService) : BaseMen
 
     protected override bool ExecuteChoice(int selectedIndex)
     {
-        // selecting a shipping option
+        // If user selects one of the shipping alternatives
         if (_shippings.Count > 0 && selectedIndex < _shippings.Count)
         {
-            var sel = _shippings[selectedIndex];
+            _selectedShipping = _shippings[selectedIndex];
+            var shippingPrice = _selectedShipping.Price;
+            var grandTotal = _cart.Total + shippingPrice;
             Console.Clear();
-            Console.WriteLine($"Selected: {sel.TypeOfShipping} - {sel.Price:C}");
-            Console.WriteLine("Press any key...");
+            Console.WriteLine($"Selected: {_selectedShipping.TypeOfShipping} - {_selectedShipping.Price:C}");
+            Console.WriteLine();
+            Console.WriteLine($"Cart total: {_cart.Total:C}");
+            Console.WriteLine($"Shipping: {shippingPrice:C}");
+            Console.WriteLine($"Grand total: {grandTotal:C}");
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
-            return false;
+            return false; // stay in this menu
         }
 
-        // View total = index after shipping options (or 0 if none)
-        int viewTotalIndex = Math.Max(0, _shippings.Count);
-        if (selectedIndex == viewTotalIndex)
+        int shippingCount = _shippings.Count;
+        int viewCartIndex = shippingCount; // Cart total
+        int totalWithShippingIndex = shippingCount + 1;
+        int proceedIndex = shippingCount + 2;
+        int backIndex = shippingCount + 3;
+
+        if (selectedIndex == viewCartIndex || selectedIndex == totalWithShippingIndex)
         {
-            var shippingPrice = 0m;
+            var shippingPrice = _selectedShipping?.Price ?? 0m;
+            var grandTotal = _cart.Total + shippingPrice;
             Console.Clear();
             Console.WriteLine($"Cart total: {_cart.Total:C}");
-            Console.WriteLine("Press any key...");
+            Console.WriteLine($"Shipping: {shippingPrice:C}");
+            Console.WriteLine($"Grand total: {grandTotal:C}");
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
             return false;
         }
 
-        // Confirm and Back handling (adjust indices if needed)
-        // ...
-        return true;
+        if (selectedIndex == proceedIndex)
+        {
+            if (_selectedShipping == null)
+            {
+                Console.Clear();
+                Console.WriteLine("Please select a shipping option before proceeding.");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey(true);
+                return false;
+            }
+
+            // Placeholder for future slide/navigation
+            Console.Clear();
+            Console.WriteLine("Proceeding to payment / order summary (not implemented yet)");
+            Console.WriteLine($"Selected shipping: {_selectedShipping.TypeOfShipping} - {_selectedShipping.Price:C}");
+            Console.WriteLine($"Grand total: {_cart.Total + _selectedShipping.Price:C}");
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey(true);
+            return true; // return to caller so it can navigate forward
+        }
+
+        if (selectedIndex == backIndex)
+            return true;
+
+        return false;
     }
 }
