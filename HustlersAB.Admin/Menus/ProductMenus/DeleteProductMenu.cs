@@ -4,7 +4,7 @@ using Services.Interfaces.Products;
 namespace HustlersAB.Admin.Menus;
 
 public class DeleteProductMenu(
-    IProductService productService) : BaseMenu
+    IProductService productService, MenuHelper menuHelper) : BaseMenu
 {
     protected override string[] Options =>
       [
@@ -30,37 +30,23 @@ public class DeleteProductMenu(
     {
         Header("DELETE PRODUCT");
 
-        var products = productService
-            .GetAllAsync()
-            .GetAwaiter()
-            .GetResult()
-            .ToList();
-
+        var products = menuHelper.GetProducts();
         if (!products.Any())
         {
             Pause("No products found.");
             return;
         }
 
-        for (int i = 0; i < products.Count; i++)
-        {
-            Console.WriteLine($"{i}. {products[i].Name} - {products[i].Price}");
-        }
+        menuHelper.ProductLoop(products);
 
-        Console.Write("Choose product number to delete:");
-        if (!int.TryParse(Console.ReadLine(), out int choice))
+        var choice = ReadInt("Choose product number to delete: ");
+        if (choice == null || choice < 0 || choice >= products.Count)
         {
             Invalid();
             return;
         }
 
-        if (choice < 0 || choice > products.Count)
-        {
-            Invalid();
-            return;
-        }
-
-        var selectedProduct = products[choice];
+        var selectedProduct = products[choice.Value];
 
         Header("DELETE PRODUCT");
         Console.WriteLine($"Name: {selectedProduct.Name}");

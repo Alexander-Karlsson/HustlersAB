@@ -1,6 +1,4 @@
 using HustlersAB.Shared.Menus;
-using Services.Interfaces.Categories;
-using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus.ProductMenus;
 
