@@ -2,7 +2,7 @@ namespace HustlersAB.Shared.Menus;
 
 public abstract class BaseMenu
 {
-        protected int SelectedIndex { get; set; } = 0;
+        protected int SelectedIndex;
         
         protected abstract string[] Options { get; }
         
@@ -46,8 +46,9 @@ public abstract class BaseMenu
         
         private void PrintMenu(string menuPath)
         {
-            Console.Clear();
-            Console.WriteLine(".....::::: HUSTLERS AB :::::.....\n");
+            // Console.Clear();
+            // Console.WriteLine(".....::::: HUSTLERS AB :::::.....\n");
+            Header("Hustlers AB");
             Console.WriteLine($"{menuPath}\n");
             
             for (int i = 0; i < Options.Length; i++)
@@ -103,5 +104,18 @@ public abstract class BaseMenu
         Console.Write($"{text}: ");
         var input = Console.ReadLine();
         return string.IsNullOrWhiteSpace(input) ? null : input;
+    }
+
+    protected string ReadUpdatedString(string label, string current)
+    {
+        Console.Write($"{label} [{current}]: ");
+        var input = Console.ReadLine()?.Trim();
+        return string.IsNullOrEmpty(input) ? current : input;
+    }
+
+    protected bool ConfirmDelete(string name)
+    {
+        Console.Write($"Are you sure you want to delete \"{name}\"? (y/n): ");
+        return Console.ReadLine()?.Trim().ToLower() == "y";
     }
 }

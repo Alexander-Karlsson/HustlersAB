@@ -24,12 +24,14 @@ public class CustomerMenu(ICustomerService service) : BaseMenu
                 AddNewCustomer();
                 break;
             case 1:
-                // Delete
+                DeleteCustomer();
+                break;
             case 2:
                 SearchCustomers();
                 break;
             case 3:
-                // Update
+                UpdateCustomer();
+                break;
             case 4: return true;
         }
 
@@ -39,13 +41,13 @@ public class CustomerMenu(ICustomerService service) : BaseMenu
     private void AddNewCustomer()
     {
         Header("ADD NEW CUSTOMER");
-        var customer = GetCustomer();
+        var customer = CreateCustomer();
         var contactInfo = GetContactInfo(customer);
         service.CreateAsync(customer, contactInfo).GetAwaiter().GetResult();
         PrintCreatedCustomer(customer, contactInfo);
     }
 
-    private Customer GetCustomer()
+    private Customer CreateCustomer()
     {
         var customer = new Customer()
         {
@@ -60,7 +62,7 @@ public class CustomerMenu(ICustomerService service) : BaseMenu
     {
         var contactInfo = new CustomerContactInfo()
         {
-            Id = Guid.NewGuid(),
+            Id = customer.CustomerContactInfo?.Id ?? Guid.NewGuid(),
             CustomerId = customer.Id,
             Email = ReadString("Email"),
             Phone = ReadString("Phone"),
@@ -86,7 +88,6 @@ public class CustomerMenu(ICustomerService service) : BaseMenu
 
     private void SearchCustomers()
     {
-        Console.Clear();
         Header("Search Customers");
         var query = ReadString(">");
         
@@ -99,14 +100,14 @@ public class CustomerMenu(ICustomerService service) : BaseMenu
 
     private void PrintSearchResult(IEnumerable<Customer> result, string query)
     {
-        Header($"Showing results for: {query}");
-        
         if (!result.Any())
         {
             Console.WriteLine("No customers found.");
             Pause();
             return;
         }
+        
+        Header($"Showing results for: {query}");
         
         var count = 0;
         foreach (var c in result)
@@ -120,5 +121,94 @@ public class CustomerMenu(ICustomerService service) : BaseMenu
         
         Pause();
     }
+    
+    private void DeleteCustomer()
+    {
+        Header("DELETE CUSTOMER");
+
+        var customers = service.GetAllAsync().GetAwaiter().GetResult().ToList();
+        if (!customers.Any())
+        {
+            Pause("No customers found.");
+            return;
+        }
+
+        PrintCustomerList(customers);
+
+        var choice = ReadInt("Choose customer number to delete: ");
+        if (choice is null || choice < 1 || choice > customers.Count)
+        {
+            Invalid();
+            return;
+        }
+
+        var selected = customers[(int)choice - 1];
+
+        if(!ConfirmDelete(selected.Name))
+        {
+            Pause("Deletion cancelled.");
+            return;
+        }
+        
+        service.DeleteAsync(selected.Id).GetAwaiter().GetResult();
+
+        Console.Clear();
+        Pause($"Customer \"{selected.Name}\" deleted successfully.");
+    }
+
+    private void PrintCustomerList(List<Customer> customers)
+    {
+        var count = 0;
+        foreach (var c in customers)
+        {
+            Console.WriteLine($"{++count}. {c.Name} - {c.CustomerContactInfo?.Phone} -  {c.CustomerContactInfo?.Email}");
+        }
+    }
+
+    private void UpdateCustomer()
+    {
+        Header("UPDATE CUSTOMER");
+        var customers = service.GetAllAsync().GetAwaiter().GetResult().ToList();
+        if (!customers.Any())
+        {
+            Pause("No customers found.");
+            return;
+        }
+
+        PrintCustomerList(customers);
+        
+        var choice = ReadInt("Choose customer number to update: ");
+        if (choice is null || choice < 1 || choice > customers.Count)
+        {
+            Invalid();
+            return;
+        }
+
+        var selected = customers[(int)choice - 1];
+        
+        selected.Name = ReadString("Name") ?? selected.Name;
+        selected.CustomerContactInfo = GetUpdatedContactInfo(selected);
+        
+        service.UpdateAsync(selected).GetAwaiter().GetResult();
+
+        Console.Clear();
+        Pause($"Customer {selected.Name} successfully updated.");
+    }
+    
+    private CustomerContactInfo GetUpdatedContactInfo(Customer customer)
+    {
+        var e = customer.CustomerContactInfo!;
+        return new()
+        {
+            Id = e.Id,
+            CustomerId = customer.Id,
+            Email = ReadUpdatedString("Email", e.Email),
+            Phone = ReadUpdatedString("Phone", e.Phone),
+            Address = ReadUpdatedString("Address", e.Address),
+            PostalNumber = ReadUpdatedString("Zip Code", e.PostalNumber)
+        };
+    }
+
+
 }
 
