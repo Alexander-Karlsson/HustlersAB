@@ -5,12 +5,13 @@ using Entities;
 using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Interfaces.Customers;
 using Services.Interfaces.Products;
 using Services.Interfaces.Shipping;
 
 namespace HustlersAB.EntryPoint;
 
-public class StartPageMenu(IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart, IShippingService shippingService) : BaseMenu
+public class StartPageMenu(ICustomerService customerService, IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart, IShippingService shippingService) : BaseMenu
 {
     private readonly AdminMenu _adminMenu = adminMenu;
     protected override string[] Options =>

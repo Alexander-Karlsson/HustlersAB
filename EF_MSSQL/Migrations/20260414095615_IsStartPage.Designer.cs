@@ -4,6 +4,7 @@ using EF_MSSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_MSSQL.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260414095615_IsStartPage")]
+    partial class IsStartPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1867,26 +1870,6 @@ namespace EF_MSSQL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shippings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("30000001-0000-0000-0000-000000000000"),
-                            Price = 49m,
-                            TypeOfShipping = "Standard (3-7 business days)"
-                        },
-                        new
-                        {
-                            Id = new Guid("30000002-0000-0000-0000-000000000000"),
-                            Price = 129m,
-                            TypeOfShipping = "Express (1-2 business days)"
-                        },
-                        new
-                        {
-                            Id = new Guid("30000003-0000-0000-0000-000000000000"),
-                            Price = 0m,
-                            TypeOfShipping = "Store Pickup (same day)"
-                        });
                 });
 
             modelBuilder.Entity("Entities.CustomerContactInfo", b =>

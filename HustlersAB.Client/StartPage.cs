@@ -1,8 +1,4 @@
-﻿using Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using HustlersAB.Admin.Menus;
+﻿using HustlersAB.Admin.Menus;
 using Services.Interfaces.Products;
 using Services.Interfaces.Quotes;
 
@@ -16,7 +12,8 @@ public class StartPage(IProductService productService, IQuoteService quoteServic
     {
         Console.Clear();
         Console.WriteLine("=== Welcome to Hustlers AB ===");
-        Console.WriteLine("Our top three products:");
+        Console.WriteLine();
+        Console.WriteLine("Our three recommended products:");
 
         var products = await productService.GetStartPageProductsAsync();
         foreach (var p in products)

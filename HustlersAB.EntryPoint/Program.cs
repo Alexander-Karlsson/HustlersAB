@@ -1,5 +1,4 @@
-﻿using System.Net.Security;
-using EF_MSSQL;
+﻿using EF_MSSQL;
 using EF_MSSQL.Repositories;
 using HustlersAB.Admin;
 using HustlersAB.Admin.Menus;
@@ -14,8 +13,9 @@ using Services.Interfaces.Manufacturers;
 using Services.Interfaces.Orders;
 using Services.Interfaces.Products;
 using Services.Interfaces.Quotes;
-using HustlersAB.Shared;
 using Entities;
+using HustlersAB.Admin.Menus.CustomerMenus;
+using HustlersAB.Admin.Menus.ProductMenus;
 using Services.Interfaces.Shipping;
 
 namespace HustlersAB.EntryPoint;
@@ -66,11 +66,13 @@ class Program
         services.AddScoped<SearchProductMenu>();
         services.AddScoped<UpdateProductMenu>();
         services.AddScoped<StockMenu>();
+        services.AddScoped<StartPageProductsMenu>();
+        services.AddScoped<CustomerMenu>();
+        services.AddScoped<MenuHelper>();
 
         var serviceProvider = services.BuildServiceProvider();
 
         var startMenu = serviceProvider.GetRequiredService<StartPageMenu>();
         startMenu.Start();
-        
     }
 }

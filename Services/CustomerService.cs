@@ -18,9 +18,9 @@ public class CustomerService(ICustomerRepository repo) : ICustomerService
     public async Task<IEnumerable<Customer>> GetMembersAsync()
         => await repo.GetMembersAsync();
 
-    public async Task<Customer> CreateAsync(Customer customer)
-        => await repo.CreateAsync(customer);
-
+    public async Task<Customer> CreateAsync(Customer customer, CustomerContactInfo contactInfo)
+        => await repo.CreateAsync(customer, contactInfo);
+    
     public async Task UpdateAsync(Customer customer)
         => await repo.UpdateAsync(customer);
 

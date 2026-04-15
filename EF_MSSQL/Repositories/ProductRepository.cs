@@ -43,6 +43,7 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
             
     public async Task<IEnumerable<Product>> GetStartPageProductsAsync() 
         => await GetProductsWithIncludes()
+        .Where(p => p.IsStartPage)
         .Take(3)
         .ToListAsync();
 
@@ -66,6 +67,23 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
         if (product is null) return;
         
         db.Products.Remove(product);
+        await db.SaveChangesAsync();
+    }
+    public async Task SetStartPageProductsAsync(List<Guid> selectedIds)
+    {
+        var allProducts = await db.Products.ToListAsync();
+
+        foreach (var product in allProducts)
+        {
+            if (selectedIds.Contains(product.Id))
+            {
+                product.IsStartPage = true;
+            }
+            else
+            {
+                product.IsStartPage = false;
+            }
+        }
         await db.SaveChangesAsync();
     }
 }
