@@ -87,7 +87,7 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentM
             return false;
         }
 
-        if (selectedIndex == proceedIndex)
+            if (selectedIndex == proceedIndex)
         {
             if (_selectedShipping == null)
             {
@@ -99,7 +99,7 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentM
             }
 
             // Placeholder for future slide/navigation
-            new PaymentMenu(PaymentService, _cart).Start();
+            new PaymentMenu(PaymentService, _cart, _selectedShipping).Start();
             return true; // return to caller so it can navigate forward
         }
 

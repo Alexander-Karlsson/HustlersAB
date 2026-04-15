@@ -7,43 +7,77 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HustlersAB.Client.Menus
+namespace HustlersAB.Client.Menus;
+
+public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart, Shipping? selectedShipping) : BaseMenu
 {
-    public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart) : BaseMenu
-    {
-        private readonly PaymentMethod _selectedPayment;
-        private readonly List<PaymentMethod> _paymentMethodService = paymentMethodService
+    private PaymentMethod? _selectedPayment;
+    private readonly Cart _cart = cart;
+    private readonly Shipping? _selectedShipping = selectedShipping;
+    private readonly List<PaymentMethod> _paymentMethods = paymentMethodService
         .GetPaymentMethodAsync()
         .GetAwaiter()
         .GetResult()
         .ToList();
-        protected override string[] Options
+    protected override string[] Options
+    {
+        get
         {
-            get
+            var options = new List<string>();
+
+            if (_paymentMethods.Count == 0)
             {
-                var options = new List<string>();
-
-                if (_paymentMethodService.Count == 0)
-                {
-                    options.Add("No Payment options available");
-                }
-                else
-                {
-                    for (int i = 0; i < _paymentMethodService.Count; i++)
-                    {
-                        var s = _paymentMethodService[i];
-                        var sel = _selectedPayment != null && _selectedPayment.Id == s.Id ? " (selected)" : string.Empty;
-                        options.Add($"{s.PaymentName}");
-                    }
-                }
-                options.Add($"Back");
-                return options.ToArray();
+                options.Add("No Payment options available");
             }
+            else
+            {
+                for (int i = 0; i < _paymentMethods.Count; i++)
+                {
+                    var s = _paymentMethods[i];
+                    var sel = _selectedPayment != null && _selectedPayment.Id == s.Id ? " (selected)" : string.Empty;
+                    options.Add($"{s.PaymentName}");
+                }
+            }
+            options.Add($"Back");
+            return options.ToArray();
+        }
+    }
+
+    protected override bool ExecuteChoice(int selectedIndex)
+    {
+        if (_paymentMethods.Count > 0 && selectedIndex < _paymentMethods.Count)
+        {
+            _selectedPayment = _paymentMethods[selectedIndex];
+
+            var shippingPrice = _selectedShipping?.Price ?? 0m;
+            var grandTotal = _cart.Total + shippingPrice;
+
+            Console.Clear();
+            Console.WriteLine($"Selected payment: {_selectedPayment.PaymentName}");
+            Console.WriteLine();
+            Console.WriteLine($"Cart total: {_cart.Total:C}");
+            Console.WriteLine($"Shipping: {shippingPrice:C}");
+            Console.WriteLine($"Grand total: {grandTotal:C}");
+            Console.WriteLine();
+            Console.WriteLine("Press 'C' to confirm purchase, any other key to return...");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.C)
+            {
+                Console.Clear();
+                Console.WriteLine("Purchase confirmed. Thank you for your order!");
+                Console.WriteLine();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey(true);
+                return true;
+            }
+
+            return false;
         }
 
-        protected override bool ExecuteChoice(int selectedIndex)
-        {
-            if (Math.Max(_paymentMethodService.Count, 0))
-        }
+        int backIndex = _paymentMethods.Count;
+        if (selectedIndex == backIndex)
+            return true;
+
+        return false;
     }
 }
