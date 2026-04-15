@@ -4,6 +4,7 @@ using EF_MSSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_MSSQL.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260414221502_SeedingShipping")]
+    partial class SeedingShipping
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -468,9 +471,6 @@ namespace EF_MSSQL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsStartPage")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("ManufacturerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -500,7 +500,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000001-0000-0000-0000-000000000000"),
                             Description = "Pålitlig vardagslaptop med Intel Core i5 och 16GB RAM.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000001-0000-0000-0000-000000000000"),
                             Name = "Acer Aspire 15\"",
                             Price = 7995m,
@@ -511,7 +510,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000002-0000-0000-0000-000000000000"),
                             Description = "Affärslaptop med robust byggkvalitet och lång batteritid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000002-0000-0000-0000-000000000000"),
                             Name = "Lenovo ThinkPad E14",
                             Price = 9495m,
@@ -522,7 +520,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000003-0000-0000-0000-000000000000"),
                             Description = "Kompakt och lättviktig laptop för studenter.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000003-0000-0000-0000-000000000000"),
                             Name = "ASUS VivoBook 14\"",
                             Price = 6495m,
@@ -533,7 +530,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000004-0000-0000-0000-000000000000"),
                             Description = "Premium laptop med OLED-skärm och Intel Core i7.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000004-0000-0000-0000-000000000000"),
                             Name = "Dell XPS 15\"",
                             Price = 16995m,
@@ -544,7 +540,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000005-0000-0000-0000-000000000000"),
                             Description = "Konvertibel 2-i-1 laptop med pekskärm och stylus.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000005-0000-0000-0000-000000000000"),
                             Name = "HP Spectre x360 14\"",
                             Price = 14495m,
@@ -555,7 +550,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000006-0000-0000-0000-000000000000"),
                             Description = "Kompakt stationär dator med Intel Core i5 och 512GB SSD.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000005-0000-0000-0000-000000000000"),
                             Name = "HP Pavilion Desktop",
                             Price = 8995m,
@@ -566,7 +560,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000007-0000-0000-0000-000000000000"),
                             Description = "Affärsdator med hög prestanda och energieffektivitet.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000004-0000-0000-0000-000000000000"),
                             Name = "Dell OptiPlex 7000",
                             Price = 11495m,
@@ -577,7 +570,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000008-0000-0000-0000-000000000000"),
                             Description = "Stilren stationär dator för hem och kontor.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000002-0000-0000-0000-000000000000"),
                             Name = "Lenovo IdeaCentre 5",
                             Price = 7495m,
@@ -588,7 +580,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000009-0000-0000-0000-000000000000"),
                             Description = "Kraftfull gaming-desktop med RTX 4070 och 32GB RAM.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000003-0000-0000-0000-000000000000"),
                             Name = "ASUS ROG Strix G15",
                             Price = 19995m,
@@ -599,7 +590,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000010-0000-0000-0000-000000000000"),
                             Description = "27-tums QHD-skärm med 165Hz och 1ms responstid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000010-0000-0000-0000-000000000000"),
                             Name = "MSI MAG 27\" QHD",
                             Price = 4295m,
@@ -610,7 +600,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000011-0000-0000-0000-000000000000"),
                             Description = "Ultravid 34-tums skärm med IPS-panel och USB-C.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000011-0000-0000-0000-000000000000"),
                             Name = "LG UltraWide 34\"",
                             Price = 5995m,
@@ -621,7 +610,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000012-0000-0000-0000-000000000000"),
                             Description = "Professionell 4K-skärm med exceptionell färgåtergivning.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000004-0000-0000-0000-000000000000"),
                             Name = "Dell UltraSharp 27\" 4K",
                             Price = 7495m,
@@ -632,7 +620,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000013-0000-0000-0000-000000000000"),
                             Description = "Böjd VA-skärm med 144Hz för en uppslukande upplevelse.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung 32\" Curved",
                             Price = 3795m,
@@ -643,7 +630,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000093-0000-0000-0000-000000000000"),
                             Description = "USB-C 4K-skärm optimerad för Mac med 96W laddning.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000011-0000-0000-0000-000000000000"),
                             Name = "LG 27\" 4K UltraFine",
                             Price = 6495m,
@@ -654,7 +640,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000014-0000-0000-0000-000000000000"),
                             Description = "Trådlöst tangentbord med bakgrundsbelysning och multienhetspar.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000012-0000-0000-0000-000000000000"),
                             Name = "Logitech MX Keys",
                             Price = 1195m,
@@ -665,7 +650,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000015-0000-0000-0000-000000000000"),
                             Description = "Ergonomisk trådlös mus med precision scroll och tyst klick.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000012-0000-0000-0000-000000000000"),
                             Name = "Logitech MX Master 3S",
                             Price = 995m,
@@ -676,7 +660,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000016-0000-0000-0000-000000000000"),
                             Description = "15-knappars LCD-kontroller för streamers och kreatörer.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000013-0000-0000-0000-000000000000"),
                             Name = "Elgato Stream Deck MK.2",
                             Price = 1595m,
@@ -687,7 +670,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000095-0000-0000-0000-000000000000"),
                             Description = "5.3K video, HyperSmooth 6.0 och vattentät till 10m.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000052-0000-0000-0000-000000000000"),
                             Name = "GoPro Hero 12 Black",
                             Price = 4995m,
@@ -698,7 +680,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000017-0000-0000-0000-000000000000"),
                             Description = "Flaggskepp med AI-funktioner, 50MP kamera och 120Hz AMOLED.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung Galaxy S24",
                             Price = 9995m,
@@ -709,7 +690,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000018-0000-0000-0000-000000000000"),
                             Description = "Apple iPhone 15 med Dynamic Island och USB-C.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000007-0000-0000-0000-000000000000"),
                             Name = "iPhone 15",
                             Price = 11995m,
@@ -720,7 +700,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000019-0000-0000-0000-000000000000"),
                             Description = "Ren Android-upplevelse med exceptionell kameramjukvara.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000008-0000-0000-0000-000000000000"),
                             Name = "Google Pixel 8",
                             Price = 8495m,
@@ -731,7 +710,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000020-0000-0000-0000-000000000000"),
                             Description = "Mellanklass med premiumkänsla, 5G och 50MP kamera.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung Galaxy A55",
                             Price = 4995m,
@@ -742,7 +720,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000021-0000-0000-0000-000000000000"),
                             Description = "Snabb laddning 100W, Snapdragon 8 Gen 3 och Hasselblad-kamera.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000009-0000-0000-0000-000000000000"),
                             Name = "OnePlus 12",
                             Price = 8995m,
@@ -753,7 +730,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000022-0000-0000-0000-000000000000"),
                             Description = "Allsidig surfplatta med A14 Bionic och USB-C.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000007-0000-0000-0000-000000000000"),
                             Name = "iPad 10:e gen",
                             Price = 5495m,
@@ -764,7 +740,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000023-0000-0000-0000-000000000000"),
                             Description = "Android-surfplatta med AMOLED-skärm och S Pen.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung Galaxy Tab S9",
                             Price = 7995m,
@@ -775,7 +750,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000024-0000-0000-0000-000000000000"),
                             Description = "12.6-tums AMOLED-surfplatta med Snapdragon 870.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000002-0000-0000-0000-000000000000"),
                             Name = "Lenovo Tab P12 Pro",
                             Price = 6495m,
@@ -786,7 +760,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000091-0000-0000-0000-000000000000"),
                             Description = "Kraftfull pro-surfplatta med M2-chip, Liquid Retina XDR och 5G.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000007-0000-0000-0000-000000000000"),
                             Name = "iPad Pro 12.9\" M2",
                             Price = 13995m,
@@ -797,7 +770,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000025-0000-0000-0000-000000000000"),
                             Description = "Stöttåligt skal med Air Cushion Technology.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000014-0000-0000-0000-000000000000"),
                             Name = "Spigen Tough Armor iPhone 15",
                             Price = 299m,
@@ -808,7 +780,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000026-0000-0000-0000-000000000000"),
                             Description = "Kompakt GaN-laddare med 65W och stöd för tre enheter.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000015-0000-0000-0000-000000000000"),
                             Name = "Anker USB-C Snabbladdare 65W",
                             Price = 449m,
@@ -819,7 +790,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000027-0000-0000-0000-000000000000"),
                             Description = "Magnetiskt skal med inbyggd plånbok för iPhone 15.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000016-0000-0000-0000-000000000000"),
                             Name = "Belkin MagSafe Plånboksskal",
                             Price = 399m,
@@ -830,7 +800,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000028-0000-0000-0000-000000000000"),
                             Description = "QLED med Quantum HDR och 120Hz för sport och gaming.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung 65\" QLED 4K",
                             Price = 14995m,
@@ -841,7 +810,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000029-0000-0000-0000-000000000000"),
                             Description = "Prisbelönt OLED-TV med perfekta svärtor och Dolby Vision.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000011-0000-0000-0000-000000000000"),
                             Name = "LG OLED 55\" C3",
                             Price = 17995m,
@@ -852,7 +820,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000030-0000-0000-0000-000000000000"),
                             Description = "Google TV med Cognitive Processor XR och Dolby Atmos.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000017-0000-0000-0000-000000000000"),
                             Name = "Sony Bravia 50\" 4K",
                             Price = 8995m,
@@ -863,7 +830,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000031-0000-0000-0000-000000000000"),
                             Description = "4K TV med unikt Ambilight-system för immersiv upplevelse.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000018-0000-0000-0000-000000000000"),
                             Name = "Philips 43\" Ambilight",
                             Price = 6495m,
@@ -874,7 +840,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000032-0000-0000-0000-000000000000"),
                             Description = "Branschledande brusreducering med 30h batteritid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000017-0000-0000-0000-000000000000"),
                             Name = "Sony WH-1000XM5",
                             Price = 3495m,
@@ -885,7 +850,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000033-0000-0000-0000-000000000000"),
                             Description = "Komfortabla over-ear med TriPort-akustik och ANC.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000019-0000-0000-0000-000000000000"),
                             Name = "Bose QuietComfort 45",
                             Price = 3295m,
@@ -896,7 +860,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000034-0000-0000-0000-000000000000"),
                             Description = "Professionella kontorshörlurar med hybridANC och Teams-cert.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000020-0000-0000-0000-000000000000"),
                             Name = "Jabra Evolve2 55",
                             Price = 4195m,
@@ -907,7 +870,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000035-0000-0000-0000-000000000000"),
                             Description = "Trådlösa over-ear med aktiv brusreducering och 30h batteri.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000021-0000-0000-0000-000000000000"),
                             Name = "Sennheiser HD 450BT",
                             Price = 1695m,
@@ -918,7 +880,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000036-0000-0000-0000-000000000000"),
                             Description = "Vattentät Bluetooth-högtalare med 20h batteritid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000022-0000-0000-0000-000000000000"),
                             Name = "JBL Charge 5",
                             Price = 1595m,
@@ -929,7 +890,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000037-0000-0000-0000-000000000000"),
                             Description = "Smart WiFi-högtalare med stereopar-stöd och Trueplay.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000023-0000-0000-0000-000000000000"),
                             Name = "Sonos Era 100",
                             Price = 3295m,
@@ -940,7 +900,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000038-0000-0000-0000-000000000000"),
                             Description = "Ikonisk design med kraftfullt ljud och Bluetooth 5.2.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000024-0000-0000-0000-000000000000"),
                             Name = "Marshall Stanmore III",
                             Price = 4495m,
@@ -951,7 +910,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000094-0000-0000-0000-000000000000"),
                             Description = "Stor portabel högtalare med PartyMode och 20h batteritid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000019-0000-0000-0000-000000000000"),
                             Name = "Bose SoundLink Max",
                             Price = 4495m,
@@ -962,7 +920,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000039-0000-0000-0000-000000000000"),
                             Description = "Next-gen konsol med SSD, haptic feedback och 4K gaming.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000017-0000-0000-0000-000000000000"),
                             Name = "PlayStation 5",
                             Price = 6495m,
@@ -973,7 +930,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000040-0000-0000-0000-000000000000"),
                             Description = "Kraftfullaste Xbox någonsin med 12 teraflops och Game Pass.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000055-0000-0000-0000-000000000000"),
                             Name = "Xbox Series X",
                             Price = 5995m,
@@ -984,7 +940,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000041-0000-0000-0000-000000000000"),
                             Description = "Hybrid-konsol med 7-tums OLED-skärm och förbättrad ljud.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000025-0000-0000-0000-000000000000"),
                             Name = "Nintendo Switch OLED",
                             Price = 3595m,
@@ -995,7 +950,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000042-0000-0000-0000-000000000000"),
                             Description = "Årets fotbollsspel med HyperMotion V-teknologi.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000056-0000-0000-0000-000000000000"),
                             Name = "EA Sports FC 25 PS5",
                             Price = 699m,
@@ -1006,7 +960,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000043-0000-0000-0000-000000000000"),
                             Description = "Upplev det magiska Hogwarts i ett öppet rollspel.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000059-0000-0000-0000-000000000000"),
                             Name = "Hogwarts Legacy Xbox",
                             Price = 549m,
@@ -1017,7 +970,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000044-0000-0000-0000-000000000000"),
                             Description = "Episkt äventyr i Hyrule för Nintendo Switch.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000025-0000-0000-0000-000000000000"),
                             Name = "Zelda: Tears of the Kingdom",
                             Price = 599m,
@@ -1028,7 +980,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000045-0000-0000-0000-000000000000"),
                             Description = "Öppen värld i Night City – nu med Phantom Liberty-expansion.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000057-0000-0000-0000-000000000000"),
                             Name = "Cyberpunk 2077 PC",
                             Price = 399m,
@@ -1039,7 +990,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000046-0000-0000-0000-000000000000"),
                             Description = "Sväng runt Manhattan som Peter Parker och Miles Morales.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000058-0000-0000-0000-000000000000"),
                             Name = "Spider-Man 2 PS5",
                             Price = 699m,
@@ -1050,7 +1000,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000047-0000-0000-0000-000000000000"),
                             Description = "Mekaniskt tangentbord med Razer Green-switchar och RGB.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000026-0000-0000-0000-000000000000"),
                             Name = "Razer BlackWidow V3",
                             Price = 1295m,
@@ -1061,7 +1010,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000048-0000-0000-0000-000000000000"),
                             Description = "Trådlös gaming-mus med LIGHTFORCE-switchar och 130h batteri.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000012-0000-0000-0000-000000000000"),
                             Name = "Logitech G502 X Plus",
                             Price = 1195m,
@@ -1072,7 +1020,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000049-0000-0000-0000-000000000000"),
                             Description = "Trådlöst headset med 38h batteritid och ClearCast AI-mikrofon.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000027-0000-0000-0000-000000000000"),
                             Name = "SteelSeries Arctis Nova 7",
                             Price = 1995m,
@@ -1083,7 +1030,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000050-0000-0000-0000-000000000000"),
                             Description = "Mekaniskt tangentbord med Cherry MX-switchar och USB-passthrough.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000028-0000-0000-0000-000000000000"),
                             Name = "Corsair K70 RGB Pro",
                             Price = 1495m,
@@ -1094,7 +1040,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000092-0000-0000-0000-000000000000"),
                             Description = "Ultralätt trådlös gaming-mus med HERO 25K-sensor.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000012-0000-0000-0000-000000000000"),
                             Name = "Logitech G Pro X Superlight",
                             Price = 1595m,
@@ -1105,7 +1050,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000098-0000-0000-0000-000000000000"),
                             Description = "Capture card med 4K60 HDR10 och VRR-stöd.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000013-0000-0000-0000-000000000000"),
                             Name = "Elgato 4K60 Pro MK.2",
                             Price = 2495m,
@@ -1116,7 +1060,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000051-0000-0000-0000-000000000000"),
                             Description = "Double Tap-gest, S9-chip och Always-On Retina-display.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000007-0000-0000-0000-000000000000"),
                             Name = "Apple Watch Series 9",
                             Price = 4995m,
@@ -1127,7 +1070,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000052-0000-0000-0000-000000000000"),
                             Description = "Avancerad hälsomätning med BioActive Sensor och sleep coaching.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung Galaxy Watch 6",
                             Price = 3495m,
@@ -1138,7 +1080,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000053-0000-0000-0000-000000000000"),
                             Description = "Premiumsmartwatch med AMOLED och avancerad sömn-analys.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000029-0000-0000-0000-000000000000"),
                             Name = "Garmin Venu 3",
                             Price = 4195m,
@@ -1149,7 +1090,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000054-0000-0000-0000-000000000000"),
                             Description = "Elegant design med 14 dagars batteritid och GPS.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000032-0000-0000-0000-000000000000"),
                             Name = "Huawei Watch GT 4",
                             Price = 2695m,
@@ -1160,7 +1100,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000097-0000-0000-0000-000000000000"),
                             Description = "Hybridklocka med EKG, SpO2 och 30 dagars batteritid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000054-0000-0000-0000-000000000000"),
                             Name = "Withings ScanWatch 2",
                             Price = 3495m,
@@ -1171,7 +1110,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000055-0000-0000-0000-000000000000"),
                             Description = "Löparklocka med AMOLED, Training Readiness och HRV Status.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000029-0000-0000-0000-000000000000"),
                             Name = "Garmin Forerunner 265",
                             Price = 4495m,
@@ -1182,7 +1120,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000056-0000-0000-0000-000000000000"),
                             Description = "Multisportklocka med EKG, optisk puls och SWR-sensor.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000030-0000-0000-0000-000000000000"),
                             Name = "Polar Vantage V3",
                             Price = 6495m,
@@ -1193,7 +1130,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000057-0000-0000-0000-000000000000"),
                             Description = "Aktivitetsarmband med Google Maps, ECG och stress-hantering.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000031-0000-0000-0000-000000000000"),
                             Name = "Fitbit Charge 6",
                             Price = 1695m,
@@ -1204,7 +1140,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000058-0000-0000-0000-000000000000"),
                             Description = "Adaptiv ljudavstängning, Personalized Spatial Audio och H2-chip.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000007-0000-0000-0000-000000000000"),
                             Name = "Apple AirPods Pro 2",
                             Price = 2995m,
@@ -1215,7 +1150,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000059-0000-0000-0000-000000000000"),
                             Description = "Hi-Fi 24-bitars ljud med intelligent ANC och IPX7.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung Galaxy Buds2 Pro",
                             Price = 1995m,
@@ -1226,7 +1160,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000060-0000-0000-0000-000000000000"),
                             Description = "Världens bästa ANC i ett kompakt format med 8h batteritid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000017-0000-0000-0000-000000000000"),
                             Name = "Sony WF-1000XM5",
                             Price = 2795m,
@@ -1237,7 +1170,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000061-0000-0000-0000-000000000000"),
                             Description = "Frontmatad tvättmaskin 9kg med EcoSilence Drive och WiFi.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000033-0000-0000-0000-000000000000"),
                             Name = "Bosch Serie 6 WGG14204S",
                             Price = 8995m,
@@ -1248,7 +1180,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000062-0000-0000-0000-000000000000"),
                             Description = "EcoBubble-teknologi 9kg med AI Control och ångfunktion.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung WW90T684DLE",
                             Price = 7495m,
@@ -1259,7 +1190,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000063-0000-0000-0000-000000000000"),
                             Description = "Tvättmaskin med SteamCare och UltraMix för skonsam tvätt.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000034-0000-0000-0000-000000000000"),
                             Name = "Electrolux PerfectCare 700",
                             Price = 6995m,
@@ -1270,7 +1200,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000064-0000-0000-0000-000000000000"),
                             Description = "Fransk dörr-kylskåp med SpaceMax och Twin Cooling Plus.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung Side-by-Side RS68",
                             Price = 14995m,
@@ -1281,7 +1210,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000065-0000-0000-0000-000000000000"),
                             Description = "NoFrost-kylskåp med FreshSense och VitaFresh-låda.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000033-0000-0000-0000-000000000000"),
                             Name = "Bosch KGN39AIAT",
                             Price = 9495m,
@@ -1292,7 +1220,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000066-0000-0000-0000-000000000000"),
                             Description = "Total No Frost-kylskåp med DoorCooling+ och WiFi.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000011-0000-0000-0000-000000000000"),
                             Name = "LG GBB62PZGFN",
                             Price = 8495m,
@@ -1303,7 +1230,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000067-0000-0000-0000-000000000000"),
                             Description = "Laser-detektering av damm, HEPA-filtrering och 60min drift.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000035-0000-0000-0000-000000000000"),
                             Name = "Dyson V15 Detect",
                             Price = 6995m,
@@ -1314,7 +1240,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000068-0000-0000-0000-000000000000"),
                             Description = "Robotdammsugare med auto-tömning och moppfunktion.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000036-0000-0000-0000-000000000000"),
                             Name = "Roomba Combo j9+",
                             Price = 8995m,
@@ -1325,7 +1250,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000069-0000-0000-0000-000000000000"),
                             Description = "Tredelad design, VARTA-batteri och 60min körtid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000037-0000-0000-0000-000000000000"),
                             Name = "Miele Triflex HX2 Pro",
                             Price = 5995m,
@@ -1336,7 +1260,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000096-0000-0000-0000-000000000000"),
                             Description = "Robotdammsugare med laser-navigering och moppfunktion.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000053-0000-0000-0000-000000000000"),
                             Name = "Xiaomi Robot Vacuum S20+",
                             Price = 4495m,
@@ -1347,7 +1270,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000070-0000-0000-0000-000000000000"),
                             Description = "3 smarta glödlampor med Hue Bridge och 16M färger.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000018-0000-0000-0000-000000000000"),
                             Name = "Philips Hue Starterkit E27",
                             Price = 1295m,
@@ -1358,7 +1280,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000071-0000-0000-0000-000000000000"),
                             Description = "Prisvärt smart belysningssystem med dimmer och gateway.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000038-0000-0000-0000-000000000000"),
                             Name = "IKEA TRÅDFRI Startpaket",
                             Price = 599m,
@@ -1369,7 +1290,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000072-0000-0000-0000-000000000000"),
                             Description = "Modulära LED-linjer med musik-reaktivitet och Touch Control.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000039-0000-0000-0000-000000000000"),
                             Name = "Nanoleaf Lines Starter",
                             Price = 1995m,
@@ -1380,7 +1300,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000073-0000-0000-0000-000000000000"),
                             Description = "RGBIC neontejp med app-kontroll och musik-synkronisering.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000040-0000-0000-0000-000000000000"),
                             Name = "Govee Neon Rope Light 3m",
                             Price = 799m,
@@ -1391,7 +1310,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000074-0000-0000-0000-000000000000"),
                             Description = "3D Motion Detection, Bird's Eye View och 1536p HD-video.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000041-0000-0000-0000-000000000000"),
                             Name = "Ring Video Doorbell Pro 2",
                             Price = 2995m,
@@ -1402,7 +1320,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000075-0000-0000-0000-000000000000"),
                             Description = "2K HDR, färg-nattseende och 6 månaders batteritid.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000042-0000-0000-0000-000000000000"),
                             Name = "Arlo Pro 5S utomhuskamera",
                             Price = 2495m,
@@ -1413,7 +1330,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000076-0000-0000-0000-000000000000"),
                             Description = "Modulärt larmsystem med inomhuskamera och rörelsedetektering.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000043-0000-0000-0000-000000000000"),
                             Name = "Netatmo Smart Alarm System",
                             Price = 3495m,
@@ -1424,7 +1340,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000099-0000-0000-0000-000000000000"),
                             Description = "Utomhuskamera 4MP med ColorPro Night Vision och AI-detektion.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000045-0000-0000-0000-000000000000"),
                             Name = "TP-Link Tapo C320WS",
                             Price = 595m,
@@ -1435,7 +1350,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000077-0000-0000-0000-000000000000"),
                             Description = "Kompakt smart högtalare med Alexa och förbättrat ljud.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000044-0000-0000-0000-000000000000"),
                             Name = "Amazon Echo Dot 5th gen",
                             Price = 499m,
@@ -1446,7 +1360,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000078-0000-0000-0000-000000000000"),
                             Description = "Smart skärm med Google Assistant och sömnspårning.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000008-0000-0000-0000-000000000000"),
                             Name = "Google Nest Hub 2nd gen",
                             Price = 999m,
@@ -1457,7 +1370,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000079-0000-0000-0000-000000000000"),
                             Description = "360-graders ljud, Siri och smarthemshub i ett kompakt format.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000007-0000-0000-0000-000000000000"),
                             Name = "Apple HomePod mini",
                             Price = 1095m,
@@ -1468,7 +1380,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000080-0000-0000-0000-000000000000"),
                             Description = "WiFi 6E Mesh-system med tri-band och 10Gbps WAN/LAN.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000003-0000-0000-0000-000000000000"),
                             Name = "ASUS ZenWiFi Pro ET12",
                             Price = 8995m,
@@ -1479,7 +1390,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000081-0000-0000-0000-000000000000"),
                             Description = "WiFi 6E Mesh 3-pack med EasyMesh och föräldrakontroll.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000045-0000-0000-0000-000000000000"),
                             Name = "TP-Link Deco XE75 Pro",
                             Price = 4995m,
@@ -1490,7 +1400,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000082-0000-0000-0000-000000000000"),
                             Description = "Amazon Mesh-system med Zigbee-hubb och enkel app-setup.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000046-0000-0000-0000-000000000000"),
                             Name = "Eero Pro 6E 3-pack",
                             Price = 5495m,
@@ -1501,7 +1410,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000083-0000-0000-0000-000000000000"),
                             Description = "WiFi 6 Mesh med 6Gbps total bandbredd och 6 enheter.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000047-0000-0000-0000-000000000000"),
                             Name = "Netgear Orbi RBK863S",
                             Price = 6995m,
@@ -1512,7 +1420,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000084-0000-0000-0000-000000000000"),
                             Description = "Kompakt 2-bays NAS med DiskStation Manager och RAID.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000048-0000-0000-0000-000000000000"),
                             Name = "Synology DS223",
                             Price = 3295m,
@@ -1523,7 +1430,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000085-0000-0000-0000-000000000000"),
                             Description = "2-bay NAS med 8TB och automatisk moln-backup.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000049-0000-0000-0000-000000000000"),
                             Name = "WD My Cloud EX2 Ultra",
                             Price = 4495m,
@@ -1534,7 +1440,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000086-0000-0000-0000-000000000000"),
                             Description = "Robust portabel SSD med USB 3.2 Gen2 och IP65-klassning.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000006-0000-0000-0000-000000000000"),
                             Name = "Samsung T7 Shield 2TB",
                             Price = 1195m,
@@ -1545,7 +1450,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000087-0000-0000-0000-000000000000"),
                             Description = "Portabel NVMe SSD med 2000MB/s och drop-skydd.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000050-0000-0000-0000-000000000000"),
                             Name = "SanDisk Extreme Pro 4TB",
                             Price = 1895m,
@@ -1556,7 +1460,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000100-0000-0000-0000-000000000000"),
                             Description = "PCIe 4.0 SSD med 7000MB/s läshastighet och aluminium heatsink.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000028-0000-0000-0000-000000000000"),
                             Name = "Corsair MP600 Pro 2TB NVMe",
                             Price = 2195m,
@@ -1567,7 +1470,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000088-0000-0000-0000-000000000000"),
                             Description = "18 portar inkl. 2x Thunderbolt 4, 2x USB-A och 2.5GbE.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000051-0000-0000-0000-000000000000"),
                             Name = "CalDigit TS4 Thunderbolt 4",
                             Price = 4295m,
@@ -1578,7 +1480,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000089-0000-0000-0000-000000000000"),
                             Description = "13-i-1 dockningsstation med 85W laddning och dual 4K.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000015-0000-0000-0000-000000000000"),
                             Name = "Anker 575 USB-C Docking",
                             Price = 1995m,
@@ -1589,7 +1490,6 @@ namespace EF_MSSQL.Migrations
                         {
                             Id = new Guid("10000090-0000-0000-0000-000000000000"),
                             Description = "Kompakt hub med HDMI 4K, SD-kortläsare och 100W PD.",
-                            IsStartPage = false,
                             ManufacturerId = new Guid("20000016-0000-0000-0000-000000000000"),
                             Name = "Belkin Connect USB-C 11-i-1",
                             Price = 1295m,

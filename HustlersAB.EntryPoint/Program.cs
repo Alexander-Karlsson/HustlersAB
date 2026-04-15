@@ -16,6 +16,7 @@ using Services.Interfaces.Quotes;
 using Entities;
 using HustlersAB.Admin.Menus.CustomerMenus;
 using HustlersAB.Admin.Menus.ProductMenus;
+using Services.Interfaces.Shipping;
 
 namespace HustlersAB.EntryPoint;
 
@@ -50,6 +51,10 @@ class Program
 
         services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
         services.AddScoped<IManufacturerService, ManufacturerService>();
+        
+        services.AddScoped<IShippingRepository, ShippingRepository>();
+        services.AddScoped<IShippingService, ShippingService>();
+       
         
         services.AddScoped<Cart>();
         services.AddScoped<StartPage>();

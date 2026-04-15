@@ -1,6 +1,8 @@
 ﻿using Entities;
 using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
+using Services;
+using Services.Interfaces.Shipping;
 using System.Linq;
 
 namespace HustlersAB.Client.Menus;
@@ -8,10 +10,11 @@ namespace HustlersAB.Client.Menus;
 public class ShopingCartMenu : BaseMenu
 {
     private readonly Cart _cart;
-
-    public ShopingCartMenu(Cart cart)
+    private readonly IShippingService _shippingService;
+    public ShopingCartMenu(Cart cart, IShippingService shippingService)
     {
         _cart = cart;
+        _shippingService = shippingService;
     }
 
     protected override string[] Options
@@ -24,12 +27,15 @@ public class ShopingCartMenu : BaseMenu
                 return new string[] { "Cart is empty", "Back" };
             }
 
-            var names = items.ConvertAll(p => p.Name);
+            var names = items.ConvertAll(p => p.Name +": " + p.Price + " Kr");
             names.Add($"View total: {_cart.Total:C}");
             names.Add("Back");
+            names.Add("Go to Checkout");
             return names.ToArray();
         }
     }
+
+    protected override string MenuTitle => "CART";
 
     protected override bool ExecuteChoice(int selectedIndex)
     {
@@ -77,6 +83,7 @@ public class ShopingCartMenu : BaseMenu
         // View total or Back
         var viewTotalIndex = items.Count;
         var backIndex = items.Count + 1;
+        var checkoutIndex = items.Count + 2;
 
         if (selectedIndex == viewTotalIndex)
         {
@@ -89,6 +96,12 @@ public class ShopingCartMenu : BaseMenu
 
         if (selectedIndex == backIndex)
             return true;
+
+        if (selectedIndex == checkoutIndex)
+        {
+            new CheckoutMenu(_cart, _shippingService).Start();
+        }
+
 
         return false;
     }
