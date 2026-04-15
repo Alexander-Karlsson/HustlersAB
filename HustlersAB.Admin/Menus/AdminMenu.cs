@@ -1,10 +1,6 @@
-
 using HustlersAB.Admin.Menus.CustomerMenus;
 using HustlersAB.Admin.Menus.ProductMenus;
 using HustlersAB.Shared.Menus;
-using Services.Interfaces.Categories;
-using Services.Interfaces.Customers;
-using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 

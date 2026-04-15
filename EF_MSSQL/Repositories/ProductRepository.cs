@@ -69,13 +69,20 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
         db.Products.Remove(product);
         await db.SaveChangesAsync();
     }
-    public async Task SetStartPageProductsAsync(List<Guid> productIds)
+    public async Task SetStartPageProductsAsync(List<Guid> selectedIds)
     {
-        var products = await db.Products.ToListAsync();
+        var allProducts = await db.Products.ToListAsync();
 
-        foreach (var product in products)
+        foreach (var product in allProducts)
         {
-            product.IsStartPage = productIds.Contains(product.Id);
+            if (selectedIds.Contains(product.Id))
+            {
+                product.IsStartPage = true;
+            }
+            else
+            {
+                product.IsStartPage = false;
+            }
         }
         await db.SaveChangesAsync();
     }

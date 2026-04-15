@@ -8,7 +8,8 @@ namespace HustlersAB.Admin.Menus;
 
 public class UpdateProductMenu(IProductService productService,
     IProductSubCategoryService productSubCategoryService,
-    IManufacturerService manufacturerService) : BaseMenu
+    IManufacturerService manufacturerService,
+    MenuHelper menuHelper) : BaseMenu
 {
     protected override string[] Options => 
         [
@@ -34,51 +35,28 @@ public class UpdateProductMenu(IProductService productService,
     {
         Header("UPDATE PRODUCT");
 
-        var products = GetProducts();
-        if (products == null)
+        var products = menuHelper.GetProducts();
+        if (!products.Any())
+        {
+            Pause("No products found.");
             return;
+        }
 
-        var selectedProduct = SelectProduct(products);
-        if (selectedProduct == null)
+        menuHelper.ProductLoop(products);
+
+        var choice = ReadInt("Choose product number to update: ");
+        if (choice == null || choice < 0 || choice >= products.Count)
+        {
+            Invalid();
             return;
+        }
+
+        var selectedProduct = products[choice.Value];
 
         EditProduct(selectedProduct);
         UpdateSubCategory(selectedProduct);
         UpdateManufacturer(selectedProduct);
         SaveProduct(selectedProduct);
-    }
-
-    private List<Product>? GetProducts()
-    {
-        var products = productService
-            .GetAllAsync()
-            .GetAwaiter()
-            .GetResult()
-            .ToList();
-
-        if (!products.Any())
-        {
-            Pause("No products found.");
-            return null;
-        }
-        return products;
-    }
-
-    private Product? SelectProduct(List<Product> products)
-    {
-        for (int i = 0; i < products.Count; i++)
-        {
-            Console.WriteLine($"{i}. {products[i].Name} - {products[i].Price} kr");
-        }
-
-        Console.Write("Choose product number to update: ");
-        if (!int.TryParse(Console.ReadLine(), out int choice) ||
-            choice < 0 || choice >= products.Count)
-        {
-            Invalid();
-            return null;
-        }
-        return products[choice];
     }
 
     private void EditProduct(Product selectedProduct)
