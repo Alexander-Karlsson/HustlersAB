@@ -1,15 +1,20 @@
 ﻿using Entities;
 using HustlersAB.Shared.Menus;
+using Services.Interfaces.Shipping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace HustlersAB.Client.Menus;
 
-public class CheckoutMenu(Cart cart, IEnumerable<Shipping> shippings) : BaseMenu
+public class CheckoutMenu(Cart cart, IShippingService shippingService) : BaseMenu
 {
     private readonly Cart _cart = cart;
-    private readonly List<Shipping> _shippings = shippings?.ToList() ?? new();
+    private readonly List<Shipping> _shippings = shippingService
+        .GetShippingAsync()
+        .GetAwaiter()
+        .GetResult()
+        .ToList();
 
     protected override string[] Options
     {
