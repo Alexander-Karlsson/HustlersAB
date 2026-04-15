@@ -1,17 +1,18 @@
+using Entities;
 using HustlersAB.Admin.Menus;
 using HustlersAB.Client;
 using HustlersAB.Client.Menus;
-using Entities;
 using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Interfaces.Customers;
+using Services.Interfaces.Payment;
 using Services.Interfaces.Products;
 using Services.Interfaces.Shipping;
 
 namespace HustlersAB.EntryPoint;
 
-public class StartPageMenu(ICustomerService customerService, IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart, IShippingService shippingService) : BaseMenu
+public class StartPageMenu(ICustomerService customerService, IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart, IShippingService shippingService, IPaymentMethodService PaymentService) : BaseMenu
 {
     private readonly AdminMenu _adminMenu = adminMenu;
     protected override string[] Options =>
@@ -42,7 +43,7 @@ public class StartPageMenu(ICustomerService customerService, IProductService ser
                 var startPage = serviceProvider.GetRequiredService<StartPage>();
                 startPage.Show().GetAwaiter().GetResult();
 
-                new ClientMenu(service, cart, shippingService).Start();
+                new ClientMenu(service, cart, shippingService, PaymentService).Start();
                 return false;
             case 2:
                 // Exit

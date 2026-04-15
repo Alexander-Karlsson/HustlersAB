@@ -2,6 +2,7 @@
 using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
 using Services;
+using Services.Interfaces.Payment;
 using Services.Interfaces.Shipping;
 using System.Linq;
 
@@ -10,11 +11,13 @@ namespace HustlersAB.Client.Menus;
 public class ShopingCartMenu : BaseMenu
 {
     private readonly Cart _cart;
+    private readonly IPaymentMethodService _paymentService;
     private readonly IShippingService _shippingService;
-    public ShopingCartMenu(Cart cart, IShippingService shippingService)
+    public ShopingCartMenu(Cart cart, IShippingService shippingService, IPaymentMethodService PaymentService)
     {
         _cart = cart;
         _shippingService = shippingService;
+        _paymentService = PaymentService;
     }
 
     protected override string[] Options
@@ -99,7 +102,7 @@ public class ShopingCartMenu : BaseMenu
 
         if (selectedIndex == checkoutIndex)
         {
-            new CheckoutMenu(_cart, _shippingService).Start();
+            new CheckoutMenu(_cart, _shippingService, _paymentService).Start();
         }
 
 

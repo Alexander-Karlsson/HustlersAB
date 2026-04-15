@@ -1,5 +1,6 @@
 ﻿using Entities;
 using HustlersAB.Shared.Menus;
+using Services.Interfaces.Payment;
 using Services.Interfaces.Shipping;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace HustlersAB.Client.Menus;
 
-public class CheckoutMenu(Cart cart, IShippingService shippingService) : BaseMenu
+public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentMethodService PaymentService) : BaseMenu
 {
     private readonly Cart _cart = cart;
     private readonly List<Shipping> _shippings = shippingService
@@ -86,7 +87,7 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService) : BaseMen
             return false;
         }
 
-        if (selectedIndex == proceedIndex)
+            if (selectedIndex == proceedIndex)
         {
             if (_selectedShipping == null)
             {
@@ -98,12 +99,7 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService) : BaseMen
             }
 
             // Placeholder for future slide/navigation
-            Console.Clear();
-            Console.WriteLine("Proceeding to payment / order summary (not implemented yet)");
-            Console.WriteLine($"Selected shipping: {_selectedShipping.TypeOfShipping} - {_selectedShipping.Price:C}");
-            Console.WriteLine($"Grand total: {_cart.Total + _selectedShipping.Price:C}");
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey(true);
+            new PaymentMenu(PaymentService, _cart, _selectedShipping).Start();
             return true; // return to caller so it can navigate forward
         }
 
