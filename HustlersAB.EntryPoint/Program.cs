@@ -1,7 +1,10 @@
 ﻿using EF_MSSQL;
 using EF_MSSQL.Repositories;
+using Entities;
 using HustlersAB.Admin;
 using HustlersAB.Admin.Menus;
+using HustlersAB.Admin.Menus.CustomerMenus;
+using HustlersAB.Admin.Menus.ProductMenus;
 using HustlersAB.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,11 +14,9 @@ using Services.Interfaces.Categories;
 using Services.Interfaces.Customers;
 using Services.Interfaces.Manufacturers;
 using Services.Interfaces.Orders;
+using Services.Interfaces.Payment;
 using Services.Interfaces.Products;
 using Services.Interfaces.Quotes;
-using Entities;
-using HustlersAB.Admin.Menus.CustomerMenus;
-using HustlersAB.Admin.Menus.ProductMenus;
 using Services.Interfaces.Shipping;
 
 namespace HustlersAB.EntryPoint;
@@ -55,6 +56,8 @@ class Program
         services.AddScoped<IShippingRepository, ShippingRepository>();
         services.AddScoped<IShippingService, ShippingService>();
        
+        services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+        services.AddScoped<IPaymentMethodService, PaymentMethodService>();
         
         services.AddScoped<Cart>();
         services.AddScoped<StartPage>();

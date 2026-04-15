@@ -7,6 +7,18 @@ public static class DataSeeder
 {
     public static void Seed(ModelBuilder modelBuilder)
     {
+        
+        // ──────────────────────────────────────────────
+        // BetalningsMetoder
+        // ──────────────────────────────────────────────
+        var payCard   = new PaymentMethod { Id = Guid.Parse("40000001-0000-0000-0000-000000000000"), PaymentName = "Kort (Visa/Mastercard)" };
+        var payInvoice= new PaymentMethod { Id = Guid.Parse("40000002-0000-0000-0000-000000000000"), PaymentName = "Faktura" };
+        var paySwish  = new PaymentMethod { Id = Guid.Parse("40000003-0000-0000-0000-000000000000"), PaymentName = "Swish" };
+
+        modelBuilder.Entity<PaymentMethod>().HasData(
+            payCard, payInvoice, paySwish
+        );
+
         // ──────────────────────────────────────────────
         // KATEGORIER
         // ──────────────────────────────────────────────
