@@ -12,203 +12,163 @@ public class CustomerMenu(ICustomerService service) : BaseMenu
         "Delete Customer",
         "Search Customer(s)",
         "Update Customer",
-        "Go Back" 
+        "Go Back"
     ];
-    
+
     protected override string MenuTitle => "menu -> admin -> MANAGE CUSTOMERS";
+
     protected override bool ExecuteChoice(int selectedIndex)
     {
         switch (selectedIndex)
         {
-            case 0:
-                AddNewCustomer();
-                break;
-            case 1:
-                DeleteCustomer();
-                break;
-            case 2:
-                SearchCustomers();
-                break;
-            case 3:
-                UpdateCustomer();
-                break;
+            case 0: AddCustomer(); break;
+            case 1: DeleteCustomer(); break;
+            case 2: SearchCustomers(); break;
+            case 3: UpdateCustomer(); break;
             case 4: return true;
         }
-
         return false;
-    } 
-    
-    private void AddNewCustomer()
+    }
+
+    // Crud metoder
+
+    private void AddCustomer()
     {
         Header("ADD NEW CUSTOMER");
-        var customer = CreateCustomer();
-        var contactInfo = GetContactInfo(customer);
-        service.CreateAsync(customer, contactInfo).GetAwaiter().GetResult();
-        PrintCreatedCustomer(customer, contactInfo);
-    }
 
-    private Customer CreateCustomer()
-    {
-        var customer = new Customer()
+        var customer = new Customer
         {
             Id = Guid.NewGuid(),
-            Name = ReadString("Name")
+            Name = ReadRequiredString("Name")
         };
 
-        return customer;
-    }
+        var contactInfo = BuildContactInfo(customer);
+        service.CreateAsync(customer, contactInfo).GetAwaiter().GetResult();
 
-    private CustomerContactInfo GetContactInfo(Customer customer)
-    {
-        var contactInfo = new CustomerContactInfo()
-        {
-            Id = customer.CustomerContactInfo?.Id ?? Guid.NewGuid(),
-            CustomerId = customer.Id,
-            Email = ReadString("Email"),
-            Phone = ReadString("Phone"),
-            Address = ReadString("Address"),
-            PostalNumber = ReadString("Zip Code")
-        };
-
-        return contactInfo;
-    }
-
-    private void PrintCreatedCustomer(Customer customer, CustomerContactInfo contactInfo)
-    {
         Console.Clear();
         Header("Customer created successfully!");
-        Console.WriteLine($"Name: {customer.Name}");
-        Console.WriteLine($"Email: {contactInfo.Email}.");
-        Console.WriteLine($"Phone: {contactInfo.Phone}");
-        Console.WriteLine($"Address: {contactInfo.Address}");
-        Console.WriteLine($"Zip Code: {contactInfo.PostalNumber}");
-        Console.WriteLine("-----------------------------");
+        PrintCustomerDetails(customer, contactInfo);
         Console.ReadKey();
     }
 
     private void SearchCustomers()
     {
-        Header("Search Customers");
+        Header("SEARCH CUSTOMERS");
         var query = ReadString(">");
-        
-        var customers = service.GetBySearchAsync(query)
-            .GetAwaiter()
-            .GetResult();
+        if (query is null) { Pause(); return; }
 
-        PrintSearchResult(customers, query);
-    }
+        var customers = service.GetBySearchAsync(query).GetAwaiter().GetResult().ToList();
 
-    private void PrintSearchResult(IEnumerable<Customer> result, string query)
-    {
-        if (!result.Any())
+        if (!customers.Any())
         {
             Console.WriteLine("No customers found.");
             Pause();
             return;
         }
-        
+
         Header($"Showing results for: {query}");
-        
-        var count = 0;
-        foreach (var c in result)
-        {
-            Console.WriteLine($"#{++count} - {c.Name}");
-            Console.WriteLine($"\tPhone: {c.CustomerContactInfo?.Phone}");
-            Console.WriteLine($"\tEmail: {c.CustomerContactInfo?.Email}");
-            Console.WriteLine($"\tAddress: {c.CustomerContactInfo?.Address}");
-            Console.WriteLine($"\tZip Code: {c.CustomerContactInfo?.PostalNumber}\n");
-        }
-        
+        PrintCustomerList(customers);
         Pause();
     }
-    
+
     private void DeleteCustomer()
     {
         Header("DELETE CUSTOMER");
+        var selected = PromptSelectCustomer();
+        if (selected is null) return;
 
-        var customers = service.GetAllAsync().GetAwaiter().GetResult().ToList();
-        if (!customers.Any())
-        {
-            Pause("No customers found.");
-            return;
-        }
-
-        PrintCustomerList(customers);
-
-        var choice = ReadInt("Choose customer number to delete: ");
-        if (choice is null || choice < 1 || choice > customers.Count)
-        {
-            Invalid();
-            return;
-        }
-
-        var selected = customers[(int)choice - 1];
-
-        if(!ConfirmDelete(selected.Name))
+        if (!ConfirmDelete(selected.Name))
         {
             Pause("Deletion cancelled.");
             return;
         }
-        
-        service.DeleteAsync(selected.Id).GetAwaiter().GetResult();
 
-        Console.Clear();
+        service.DeleteAsync(selected.Id).GetAwaiter().GetResult();
         Pause($"Customer \"{selected.Name}\" deleted successfully.");
+    }
+
+    private void UpdateCustomer()
+    {
+        Header("UPDATE CUSTOMER");
+        var selected = PromptSelectCustomer();
+        if (selected is null) return;
+
+        selected.Name = ReadUpdatedString("Name", selected.Name);
+        selected.CustomerContactInfo = BuildContactInfo(selected, isUpdate: true);
+
+        service.UpdateAsync(selected).GetAwaiter().GetResult();
+        Pause($"Customer \"{selected.Name}\" updated successfully.");
+    }
+
+    // Goa helpers
+
+    private Customer? PromptSelectCustomer()
+    {
+        var customers = service.GetAllAsync().GetAwaiter().GetResult().ToList();
+
+        if (!customers.Any())
+        {
+            Pause("No customers found.");
+            return null;
+        }
+
+        PrintCustomerList(customers);
+
+        var choice = ReadInt("Choose customer number");
+        if (choice is null || choice < 1 || choice > customers.Count)
+        {
+            Invalid();
+            return null;
+        }
+
+        return customers[(int)choice - 1];
+    }
+
+    private CustomerContactInfo BuildContactInfo(Customer customer, bool isUpdate = false)
+    {
+        string Read(string label, string current) =>
+            isUpdate ? ReadUpdatedString(label, current) : ReadRequiredString(label);
+
+        var existing = customer.CustomerContactInfo;
+
+        return new CustomerContactInfo
+        {
+            Id = existing?.Id ?? Guid.NewGuid(),
+            CustomerId = customer.Id,
+            Email = Read("Email", existing?.Email ?? ""),
+            Phone = Read("Phone", existing?.Phone ?? ""),
+            Address = Read("Address", existing?.Address ?? ""),
+            PostalNumber = Read("Zip Code", existing?.PostalNumber ?? "")
+        };
     }
 
     private void PrintCustomerList(List<Customer> customers)
     {
         var count = 0;
         foreach (var c in customers)
-        {
-            Console.WriteLine($"{++count}. {c.Name} - {c.CustomerContactInfo?.Phone} -  {c.CustomerContactInfo?.Email}");
-        }
+            Console.WriteLine($"{++count}. {c.Name} - {c.CustomerContactInfo?.Phone} - {c.CustomerContactInfo?.Email}");
     }
 
-    private void UpdateCustomer()
+    private void PrintCustomerDetails(Customer customer, CustomerContactInfo contactInfo)
     {
-        Header("UPDATE CUSTOMER");
-        var customers = service.GetAllAsync().GetAwaiter().GetResult().ToList();
-        if (!customers.Any())
-        {
-            Pause("No customers found.");
-            return;
-        }
-
-        PrintCustomerList(customers);
-        
-        var choice = ReadInt("Choose customer number to update: ");
-        if (choice is null || choice < 1 || choice > customers.Count)
-        {
-            Invalid();
-            return;
-        }
-
-        var selected = customers[(int)choice - 1];
-        
-        selected.Name = ReadString("Name") ?? selected.Name;
-        selected.CustomerContactInfo = GetUpdatedContactInfo(selected);
-        
-        service.UpdateAsync(selected).GetAwaiter().GetResult();
-
-        Console.Clear();
-        Pause($"Customer {selected.Name} successfully updated.");
+        Console.WriteLine($"Name:     {customer.Name}");
+        Console.WriteLine($"Email:    {contactInfo.Email}");
+        Console.WriteLine($"Phone:    {contactInfo.Phone}");
+        Console.WriteLine($"Address:  {contactInfo.Address}");
+        Console.WriteLine($"Zip Code: {contactInfo.PostalNumber}");
+        Console.WriteLine("-----------------------------");
     }
-    
-    private CustomerContactInfo GetUpdatedContactInfo(Customer customer)
+
+    private string ReadRequiredString(string label)
     {
-        var e = customer.CustomerContactInfo!;
-        return new()
+        string? input;
+        do
         {
-            Id = e.Id,
-            CustomerId = customer.Id,
-            Email = ReadUpdatedString("Email", e.Email),
-            Phone = ReadUpdatedString("Phone", e.Phone),
-            Address = ReadUpdatedString("Address", e.Address),
-            PostalNumber = ReadUpdatedString("Zip Code", e.PostalNumber)
-        };
+            Console.Write($"{label}: ");
+            input = Console.ReadLine()?.Trim();
+            if (string.IsNullOrEmpty(input))
+                Console.WriteLine("This field is required.");
+        } while (string.IsNullOrEmpty(input));
+        return input;
     }
-
-
 }
-

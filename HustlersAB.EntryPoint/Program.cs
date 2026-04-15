@@ -4,6 +4,7 @@ using Entities;
 using HustlersAB.Admin;
 using HustlersAB.Admin.Menus;
 using HustlersAB.Admin.Menus.CustomerMenus;
+using HustlersAB.Admin.Menus.OrderMenus;
 using HustlersAB.Admin.Menus.ProductMenus;
 using HustlersAB.Client;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +73,7 @@ class Program
         services.AddScoped<StartPageProductsMenu>();
         services.AddScoped<CustomerMenu>();
         services.AddScoped<MenuHelper>();
+        services.AddScoped<OrderMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 

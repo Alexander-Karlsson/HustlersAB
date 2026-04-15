@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace HustlersAB.Client.Menus;
 
-public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentMethodService PaymentService) : BaseMenu
+public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentMethodService paymentService) : BaseMenu
 {
     private readonly Cart _cart = cart;
     private readonly List<Shipping> _shippings = shippingService
@@ -99,7 +99,7 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentM
             }
 
             // Placeholder for future slide/navigation
-            new PaymentMenu(PaymentService, _cart, _selectedShipping).Start();
+            new PaymentMenu(paymentService, _cart, _selectedShipping).Start();
             return true; // return to caller so it can navigate forward
         }
 
