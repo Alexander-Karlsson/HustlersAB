@@ -21,6 +21,4 @@ public class MenuHelper(IProductService productService)
             Console.WriteLine($"{i}. {products[i].Name} - {products[i].Price}");
         }
     }
-    
-    
 }
