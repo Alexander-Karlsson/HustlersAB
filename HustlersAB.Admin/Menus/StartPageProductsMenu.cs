@@ -4,7 +4,7 @@ using Services.Interfaces.Products;
 
 namespace HustlersAB.Admin.Menus;
 
-public class StartPageProductsMenu(IProductService productService) : BaseMenu
+public class StartPageProductsMenu(IProductService productService, MenuHelper menuHelper) : BaseMenu
 {
     protected override string[] Options =>
     [
@@ -31,8 +31,12 @@ public class StartPageProductsMenu(IProductService productService) : BaseMenu
     {
         Header("SET START PAGE PRODUCTS");
 
-        var products = GetProducts();
-        if (products == null) return;
+        var products = menuHelper.GetProducts();
+        if (!products.Any())
+        {
+            Pause("No products found.");
+            return;
+        }
 
         ShowProducts(products);
         Console.WriteLine();
@@ -49,23 +53,6 @@ public class StartPageProductsMenu(IProductService productService) : BaseMenu
             .GetResult();
 
         ShowUpdated(products, selectedIndexes);
-    }
-
-    private List<Product>? GetProducts() //Måste fixa något gemensamt, ej dry
-    {
-        var products = productService
-            .GetAllAsync()
-            .GetAwaiter()
-            .GetResult()
-            .ToList();
-
-        if (!products.Any())
-        {
-            Pause("No products found");
-            return null;
-        }
-
-        return products;
     }
 
     private List<int>? ReadThreeIndexes(List<Product> products)
@@ -86,7 +73,7 @@ public class StartPageProductsMenu(IProductService productService) : BaseMenu
             return null;
         }
 
-        return new List<int> { first.Value, second.Value, third.Value };
+        return [first.Value, second.Value, third.Value];
     }
 
     private void ShowUpdated(List<Product> products, List<int> indexes)
@@ -121,7 +108,6 @@ public class StartPageProductsMenu(IProductService productService) : BaseMenu
         {
             return null;
         }
-
         return choice;
     }
 }
