@@ -80,7 +80,7 @@ class Program
         services.AddScoped<ClientMenu>();
         services.AddScoped<ShopingCartMenu>();
         services.AddScoped<CheckoutMenu>();
-        //services.AddScoped<PaymentMenu>();
+        services.AddScoped<PaymentMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 

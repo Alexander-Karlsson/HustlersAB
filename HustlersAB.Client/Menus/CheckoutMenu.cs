@@ -97,6 +97,7 @@ public class CheckoutMenu(PaymentMenu paymentMenu, Cart cart, IShippingService s
                 return false;
             }
 
+            paymentMenu.Configure(_selectedShipping);
             paymentMenu.Start();
             return true; // return to caller so it can navigate forward
         }
