@@ -8,30 +8,20 @@ using System.Linq;
 
 namespace HustlersAB.Client.Menus;
 
-public class ShopingCartMenu : BaseMenu
+public class ShopingCartMenu(CheckoutMenu checkoutMenu, Cart cart) : BaseMenu
 {
-    private readonly Cart _cart;
-    private readonly IPaymentMethodService _paymentService;
-    private readonly IShippingService _shippingService;
-    public ShopingCartMenu(Cart cart, IShippingService shippingService, IPaymentMethodService PaymentService)
-    {
-        _cart = cart;
-        _shippingService = shippingService;
-        _paymentService = PaymentService;
-    }
-
     protected override string[] Options
     {
         get
         {
-            var items = _cart.Items.ToList();
+            var items = cart.Items.ToList();
             if (items.Count == 0)
             {
                 return new string[] { "Cart is empty", "Back" };
             }
 
             var names = items.ConvertAll(p => p.Name +": " + p.Price + " Kr");
-            names.Add($"View total: {_cart.Total:C}");
+            names.Add($"View total: {cart.Total:C}");
             names.Add("Back");
             names.Add("Go to Checkout");
             return names.ToArray();
@@ -42,7 +32,7 @@ public class ShopingCartMenu : BaseMenu
 
     protected override bool ExecuteChoice(int selectedIndex)
     {
-        var items = _cart.Items.ToList();
+        var items = cart.Items.ToList();
 
         if (items.Count == 0)
         {
@@ -67,11 +57,11 @@ public class ShopingCartMenu : BaseMenu
             switch (key)
             {
                 case ConsoleKey.A:
-                    _cart.Add(product);
+                    cart.Add(product);
                     Console.WriteLine("\nAdded one more to cart.");
                     break;
                 case ConsoleKey.R:
-                    _cart.Remove(product);
+                    cart.Remove(product);
                     Console.WriteLine("\nRemoved item from cart.");
                     break;
                 default:
@@ -91,7 +81,7 @@ public class ShopingCartMenu : BaseMenu
         if (selectedIndex == viewTotalIndex)
         {
             Console.Clear();
-            Console.WriteLine($"Cart total: {_cart.Total:C}");
+            Console.WriteLine($"Cart total: {cart.Total:C}");
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
             return false;
@@ -102,9 +92,8 @@ public class ShopingCartMenu : BaseMenu
 
         if (selectedIndex == checkoutIndex)
         {
-            new CheckoutMenu(_cart, _shippingService, _paymentService).Start();
+            checkoutMenu.Start();
         }
-
 
         return false;
     }

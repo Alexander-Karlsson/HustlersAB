@@ -39,7 +39,15 @@ public class CustomerRepository(StoreDbContext db) : ICustomerRepository
         
         return customer;
     }
-    
+
+    public async Task<Customer> CreateWithOutContactInfoAsync(Customer customer)
+    {
+        await db.Customers.AddAsync(customer);
+        await db.SaveChangesAsync();
+
+        return customer;
+    }
+
     public async Task UpdateAsync(Customer customer)
     {
         db.Customers.Update(customer);

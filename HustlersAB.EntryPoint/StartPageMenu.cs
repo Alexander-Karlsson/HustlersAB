@@ -12,7 +12,7 @@ using Services.Interfaces.Shipping;
 
 namespace HustlersAB.EntryPoint;
 
-public class StartPageMenu(ICustomerService customerService, IProductService service, IServiceProvider serviceProvider, AdminMenu adminMenu, Cart cart, IShippingService shippingService, IPaymentMethodService PaymentService) : BaseMenu
+public class StartPageMenu(ClientMenu clientMenu, IServiceProvider serviceProvider, AdminMenu adminMenu) : BaseMenu
 {
     private readonly AdminMenu _adminMenu = adminMenu;
     protected override string[] Options =>
@@ -43,7 +43,7 @@ public class StartPageMenu(ICustomerService customerService, IProductService ser
                 var startPage = serviceProvider.GetRequiredService<StartPage>();
                 startPage.Show().GetAwaiter().GetResult();
 
-                new ClientMenu(service, cart, shippingService, PaymentService).Start();
+                clientMenu.Start();
                 return false;
             case 2:
                 // Exit

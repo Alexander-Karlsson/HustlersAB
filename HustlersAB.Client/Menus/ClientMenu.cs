@@ -1,17 +1,10 @@
 ﻿using Entities;
-using HustlersAB.Admin.Menus;
-using HustlersAB.Shared;
 using HustlersAB.Shared.Menus;
-using Services.Interfaces.Payment;
 using Services.Interfaces.Products;
-using Services.Interfaces.Shipping;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HustlersAB.Client.Menus;
 
-public class ClientMenu(IProductService service, Cart cart, IShippingService shippingService, IPaymentMethodService PaymentService) : BaseMenu
+public class ClientMenu(ShopingCartMenu cartMenu, IProductService service, Cart cart) : BaseMenu
 {
     protected override string[] Options =>
         [
@@ -28,7 +21,7 @@ public class ClientMenu(IProductService service, Cart cart, IShippingService shi
                 new ProductsMenu(service, cart).Start();
                 return false;
             case 1:
-                new ShopingCartMenu(cart, shippingService, PaymentService).Start();
+                cartMenu.Start();
                 return false;
             default:
                 break;

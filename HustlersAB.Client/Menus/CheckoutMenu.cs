@@ -8,10 +8,9 @@ using System.Linq;
 
 namespace HustlersAB.Client.Menus;
 
-public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentMethodService paymentService) : BaseMenu
+public class CheckoutMenu(PaymentMenu paymentMenu, Cart cart, IShippingService shippingService) : BaseMenu
 {
-    private readonly Cart _cart = cart;
-    private readonly List<Shipping> _shippings = shippingService
+    private List<Shipping> _shippings = shippingService
         .GetShippingAsync()
         .GetAwaiter()
         .GetResult()
@@ -38,8 +37,8 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentM
                 }
             }
 
-            options.Add($"Cart total: {_cart.Total:C}");
-            options.Add($"Total (with shipping): {_cart.Total + (_selectedShipping?.Price ?? 0m):C}");
+            options.Add($"Cart total: {cart.Total:C}");
+            options.Add($"Total (with shipping): {cart.Total + (_selectedShipping?.Price ?? 0m):C}");
             options.Add("Proceed to payment");
             options.Add("Back");
 
@@ -56,11 +55,11 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentM
         {
             _selectedShipping = _shippings[selectedIndex];
             var shippingPrice = _selectedShipping.Price;
-            var grandTotal = _cart.Total + shippingPrice;
+            var grandTotal = cart.Total + shippingPrice;
             Console.Clear();
             Console.WriteLine($"Selected: {_selectedShipping.TypeOfShipping} - {_selectedShipping.Price:C}");
             Console.WriteLine();
-            Console.WriteLine($"Cart total: {_cart.Total:C}");
+            Console.WriteLine($"Cart total: {cart.Total:C}");
             Console.WriteLine($"Shipping: {shippingPrice:C}");
             Console.WriteLine($"Grand total: {grandTotal:C}");
             Console.WriteLine("Press any key to continue...");
@@ -77,9 +76,9 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentM
         if (selectedIndex == viewCartIndex || selectedIndex == totalWithShippingIndex)
         {
             var shippingPrice = _selectedShipping?.Price ?? 0m;
-            var grandTotal = _cart.Total + shippingPrice;
+            var grandTotal = cart.Total + shippingPrice;
             Console.Clear();
-            Console.WriteLine($"Cart total: {_cart.Total:C}");
+            Console.WriteLine($"Cart total: {cart.Total:C}");
             Console.WriteLine($"Shipping: {shippingPrice:C}");
             Console.WriteLine($"Grand total: {grandTotal:C}");
             Console.WriteLine("Press any key to continue...");
@@ -98,8 +97,8 @@ public class CheckoutMenu(Cart cart, IShippingService shippingService, IPaymentM
                 return false;
             }
 
-            // Placeholder for future slide/navigation
-            new PaymentMenu(paymentService, _cart, _selectedShipping).Start();
+            paymentMenu.Configure(_selectedShipping);
+            paymentMenu.Start();
             return true; // return to caller so it can navigate forward
         }
 

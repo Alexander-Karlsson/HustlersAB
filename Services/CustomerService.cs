@@ -20,7 +20,10 @@ public class CustomerService(ICustomerRepository repo) : ICustomerService
 
     public async Task<Customer> CreateAsync(Customer customer, CustomerContactInfo contactInfo)
         => await repo.CreateAsync(customer, contactInfo);
-    
+
+    public async Task<Customer> CreateWithOutContactInfoAsync(Customer customer)
+        => await repo.CreateWithOutContactInfoAsync(customer);
+
     public async Task UpdateAsync(Customer customer)
         => await repo.UpdateAsync(customer);
 
