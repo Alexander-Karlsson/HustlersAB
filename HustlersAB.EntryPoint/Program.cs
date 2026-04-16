@@ -74,6 +74,7 @@ class Program
         services.AddScoped<CustomerMenu>();
         services.AddScoped<MenuHelper>();
         services.AddScoped<OrderMenu>();
+        services.AddScoped<AddManufacturerMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 
