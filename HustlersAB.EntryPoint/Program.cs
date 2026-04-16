@@ -4,6 +4,7 @@ using Entities;
 using HustlersAB.Admin;
 using HustlersAB.Admin.Menus;
 using HustlersAB.Admin.Menus.CustomerMenus;
+using HustlersAB.Admin.Menus.OrderMenus;
 using HustlersAB.Admin.Menus.ProductMenus;
 using HustlersAB.Client;
 using HustlersAB.Client.Menus;
@@ -64,6 +65,10 @@ class Program
         services.AddScoped<ICustomerContactInfoRepository, CustomerContactInfoRepository>();
         services.AddScoped<ICustomerContactInfoService, CustomerContactInfoService>();
         
+
+        services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+        services.AddScoped<IProductCategoryService, ProductCategoryService>();
+        
         services.AddScoped<Cart>();
         services.AddScoped<StartPage>();
         services.AddScoped<StartPageMenu>();
@@ -77,6 +82,9 @@ class Program
         services.AddScoped<StartPageProductsMenu>();
         services.AddScoped<CustomerMenu>();
         services.AddScoped<MenuHelper>();
+        services.AddScoped<OrderMenu>();
+        services.AddScoped<ManageManufacturerMenu>();
+        services.AddScoped<ManageSubCategory>();
         services.AddScoped<ClientMenu>();
         services.AddScoped<ShopingCartMenu>();
         services.AddScoped<CheckoutMenu>();
