@@ -34,11 +34,13 @@ public class ProductRepository(StoreDbContext db) : IProductRepository
 
     public async Task<Product?> GetByIdAsync(Guid id)
         => await GetProductsWithIncludes()
+            .AsNoTracking()
             .FirstOrDefaultAsync(p => p.Id == id);
 
     public async Task<IEnumerable<Product>> GetBySearchAsync(string query)
         => await GetProductsWithIncludes()
             .Where(p => p.Name.Contains(query))
+            .AsNoTracking()
             .ToListAsync();
             
     public async Task<IEnumerable<Product>> GetStartPageProductsAsync() 
