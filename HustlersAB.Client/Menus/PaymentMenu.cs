@@ -68,7 +68,7 @@ public class PaymentMenu(
             _selectedPayment = _paymentMethods[selectedIndex];
 
             var shippingPrice = _selectedShipping?.Price ?? 0m;
-            var Moms = (cart.Total + shippingPrice) / 4;
+            var Moms = (cart.Total) * 0.25m;
             var grandTotal = cart.Total + shippingPrice + Moms;
             
             Console.Write("Enter a Name: "); var customerName = Console.ReadLine() ?? string.Empty;
@@ -108,13 +108,13 @@ public class PaymentMenu(
                 var order = new Order 
                 { Id = Guid.NewGuid(), 
                     CustomerId = customer.Id, 
-                    ShippingId = _selectedShipping.Id, 
+                    ShippingId = _selectedShipping!.Id, 
                     PaymentMethodId = _selectedPayment.Id, 
                     TotalPrice = grandTotal,
                     OrderDate = DateTime.Now,    
                 };
                 orderService.CreateAsync(order);
-                cart.Clear();
+                new ReceiptMenu(cart, _selectedShipping, _selectedPayment);
                 return true;
             }
 
