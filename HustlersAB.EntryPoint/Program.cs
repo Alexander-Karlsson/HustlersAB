@@ -6,11 +6,13 @@ using HustlersAB.Admin.Menus;
 using HustlersAB.Admin.Menus.CustomerMenus;
 using HustlersAB.Admin.Menus.ProductMenus;
 using HustlersAB.Client;
+using HustlersAB.Client.Menus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
 using Services.Interfaces.Categories;
+using Services.Interfaces.CustomerContactInfos;
 using Services.Interfaces.Customers;
 using Services.Interfaces.Manufacturers;
 using Services.Interfaces.Orders;
@@ -59,6 +61,9 @@ class Program
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
         services.AddScoped<IPaymentMethodService, PaymentMethodService>();
         
+        services.AddScoped<ICustomerContactInfoRepository, CustomerContactInfoRepository>();
+        services.AddScoped<ICustomerContactInfoService, CustomerContactInfoService>();
+        
         services.AddScoped<Cart>();
         services.AddScoped<StartPage>();
         services.AddScoped<StartPageMenu>();
@@ -72,6 +77,10 @@ class Program
         services.AddScoped<StartPageProductsMenu>();
         services.AddScoped<CustomerMenu>();
         services.AddScoped<MenuHelper>();
+        services.AddScoped<ClientMenu>();
+        services.AddScoped<ShopingCartMenu>();
+        services.AddScoped<CheckoutMenu>();
+        //services.AddScoped<PaymentMenu>();
 
         var serviceProvider = services.BuildServiceProvider();
 

@@ -1,28 +1,21 @@
 ﻿using Entities;
 using HustlersAB.Shared.Menus;
-using Services;
-using Services.Interfaces.CustomerContactInfos;
 using Services.Interfaces.Customers;
 using Services.Interfaces.Orders;
 using Services.Interfaces.Payment;
 using Services.Interfaces.Shipping;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.ComponentModel.Design;
-using System.Text;
 
 namespace HustlersAB.Client.Menus;
 
-public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart, Shipping? selectedShipping) : BaseMenu
+public class PaymentMenu(
+    IPaymentMethodService paymentMethodService, 
+    ICustomerService customerService, 
+    IOrderService orderService, 
+    Cart cart, 
+    Shipping? selectedShipping) : BaseMenu
 {
-    private readonly ICustomerService customerService;
-    private readonly ICustomerContactInfoService customerContactInfoService;
-    private readonly IOrderService orderService;
     private PaymentMethod? _selectedPayment;
-    //private readonly Cart _cart = cart;
-    private readonly Shipping? _selectedShipping = selectedShipping;
-    private readonly List<PaymentMethod> _paymentMethods = paymentMethodService
+    private List<PaymentMethod> _paymentMethods = paymentMethodService
         .GetPaymentMethodAsync()
         .GetAwaiter()
         .GetResult()
@@ -57,18 +50,17 @@ public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart, 
         {
             _selectedPayment = _paymentMethods[selectedIndex];
 
-            var shippingPrice = _selectedShipping?.Price ?? 0m;
+            var shippingPrice = selectedShipping?.Price ?? 0m;
             var Moms = (cart.Total + shippingPrice) / 4;
             var grandTotal = cart.Total + shippingPrice + Moms;
-
+            
             Console.Write("Enter a Name: "); var customerName = Console.ReadLine() ?? string.Empty;
             Console.Write("Enter an email: "); var customerEmail = Console.ReadLine() ?? string.Empty; 
 
-            var customer = new Customer { Id = Guid.NewGuid(), Name = customerName, IsMember = false };
+            var customer = new Customer { Id = Guid.NewGuid(), Name = customerName, IsMember = false};
             var customerContactInfo = new CustomerContactInfo { Id = Guid.NewGuid(), Email = customerEmail, CustomerId = customer.Id };
 
-            customerService.CreateWithOutContactInfoAsync(customer);
-            customerContactInfoService.CreateAsync(customerContactInfo);
+            customerService.CreateAsync(customer, customerContactInfo).GetAwaiter().GetResult();
 
             Console.Clear();
             Console.WriteLine($"Selected payment: {_selectedPayment.PaymentName}");
@@ -90,7 +82,7 @@ public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart, 
                 var order = new Order 
                 { Id = Guid.NewGuid(), 
                     CustomerId = customer.Id, 
-                    ShippingId = _selectedShipping.Id, 
+                    ShippingId = selectedShipping.Id, 
                     PaymentMethodId = _selectedPayment.Id, 
                     TotalPrice = grandTotal,
                     OrderDate = DateTime.Now,    
