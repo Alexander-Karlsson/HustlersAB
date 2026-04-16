@@ -100,11 +100,6 @@ public class PaymentMenu(
             var key = Console.ReadKey(true);
             if (key.Key == ConsoleKey.C)
             {
-                Console.Clear();
-                Console.WriteLine("Purchase confirmed. Thank you for your order!");
-                Console.WriteLine();
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);
                 var order = new Order 
                 { Id = Guid.NewGuid(), 
                     CustomerId = customer.Id, 
@@ -114,7 +109,7 @@ public class PaymentMenu(
                     OrderDate = DateTime.Now,    
                 };
                 orderService.CreateAsync(order);
-                new ReceiptMenu(cart, _selectedShipping, _selectedPayment);
+                new ReceiptMenu(cart, _selectedShipping, _selectedPayment).Start();
                 return true;
             }
 
