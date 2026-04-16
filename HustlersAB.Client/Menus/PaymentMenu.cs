@@ -96,6 +96,7 @@ public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart, 
                     OrderDate = DateTime.Now,    
                 };
                 orderService.CreateAsync(order);
+                cart.Clear();
                 return true;
             }
 
