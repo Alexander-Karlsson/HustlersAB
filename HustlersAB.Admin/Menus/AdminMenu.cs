@@ -8,7 +8,8 @@ namespace HustlersAB.Admin.Menus;
 public class AdminMenu(ProductMenu productMenu,
     StartPageProductsMenu startPageProductsMenu,
     CustomerMenu customerMenu,
-    OrderMenu orderMenu) : BaseMenu
+    OrderMenu orderMenu,
+    AddManufacturerMenu addManufacturerMenu) : BaseMenu
 {
     protected override string[] Options => 
         [ 
@@ -16,6 +17,7 @@ public class AdminMenu(ProductMenu productMenu,
         "Manage Start Page Products",
         "Manage Customers", 
         "Manage Orders", 
+        "Manage Manufacturer",
         "Go Back" 
         ];
     
@@ -36,7 +38,11 @@ public class AdminMenu(ProductMenu productMenu,
             case 3: 
                 orderMenu.Start(); 
                 break;
-            case 4: return true;
+            case 4:
+                addManufacturerMenu.Start();
+                break;
+            case 5:   
+                return true;
         }
 
         return false;
