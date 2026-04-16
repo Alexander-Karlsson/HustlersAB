@@ -59,6 +59,9 @@ class Program
        
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
         services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+
+        services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+        services.AddScoped<IProductCategoryService, ProductCategoryService>();
         
         services.AddScoped<Cart>();
         services.AddScoped<StartPage>();
@@ -74,7 +77,8 @@ class Program
         services.AddScoped<CustomerMenu>();
         services.AddScoped<MenuHelper>();
         services.AddScoped<OrderMenu>();
-        services.AddScoped<AddManufacturerMenu>();
+        services.AddScoped<ManageManufacturerMenu>();
+        services.AddScoped<ManageSubCategory>();
 
         var serviceProvider = services.BuildServiceProvider();
 

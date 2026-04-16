@@ -9,7 +9,8 @@ public class AdminMenu(ProductMenu productMenu,
     StartPageProductsMenu startPageProductsMenu,
     CustomerMenu customerMenu,
     OrderMenu orderMenu,
-    AddManufacturerMenu addManufacturerMenu) : BaseMenu
+    ManageManufacturerMenu manageManufacturerMenu,
+    ManageSubCategory manageSubCategory) : BaseMenu
 {
     protected override string[] Options => 
         [ 
@@ -18,6 +19,7 @@ public class AdminMenu(ProductMenu productMenu,
         "Manage Customers", 
         "Manage Orders", 
         "Manage Manufacturer",
+        "Manage SubCategory",
         "Go Back" 
         ];
     
@@ -39,9 +41,12 @@ public class AdminMenu(ProductMenu productMenu,
                 orderMenu.Start(); 
                 break;
             case 4:
-                addManufacturerMenu.Start();
+                manageManufacturerMenu.Start();
                 break;
-            case 5:   
+            case 5:
+                manageSubCategory.Start();
+                break;
+            case 6:   
                 return true;
         }
 

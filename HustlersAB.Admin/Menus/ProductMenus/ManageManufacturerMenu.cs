@@ -4,7 +4,7 @@ using Services.Interfaces.Manufacturers;
 
 namespace HustlersAB.Admin.Menus.ProductMenus;
 
-public class AddManufacturerMenu(IManufacturerService manufacturerService) : BaseMenu
+public class ManageManufacturerMenu(IManufacturerService manufacturerService) : BaseMenu
 {
     protected override string MenuTitle => "ADD MANUFACTURER";
     protected override string[] Options =>
