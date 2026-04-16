@@ -1,11 +1,6 @@
 ﻿using Entities;
 using HustlersAB.Shared.Menus;
-using Services;
 using Services.Interfaces.Payment;
-using Services.Interfaces.Shipping;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HustlersAB.Client.Menus;
 
@@ -63,11 +58,7 @@ public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart, 
             var key = Console.ReadKey(true);
             if (key.Key == ConsoleKey.C)
             {
-                Console.Clear();
-                Console.WriteLine("Purchase confirmed. Thank you for your order!");
-                Console.WriteLine();
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);
+                new ReceiptMenu(_cart, _selectedShipping, _selectedPayment).Start();
                 return true;
             }
 
