@@ -89,11 +89,46 @@ public class ManageManufacturerMenu(IManufacturerService manufacturerService) : 
         Console.WriteLine($"Name: {selectedManufacturer.Name}");
     }
 
-    
-
     private void DeleteManufacturer()
     {
-        throw new NotImplementedException();
+        Header("DELETE MANUFACTURER");
+
+        var manufacturers = manufacturerService
+            .GetAllAsync()
+            .GetAwaiter()
+            .GetResult()
+            .ToList();
+
+        if (!manufacturers.Any())
+        {
+            Pause("No manufacturer found.");
+            return;
+        }
+
+        for (int i = 0; i < manufacturers.Count; i++)
+        {
+            Console.WriteLine($"{i}. {manufacturers[i].Name}");
+        }
+
+        var choice = ReadInt("Choose manufacturer number to delete");
+
+        if (choice == null || choice < 0 || choice >= manufacturers.Count)
+        {
+            Invalid();
+            return;
+        }
+
+        var selectedManufacturer = manufacturers[choice.Value];
+
+        if (!ConfirmDelete(selectedManufacturer.Name))
+            return;
+
+        manufacturerService.DeleteAsync(selectedManufacturer.Id)
+            .GetAwaiter()
+            .GetResult();
+
+        Console.WriteLine("Manufacturer deleted successfully!");
+        Pause();
     }
 
     private void AddManufacturer()
