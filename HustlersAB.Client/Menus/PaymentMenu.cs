@@ -64,10 +64,10 @@ public class PaymentMenu(IPaymentMethodService paymentMethodService, Cart cart, 
             Console.Write("Enter a Name: "); var customerName = Console.ReadLine() ?? string.Empty;
             Console.Write("Enter an email: "); var customerEmail = Console.ReadLine() ?? string.Empty; 
 
-            var customer = new Customer { Id = Guid.NewGuid(), Name = customerName };
+            var customer = new Customer { Id = Guid.NewGuid(), Name = customerName, IsMember = false };
             var customerContactInfo = new CustomerContactInfo { Id = Guid.NewGuid(), Email = customerEmail, CustomerId = customer.Id };
 
-            customerService.CreateAsync(customer, customerContactInfo);
+            customerService.CreateWithOutContactInfoAsync(customer);
             customerContactInfoService.CreateAsync(customerContactInfo);
 
             Console.Clear();
