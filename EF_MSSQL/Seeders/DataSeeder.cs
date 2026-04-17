@@ -166,6 +166,159 @@ public static class DataSeeder
         );
 
         // ──────────────────────────────────────────────
+        // KUNDER
+        // ──────────────────────────────────────────────
+
+        var customer1 = new Customer
+        {
+            Id = Guid.Parse("50000001-0000-0000-0000-000000000000"),
+            Name = "Anna Svensson",
+            IsMember = true
+        };
+
+        var customer2 = new Customer
+        {
+            Id = Guid.Parse("50000002-0000-0000-0000-000000000000"),
+            Name = "Johan Eriksson",
+            IsMember = false
+        };
+
+        var customer3 = new Customer
+        {
+            Id = Guid.Parse("50000003-0000-0000-0000-000000000000"),
+            Name = "Sara Nilsson",
+            IsMember = true
+        };
+
+        modelBuilder.Entity<Customer>().HasData(customer1, customer2, customer3);
+
+        // ──────────────────────────────────────────────
+        // KUNDKONTAKTINFO
+        // ──────────────────────────────────────────────
+
+        var contact1 = new CustomerContactInfo
+        {
+            Id = Guid.Parse("51000001-0000-0000-0000-000000000000"),
+            CustomerId = customer1.Id,
+            Email = "anna.svensson@example.com",
+            Phone = "0701234567",
+            Address = "Storgatan 1",
+            PostalNumber = "41110"
+        };
+
+        var contact2 = new CustomerContactInfo
+        {
+            Id = Guid.Parse("51000002-0000-0000-0000-000000000000"),
+            CustomerId = customer2.Id,
+            Email = "johan.eriksson@example.com",
+            Phone = "0702345678",
+            Address = "Parkvägen 12",
+            PostalNumber = "41755"
+        };
+
+        var contact3 = new CustomerContactInfo
+        {
+            Id = Guid.Parse("51000003-0000-0000-0000-000000000000"),
+            CustomerId = customer3.Id,
+            Email = "sara.nilsson@example.com",
+            Phone = "0703456789",
+            Address = "Björkgatan 8",
+            PostalNumber = "46130"
+        };
+
+        modelBuilder.Entity<CustomerContactInfo>().HasData(contact1, contact2, contact3);
+
+        // ──────────────────────────────────────────────
+        // TIDIGARE INKÖP / ORDRAR
+        // ──────────────────────────────────────────────
+
+        var order1 = new Order
+        {
+            Id = Guid.Parse("60000001-0000-0000-0000-000000000000"),
+            CustomerId = customer1.Id,
+            ShippingId = shipStandard.Id,
+            PaymentMethodId = payCard.Id,
+            TotalPrice = 9039m,
+            OrderDate = new DateTime(2026, 3, 10)
+        };
+
+        var order2 = new Order
+        {
+            Id = Guid.Parse("60000002-0000-0000-0000-000000000000"),
+            CustomerId = customer2.Id,
+            ShippingId = shipExpress.Id,
+            PaymentMethodId = paySwish.Id,
+            TotalPrice = 12573m,
+            OrderDate = new DateTime(2026, 3, 18)
+        };
+
+        var order3 = new Order
+        {
+            Id = Guid.Parse("60000003-0000-0000-0000-000000000000"),
+            CustomerId = customer3.Id,
+            ShippingId = shipPickup.Id,
+            PaymentMethodId = payInvoice.Id,
+            TotalPrice = 4793m,
+            OrderDate = new DateTime(2026, 4, 2)
+        };
+
+        // ──────────────────────────────────────────────
+        // TIDIGARE KÖPTA PRODUKTER / PRODUCTORDERS
+        // ──────────────────────────────────────────────
+
+        modelBuilder.Entity<ProductOrder>().HasData(
+
+            // Order 1 - Anna
+            new ProductOrder
+            {
+                Id = Guid.Parse("70000001-0000-0000-0000-000000000000"),
+                OrderId = order1.Id,
+                ProductId = Guid.Parse("10000001-0000-0000-0000-000000000000"), // Acer Aspire 15"
+                Quantity = 1
+            },
+            new ProductOrder
+            {
+                Id = Guid.Parse("70000002-0000-0000-0000-000000000000"),
+                OrderId = order1.Id,
+                ProductId = Guid.Parse("10000015-0000-0000-0000-000000000000"), // Logitech MX Master 3S
+                Quantity = 1
+            },
+
+            new ProductOrder
+            {
+                Id = Guid.Parse("70000003-0000-0000-0000-000000000000"),
+                OrderId = order2.Id,
+                ProductId = Guid.Parse("10000018-0000-0000-0000-000000000000"), // iPhone 15
+                Quantity = 1
+            },
+            new ProductOrder
+            {
+                Id = Guid.Parse("70000004-0000-0000-0000-000000000000"),
+                OrderId = order2.Id,
+                ProductId = Guid.Parse("10000026-0000-0000-0000-000000000000"), // Anker USB-C Snabbladdare 65W
+                Quantity = 1
+            },
+
+            new ProductOrder
+            {
+                Id = Guid.Parse("70000005-0000-0000-0000-000000000000"),
+                OrderId = order3.Id,
+                ProductId = Guid.Parse("10000041-0000-0000-0000-000000000000"), // Nintendo Switch OLED
+                Quantity = 1
+            },
+
+            new ProductOrder
+            {
+                Id = Guid.Parse("70000006-0000-0000-0000-000000000000"),
+                OrderId = order3.Id,
+                ProductId = Guid.Parse("10000044-0000-0000-0000-000000000000"), // Zelda: Tears of the Kingdom
+                Quantity = 2
+            }
+        );
+
+        modelBuilder.Entity<Order>().HasData(order1, order2, order3);
+
+        // ──────────────────────────────────────────────
         // PRODUKTER
         // ──────────────────────────────────────────────
 

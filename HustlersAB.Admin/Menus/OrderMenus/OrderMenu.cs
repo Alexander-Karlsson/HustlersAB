@@ -21,6 +21,7 @@ public class OrderMenu(
         "Search Order(s)",
         "Update Order",
         "Delete Order",
+        "Show All Orders",
         "Go Back"
     ];
 
@@ -34,13 +35,48 @@ public class OrderMenu(
             case 1: SearchOrders(); break;
             case 2: UpdateOrder(); break;
             case 3: DeleteOrder(); break;
-            case 4: return true;
+            case 4: ShowOrder(); break;
+            case 5: return true;
         }
         return false;
     }
-    
+
+    private void ShowOrder()
+    {
+        Header("ORDERS");
+
+        var orders = orderService.GetAllWithDetailsAsync().GetAwaiter().GetResult().ToList();
+
+        if (!orders.Any())
+        {
+            Pause("No orders found.");
+            return;
+        }
+
+        foreach (var order in orders)
+        {
+            Console.WriteLine("----------------------");
+            Console.WriteLine($"Order number: {order.Id}");
+            Console.WriteLine($"Date: {order.OrderDate:yyyy-MM-dd HH:mm}");
+            Console.WriteLine($"Customer: {order.Customer.Name}");
+            Console.WriteLine($"Payment: {order.PaymentMethod.PaymentName}");
+            Console.WriteLine($"Shipping: {order.Shipping.TypeOfShipping}");
+            Console.WriteLine("Products:");
+
+            foreach (var po in order.ProductOrders)
+            {
+                Console.WriteLine($"{po.Product.Name} | {po.Quantity}");
+            }
+
+            Console.WriteLine($"Total: {order.TotalPrice:C}");
+            Console.WriteLine();
+        }
+
+        Pause();
+    }
+
     // Crud metoder
-    
+
     private void AddOrder()
     {
         Header("ADD NEW ORDER");

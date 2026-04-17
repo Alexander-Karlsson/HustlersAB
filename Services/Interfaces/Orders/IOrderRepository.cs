@@ -10,4 +10,5 @@ public interface IOrderRepository
     Task<Order> CreateAsync(Order order);
     Task UpdateAsync(Order order);
     Task DeleteAsync(Guid id);
+    Task<IEnumerable<Order>> GetAllWithDetailsAsync();
 }
