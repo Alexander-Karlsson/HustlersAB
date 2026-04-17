@@ -66,4 +66,16 @@ public class OrderRepository(StoreDbContext db) : IOrderRepository
         db.Orders.Remove(order);
         await db.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<Order>> GetAllWithDetailsAsync()
+    {
+        return await db.Orders
+            .Include(o => o.Customer)
+            .Include(o => o.PaymentMethod)
+            .Include(o => o.Shipping)
+            .Include(o => o.ProductOrders)
+                .ThenInclude(po => po.Product)
+            .OrderByDescending(o => o.OrderDate)
+            .ToListAsync();
+    }
 }

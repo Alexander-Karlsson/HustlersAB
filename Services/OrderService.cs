@@ -23,4 +23,7 @@ public class OrderService(IOrderRepository repo) : IOrderService
 
     public async Task DeleteAsync(Guid id)
         => await repo.DeleteAsync(id);
+
+    public async Task<IEnumerable<Order>> GetAllWithDetailsAsync()
+    => await repo.GetAllWithDetailsAsync();
 }
